@@ -1,5 +1,7 @@
 package main.config;
 
+import java.nio.charset.StandardCharsets;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,6 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
 		ServletContextTemplateResolver resolver = new ServletContextTemplateResolver(context.getServletContext());
 		resolver.setPrefix("/WEB-INF/view/");
 		resolver.setSuffix(".html");
+		resolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
 		return resolver;
 	}
 	
@@ -43,6 +47,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public ThymeleafViewResolver viewResolver() {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine());
+		viewResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
 		return viewResolver;
 	}
 	
@@ -70,5 +75,4 @@ public class WebConfig implements WebMvcConfigurer {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
-
 }
