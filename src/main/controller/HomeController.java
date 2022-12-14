@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import main.model.Customer;
 import main.model.Tour;
 
 @Controller
 public class HomeController {
 
 	private List<Tour> tours = new ArrayList<>();
+	private List<Customer> customer = new ArrayList<>();
 	
 	@RequestMapping("/")
 	public String getHome() {
@@ -44,6 +46,12 @@ public class HomeController {
 	public String getTours(Model model) {
 		model.addAttribute("tours", tours);
 		return "tours";
+	}
+	
+	@GetMapping("/showCustomer")
+	public String getCustomer(Model model) {
+		model.addAttribute("customer", customer);
+		return "customer";
 	}
 	
 }
