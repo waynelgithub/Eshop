@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import main.model.Customer;
+import main.model.ShoppingCart;
 import main.model.Tour;
 
 @Controller
@@ -21,6 +22,7 @@ public class HomeController {
 
 	private List<Tour> tours = new ArrayList<>();
 	private List<Customer> customer = new ArrayList<>();
+	private List<ShoppingCart> shoppingCart = new ArrayList<>();
 	
 	@RequestMapping("/")
 	public String getHome() {
@@ -52,6 +54,12 @@ public class HomeController {
 	public String getCustomer(Model model) {
 		model.addAttribute("customer", customer);
 		return "customer";
+	}
+	
+	@GetMapping("/showShoppingCart")
+	public String getShoppingCart(Model model) {
+		model.addAttribute("shoppingCart", shoppingCart);
+		return "shoppingCart";
 	}
 	
 }
