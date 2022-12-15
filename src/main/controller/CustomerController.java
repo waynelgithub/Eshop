@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.Customer;
-import main.model.Tour;
 import main.service.CustomerService;
-import main.service.TourService;
 
 @Controller
 public class CustomerController {
@@ -39,11 +37,11 @@ public class CustomerController {
 		return "redirect:showOffer";
 	}
 	
-	@GetMapping("/showOffer")
+	@GetMapping("/showCustomer")
 	public String getTours(Model model) {
 		List<Customer> customers = customerService.getAll();
 		model.addAttribute("customers", customers);
-		return "tours";
+		return "customers";
 	}
 	
 	@GetMapping("/deleteTour/{id}")
@@ -52,7 +50,7 @@ public class CustomerController {
 		if(customer != null) {
 			customerService.delete(id);
 		}
-		return "redirect:/showOffer";
+		return "redirect:/showCustomer";
 	}
 	
 	@GetMapping("/editTour/{id}")
@@ -62,6 +60,6 @@ public class CustomerController {
 			model.addAttribute("customer", customer);
 			return "form";
 		}
-		return "redirect:/showOffer";
+		return "redirect:/showCustomer";
 	}
 }

@@ -9,24 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import main.model.Customer;
 import main.model.ShoppingCart;
 
 @Controller
 public class HomeController {
 
-	private List<Customer> customer = new ArrayList<>();
 	private List<ShoppingCart> shoppingCart = new ArrayList<>();
 	
 	@RequestMapping("/")
 	public String getHome() {
 		return "home";
-	}
-	
-	@GetMapping("/showCustomer")
-	public String getCustomer(Model model) {
-		model.addAttribute("customer", customer);
-		return "customer";
 	}
 	
 	@GetMapping("/showShoppingCart")
