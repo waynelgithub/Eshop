@@ -30,9 +30,8 @@
 			</div>
 
 			<div class="d-grid gap-2 d-md-block mt-4 p-3">
-				<button type="submit" class="btn btn-outline-primary btn-lg">Save 儲存</button>
-				<button type="button" class="btn btn-outline-primary btn-lg">Add 新增</button>
-				<button type="button" class="btn btn-outline-danger btn-lg">Delete 刪除</button>
+				<button type="submit" class="btn btn-outline-primary btn-lg" th:href="@{/saveOrUpdateCustomer/} + ${customer.id}">Save 儲存</button>
+				<button type="button" class="btn btn-outline-danger btn-lg" th:href="@{/deleteCustome/} + ${customer.id}">Delete 刪除</button>
 			</div>
 		</form>
 	</div>
