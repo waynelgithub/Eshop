@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Customer Detail page</title>
+<script src="js/jquery-3.4.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1>客戶資料 Customer detail</h1>
+		</div>
+
+		<div class="row">
+			<table class="table table-hover" th:if="${!customers.empty}">
+				<thead>
+					<tr>
+						<th scope="col">客戶編號 ID</th>
+						<th scope="col">客戶名稱 Name</th>
+						<th scope="col">客戶地點 County</th>
+						<th scope="col">Edit</th>
+						<th scope="col">Remove</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="customer : ${customers}">
+						<td th:text="${customer.id}"></td>
+						<td th:text="${customer.name}"></td>
+						<td th:text="${customer.county}"></td>
+						<td><a class="btn btn-primary" th:href="@{/editCustomer/} + ${customer.id}">Edit</a></td>
+						<td><a class="btn btn-danger" th:href="@{/deleteCustomer/} + ${customer.id}">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row" th:if="${customers.empty}">
+			<h3>No Customers in the offer</h3>
+		</div>
+
+		<div class="row">
+			<a th:href="@{/}" class="btn btn-warning">Back</a>
+		</div>
+	</div>
+</body>
+</html>

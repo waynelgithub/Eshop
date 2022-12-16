@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Form page</title>
+<script src="js/jquery-3.4.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1 th:text="${tour.name} + 'details'"></h1>
+		</div>
+		
+		<div class="row">
+			<label>Country</label>
+			<input type="text" class="form-control" th:field="${tour.tourDetails.country}" readonly>
+		</div>
+		
+		<div class="row">
+			<label>Tour description</label>
+			<textarea class="form-control" rows="20" th:field="${tour.tourDetails.description}" readonly></textarea>
+		</div>
+		
+		<div class="row">
+			<a th:href="@{/showOffer}" class="btn btn-warning">Back</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -18,23 +18,31 @@
 				<h1>Add new tour</h1>
 
 				<form action="#" th:action="@{/processForm}" th:object="${tour}"
-					method="post" th:accept-charset="utf-8">
+					method="post">
+
+					<div class="form-group">
+						<input type="hidden" class="form-control" th:field="*{id}">
+					</div>
+
 					<div class="form-group">
 						<label>Name</label>
 						<div class="alert alert-danger" role="alert"
 							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-						<input type="text" th:field="*{name}">
+						<input type="text" class="form-control" th:field="*{name}">
 					</div>
 
 					<div class="form-group">
 						<label>Code</label>
 						<div class="alert alert-danger" role="alert"
 							th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
-						<input type="text" th:field="*{code}">
+						<input type="text" class="form-control" th:field="*{code}">
+						<small class="form-text text-muted">Expected format:
+							LL-DDL where L-letter, D-digit </small>
 					</div>
 
 					<div class="form-group">
-						<label>Continent</label> <select name="continent">
+						<label>Continent</label> <select name="continent"
+							class="form-control">
 							<option
 								th:each="continent : ${T(main.model.Tour.Continent).values()}"
 								th:value="${continent}" th:text="${continent}"></option>
@@ -45,19 +53,19 @@
 						<label>Start date</label>
 						<div class="alert alert-danger" role="alert"
 							th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
-						<input type="date" th:field="*{date}">
+						<input type="date" class="form-control" th:field="*{date}">
 					</div>
 
 					<div class="form-group">
 						<label>Tour duration</label>
 						<div class="alert alert-danger" role="alert"
 							th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div>
-						<input type="number" th:field="*{duration}">
+						<input type="number" class="form-control" th:field="*{duration}">
 					</div>
 
 					<div class="form-group">
-						<label>All Inclusive</label> <input type="checkbox"
-							th:field="*{allInclusive}">
+						<input type="checkbox" th:field="*{allInclusive}"> <label>All
+							Inclusive</label>
 					</div>
 
 					<div class="form-row">

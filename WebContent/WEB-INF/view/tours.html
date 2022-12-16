@@ -26,6 +26,10 @@
 						<th scope="col">Date</th>
 						<th scope="col">Duration</th>
 						<th scope="col">All Inclusive</th>
+						<th scope="col">Edit</th>
+						<th scope="col">Edit detials</th>
+						<th scope="col">Remove</th>
+						<th scope="col">Details</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,6 +41,10 @@
 						<td th:text="${tour.date}"></td>
 						<td th:text="${tour.duration}"></td>
 						<td th:text="${tour.allInclusive}"></td>
+						<td><a class="btn btn-primary" th:href="@{/editTour/} + ${tour.id}">Edit</a></td>
+						<td><a class="btn btn-primary" th:href="@{/editTourDetails/} + ${tour.id}">Edit details</a></td>
+						<td><a class="btn btn-danger" th:href="@{/deleteTour/} + ${tour.id}">Delete</a></td>
+						<td><a class="btn btn-success" th:href="@{/showTourDetails/} + ${tour.id}">Details</a></td>
 					</tr>
 				</tbody>
 			</table>
