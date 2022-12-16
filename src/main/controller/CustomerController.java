@@ -25,41 +25,41 @@ public class CustomerController {
 	@GetMapping("/addCustomer")
 	public String showForm(Model model) {
 		model.addAttribute("customer", new Customer());
-		return "form";
+		return "cusForm";
 	}
 	
-	@PostMapping("/processForm")
-	public String showTourData(@Valid @ModelAttribute Customer customer, BindingResult bindingResult) {
+	@PostMapping("/processCustomerForm")
+	public String showCoustomerData(@Valid @ModelAttribute Customer customer, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return "form";
+			return "cusForm";
 		}
 		customerService.saveOrUpdate(customer);
-		return "redirect:showOffer";
+		return "redirect:showCustomerOffer";
 	}
 	
-	@GetMapping("/showCustomer")
-	public String getTours(Model model) {
+	@GetMapping("/showCustomerOffer")
+	public String getCustomers(Model model) {
 		List<Customer> customers = customerService.getAll();
 		model.addAttribute("customers", customers);
 		return "customers";
 	}
 	
-	@GetMapping("/deleteTour/{id}")
-	public String deleteTour(@PathVariable long id) {
+	@GetMapping("/deleteCustomer/{id}")
+	public String deleteCustomer(@PathVariable long id) {
 		Customer customer = customerService.getById(id);
 		if(customer != null) {
 			customerService.delete(id);
 		}
-		return "redirect:/showCustomer";
+		return "redirect:/showCustomerOffer";
 	}
 	
-	@GetMapping("/editTour/{id}")
-	public String editTour(@PathVariable long id, Model model) {
+	@GetMapping("/editCustomer/{id}")
+	public String editCustomer(@PathVariable long id, Model model) {
 		Customer customer = customerService.getById(id);
 		if(customer != null) {
 			model.addAttribute("customer", customer);
-			return "form";
+			return "cusForm";
 		}
-		return "redirect:/showCustomer";
+		return "redirect:/showCustomerOffer";
 	}
 }

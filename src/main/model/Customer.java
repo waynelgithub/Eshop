@@ -1,33 +1,37 @@
 package main.model;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Customer {
+		
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	
-	public enum Continent {
-		台北市, 新北市, 桃園市, 新竹縣, 新竹市, 苗栗縣, 苗栗市, 台中市, 彰化縣, 彰化市, 雲林縣, 雲林市, 嘉義縣, 嘉義市, 台南市, 高雄市, 屏東縣,
-		屏東市, 台東縣, 台東市, 花蓮縣, 花蓮市, 宜蘭縣, 宜蘭市, 南投縣
-	}
-	
-	@NotBlank(message = "{cus.name}")
 	@Size(min = 1)
-	private String customerName;
+	private String name;
 	
-	@NotBlank(message = "{cus.county}")
-	@Size(min = 1)
 	private String county;
-	
-	@Pattern(regexp = "^[0-9]{5}$")
-	private String customerNumber;
 
-	public String getCustomerName() {
-		return customerName;
+	public String getName() {
+		return name;
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getCounty() {
@@ -38,12 +42,5 @@ public class Customer {
 		this.county = county;
 	}
 
-	public String getCustomerNumber() {
-		return customerNumber;
-	}
-
-	public void setCustomerNumber(String customerNumber) {
-		this.customerNumber = customerNumber;
-	}
 	
 }

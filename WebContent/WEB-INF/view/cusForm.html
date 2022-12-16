@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Form page</title>
+<title>Customer page</title>
 <script src="js/jquery-3.4.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -12,74 +12,36 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm"></div>
+			<div class="col-sm-10"></div>
 
-			<div class="col-sm">
-				<h1>Add new tour</h1>
+			<div class="col-sm-10">
+				<h1>新增客戶資料</h1>
 
-				<form action="#" th:action="@{/processForm}" th:object="${customer}"
-					method="post">
-
+				<form action="#" class="col g-3" th:action="@{/processCustomerForm}"
+					th:object="${customer}" method="post">
 					<div class="form-group">
 						<input type="hidden" class="form-control" th:field="*{id}">
 					</div>
-
 					<div class="form-group">
-						<label>Name</label>
-						<div class="alert alert-danger" role="alert"
-							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-						<input type="text" class="form-control" th:field="*{name}">
+						<label>客戶名稱 Name</label> <input type="text" class="form-control"
+							th:field="*{name}">
 					</div>
-
 					<div class="form-group">
-						<label>Code</label>
-						<div class="alert alert-danger" role="alert"
-							th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
-						<input type="text" class="form-control" th:field="*{code}">
-						<small class="form-text text-muted">Expected format:
-							LL-DDL where L-letter, D-digit </small>
-					</div>
-
-					<div class="form-group">
-						<label>Continent</label> <select name="continent"
-							class="form-control">
-							<option
-								th:each="continent : ${T(main.model.Tour.Continent).values()}"
-								th:value="${continent}" th:text="${continent}"></option>
-						</select>
-					</div>
-
-					<div class="form-group">
-						<label>Start date</label>
-						<div class="alert alert-danger" role="alert"
-							th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
-						<input type="date" class="form-control" th:field="*{date}">
-					</div>
-
-					<div class="form-group">
-						<label>Tour duration</label>
-						<div class="alert alert-danger" role="alert"
-							th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div>
-						<input type="number" class="form-control" th:field="*{duration}">
-					</div>
-
-					<div class="form-group">
-						<input type="checkbox" th:field="*{allInclusive}"> <label>All
-							Inclusive</label>
+						<label class="form-label">客戶地點 County</label> <input type="text"
+							class="form-control" th:field="*{county}">
 					</div>
 
 					<div class="form-row">
 						<div class="col">
-							<input class="btn btn-success" type="submit" value="Submit">
+							<input class="btn btn-success" type="submit" value="儲存 Save">
 						</div>
-						<div class="col">
-							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
+						<div class="col ps-2">
+							<a th:href="@{/}" class="btn btn-warning float-right">取消
+								Cancel</a>
 						</div>
 					</div>
 				</form>
 			</div>
-
-			<div class="col-sm"></div>
 		</div>
 	</div>
 </body>
