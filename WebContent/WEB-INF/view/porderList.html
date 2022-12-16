@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Order Listing Page</title>
+<script src="js/jquery-3.4.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1>List of your orders</h1>
+		</div>
+
+		<div class="row">
+			<table class="table table-hover" th:if="${!porders.empty}">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Code</th>
+						<th scope="col">Continent</th>
+						<th scope="col">Date</th>
+						<th scope="col">Duration</th>
+						<th scope="col">All Inclusive</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="porder : ${porders}">
+						<td th:text="${porderStat.count}"></td>
+						<td th:text="${porder.name}"></td>
+						<td th:text="${porder.code}"></td>
+						<td th:text="${porder.continent}"></td>
+						<td th:text="${porder.date}"></td>
+						<td th:text="${porder.duration}"></td>
+						<td th:text="${porder.allInclusive}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row" th:if="${porders.empty}">
+			<h3>No order.</h3>
+		</div>
+
+		<div class="row">
+			<a th:href="@{/addPorder}" class="btn btn-warning">Back</a>
+		</div>
+	</div>
+</body>
+</html>
