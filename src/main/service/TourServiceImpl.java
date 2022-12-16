@@ -36,6 +36,12 @@ public class TourServiceImpl implements TourService {
 	public void delete(long id) {
 		tourDAO.delete(id);
 	}
+
+	@Override
+	public void addTourDetailsIfNotExists(Tour tour) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 
