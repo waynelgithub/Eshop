@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Adding Order Page</title>
+<script src="js/jquery-3.4.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm"></div>
+
+			<div class="col-sm">
+				<h1>Add new order</h1>
+
+				<form action="#" th:action="@{/submitPorder}" th:object="${porder}"
+					method="post" th:accept-charset="utf-8">
+					<div class="form-group">
+						<label>Name</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+						<input type="text" th:field="*{name}">
+					</div>
+
+					<div class="form-group">
+						<label>Code</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
+						<input type="text" th:field="*{code}">
+					</div>
+
+					<div class="form-group">
+						<label>Continent</label> <select name="continent">
+							<option
+								th:each="continent : ${T(main.model.Tour.Continent).values()}"
+								th:value="${continent}" th:text="${continent}"></option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label>Start date</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
+						<input type="date" th:field="*{date}">
+					</div>
+
+					<div class="form-group">
+						<label>Tour duration</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></div>
+						<input type="number" th:field="*{duration}">
+					</div>
+
+					<div class="form-group">
+						<label>All Inclusive</label> <input type="checkbox"
+							th:field="*{allInclusive}">
+					</div>
+
+					<div class="form-row">
+						<div class="col">
+							<input class="btn btn-success" type="submit" value="Submit">
+						</div>
+						<div class="col">
+							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-sm"></div>
+		</div>
+	</div>
+</body>
+</html>
