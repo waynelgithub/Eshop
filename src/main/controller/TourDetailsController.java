@@ -37,13 +37,13 @@ public class TourDetailsController {
 		Tour tour = tourService.getById(tourId);
 		if(tour != null) {
 			tourService.addTourDetailsIfNotExists(tour);
-			model.addAttribute("tour", tour);
+			model.addAttribute("tourDetails", tour.getTourDetails());
 			return "form-tour-details";
 		}
 		return "redirect:/showOffer";
 	}
 	
-	@GetMapping("/processForm/TourDetails/{tourId}")
+	@GetMapping("/processFormTourDetails")
 	public String processTourDetailsData(@ModelAttribute TourDetails tourDetails) {
 		tourDetailsService.saveOrUpdate(tourDetails);
 		return "redirect:/showOffer";

@@ -38,7 +38,7 @@
 						<td th:text="${tour.name}"></td>
 						<td th:text="${tour.code}"></td>
 						<td th:text="${tour.continent}"></td>
-						<td th:text="${tour.date}"></td>
+						<td th:text="${#dates.format(tour.date, 'yyyy-MM-dd')}"></td>
 						<td th:text="${tour.duration}"></td>
 						<td th:text="${tour.allInclusive}"></td>
 						<td><a class="btn btn-primary" th:href="@{/editTour/} + ${tour.id}">Edit</a></td>
