@@ -19,31 +19,31 @@ import main.model.Tour;
 public class HomeController {
 
 	private List<Tour> tours = new ArrayList<>();
-	
+
 	@RequestMapping("/")
 	public String getHome() {
 		return "home";
 	}
-	
+
 	@GetMapping("/addTour")
 	public String showForm(Model model) {
 		model.addAttribute("tour", new Tour());
 		return "form";
 	}
-	
+
 	@PostMapping("/processForm")
 	public String showTourData(@Valid @ModelAttribute Tour tour, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "form";
 		}
 		tours.add(tour);
 		return "redirect:showOffer";
 	}
-	
+
 	@GetMapping("/showOffer")
 	public String getTours(Model model) {
 		model.addAttribute("tours", tours);
 		return "tours";
 	}
-	
+
 }
