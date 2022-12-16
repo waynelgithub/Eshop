@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class Tour {
+public class Porder {
 
 	public enum Continent {
 		AFRICA, ASIA, EUROPE, NORTH_AMERICA, SOUTH_AMERICA;

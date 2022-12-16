@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Form page</title>
+<title>Adding Order Page</title>
 <script src="js/jquery-3.4.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -15,9 +15,9 @@
 			<div class="col-sm"></div>
 
 			<div class="col-sm">
-				<h1>Add new tour</h1>
+				<h1>Add new order</h1>
 
-				<form action="#" th:action="@{/processForm}" th:object="${tour}"
+				<form action="#" th:action="@{/submitPorder}" th:object="${porder}"
 					method="post" th:accept-charset="utf-8">
 					<div class="form-group">
 						<label>Name</label>

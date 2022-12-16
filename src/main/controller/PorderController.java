@@ -13,37 +13,38 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import main.model.Porder;
 import main.model.Tour;
 
 @Controller
-public class HomeController {
+public class PorderController {
 
-	private List<Tour> tours = new ArrayList<>();
-
-	@RequestMapping("/")
-	public String getHome() {
-		return "home";
-	}
-
-	@GetMapping("/addTour")
+	private List<Porder> porders = new ArrayList<>();
+	
+//	@RequestMapping("/")
+//	public String getHome() {
+//		return "home";
+//	}
+	
+	@GetMapping("/addPorder")
 	public String showForm(Model model) {
-		model.addAttribute("tour", new Tour());
-		return "form";
+		model.addAttribute("porder", new Porder());
+		return "addPorder";
 	}
-
-	@PostMapping("/processForm")
-	public String showTourData(@Valid @ModelAttribute Tour tour, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			return "form";
+	
+	@PostMapping("/submitPorder")
+	public String showTourData(@Valid @ModelAttribute Porder porder, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "addPorder";
 		}
-		tours.add(tour);
-		return "redirect:showOffer";
+		porders.add(porder);
+		return "redirect:showPorders";
 	}
-
-	@GetMapping("/showOffer")
+	
+	@GetMapping("/showPorders")
 	public String getTours(Model model) {
-		model.addAttribute("tours", tours);
-		return "tours";
+		model.addAttribute("porders", porders);
+		return "porderList";
 	}
-
+	
 }

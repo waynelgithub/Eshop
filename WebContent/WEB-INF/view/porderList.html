@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Tours page</title>
+<title>Order Listing Page</title>
 <script src="js/jquery-3.4.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -12,11 +12,11 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<h1>List of available tours</h1>
+			<h1>List of your orders</h1>
 		</div>
 
 		<div class="row">
-			<table class="table table-hover" th:if="${!tours.empty}">
+			<table class="table table-hover" th:if="${!porders.empty}">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
@@ -29,25 +29,25 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="tour : ${tours}">
-						<td th:text="${tourStat.count}"></td>
-						<td th:text="${tour.name}"></td>
-						<td th:text="${tour.code}"></td>
-						<td th:text="${tour.continent}"></td>
-						<td th:text="${tour.date}"></td>
-						<td th:text="${tour.duration}"></td>
-						<td th:text="${tour.allInclusive}"></td>
+					<tr th:each="porder : ${porders}">
+						<td th:text="${porderStat.count}"></td>
+						<td th:text="${porder.name}"></td>
+						<td th:text="${porder.code}"></td>
+						<td th:text="${porder.continent}"></td>
+						<td th:text="${porder.date}"></td>
+						<td th:text="${porder.duration}"></td>
+						<td th:text="${porder.allInclusive}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 
-		<div class="row" th:if="${tours.empty}">
-			<h3>No tours in the offer</h3>
+		<div class="row" th:if="${porders.empty}">
+			<h3>No order.</h3>
 		</div>
 
 		<div class="row">
-			<a th:href="@{/}" class="btn btn-warning">Back</a>
+			<a th:href="@{/addPorder}" class="btn btn-warning">Back</a>
 		</div>
 	</div>
 </body>
