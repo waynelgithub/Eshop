@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Adding Order Page</title>
+<title>新增產品頁</title>
 <script src="js/jquery-3.4.1.slim.min.js"></script>
 <script src="js/popper.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -15,42 +15,47 @@
 			<div class="col-sm"></div>
 
 			<div class="col-sm">
-				<h1>Add new order</h1>
+				<h1>產品資料修改</h1>
 
-				<form action="#" th:action="@{/submitSorder}" th:object="${sorder}"
+				<form action="#" th:action="@{/submitProduct}" th:object="${product}"
 					method="post" th:accept-charset="utf-8">
 					<div class="form-group">
 						<input type="hidden" class="form-control" th:field="*{id}">
 					</div>
 					<div class="form-group">
-						<label>Order Number</label>
+						<label>產品編號</label>
 						<div class="alert alert-danger" role="alert"
-							th:if="${#fields.hasErrors('ordNum')}" th:errors="*{ordNum}"></div>
-						<input type="number" th:field="*{ordNum}">
+							th:if="${#fields.hasErrors('prodNum')}" th:errors="*{prodNum}"></div>
+						<input type="text" class="form-control" th:field="*{prodNum}">
 					</div>
 
+<!-- -->
 					<div class="form-group">
-						<label>Order date</label>
+						<label>產品大類</label>
 						<div class="alert alert-danger" role="alert"
-							th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}"></div>
-						<input type="date" th:field="*{orderDate}">
+							th:if="${#fields.hasErrors('prodType')}" th:errors="*{prodType}"></div>
+						<input type="text" th:field="*{prodType}">
 					</div>
-
 					<div class="form-group">
-						<label>Customer Number</label>
+						<label>產品中類</label>
 						<div class="alert alert-danger" role="alert"
-							th:if="${#fields.hasErrors('custNum')}" th:errors="*{custNum}"></div>
-						<input type="number" th:field="*{custNum}">
-					</div>
-
+							th:if="${#fields.hasErrors('prodline')}" th:errors="*{prodline}"></div>
+						<input type="text" th:field="*{prodline}">
+					</div>					
 					<div class="form-group">
-						<label>Order Amount</label>
+						<label>產品名稱</label>
 						<div class="alert alert-danger" role="alert"
-							th:if="${#fields.hasErrors('ordAmt')}" th:errors="*{ordAmt}"></div>
-						<input type="number" th:field="*{ordAmt}">
+							th:if="${#fields.hasErrors('prodName')}" th:errors="*{prodName}"></div>
+						<input type="text" th:field="*{prodName}">
+					</div>	
+					<div class="form-group">
+						<label>產品價格</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('prodPrice')}" th:errors="*{prodPrice}"></div>
+						<input type="number" th:field="*{prodPrice}">
 					</div>
 
-
+<!--  -->
 					<div class="form-row">
 						<div class="col">
 							<input class="btn btn-success" type="submit" value="Submit">
@@ -59,6 +64,7 @@
 							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
 						</div>
 					</div>
+
 				</form>
 			</div>
 

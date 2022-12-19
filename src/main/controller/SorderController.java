@@ -31,7 +31,7 @@ public class SorderController {
 	}
 	
 	@PostMapping("/submitSorder")
-	public String showTourData(@Valid @ModelAttribute Sorder sorder, BindingResult bindingResult) {
+	public String showSorderData(@Valid @ModelAttribute Sorder sorder, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return "addSorder";
 		}

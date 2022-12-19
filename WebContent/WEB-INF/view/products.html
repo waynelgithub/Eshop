@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>產品列表頁</title>
+<script src="js/jquery-3.4.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1>產品列表</h1>
+		</div>
+
+		<div class="row">
+			<table class="table table-hover" th:if="${!products.empty}">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">產品編號</th>
+						<th scope="col">產品大類</th>
+						<th scope="col">產品中類</th>
+						<th scope="col">產品名稱</th>
+						<th scope="col">產品價格</th>
+						<th scope="col">修改資料</th>
+						<th scope="col">刪除產品</th>
+
+				
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${products}">
+						<td th:text="${productStat.count}"></td>
+						<td th:text="${product.prodNum}"></td>
+						<td th:text="${product.prodType}"></td>
+						<td th:text="${product.prodline}"></td>
+						<td th:text="${product.prodName}"></td>
+						<td th:text="${product.prodPrice}"></td>
+						<td><a class="btn btn-primary" th:href="@{/editProduct/} + ${product.id}">修改</a></td>
+						<td><a class="btn btn-danger" th:href="@{/deleteProduct/} + ${product.id}">刪除</a></td>																																			
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row" th:if="${products.empty}">
+			<h3>尚無任何產品</h3>
+		</div>
+
+		<div class="row">
+			<a th:href="@{/addProduct}" class="btn btn-warning">新增產品</a>
+			<a th:href="@{/}" class="btn btn-warning">首頁</a>
+		</div>
+	</div>
+</body>
+</html>
