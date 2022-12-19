@@ -18,7 +18,7 @@ import main.service.CustomerService;
 
 @Controller
 public class CustomerController {
-	
+
 	@Autowired
 	private CustomerService customerService;
 
@@ -27,39 +27,41 @@ public class CustomerController {
 		model.addAttribute("customer", new Customer());
 		return "cusForm";
 	}
-	
+
 	@PostMapping("/processCustomerForm")
 	public String showCoustomerData(@Valid @ModelAttribute Customer customer, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "cusForm";
 		}
 		customerService.saveOrUpdate(customer);
-		return "redirect:showCustomerOffer";
+		return "redirect:/showCustomerOffer";
 	}
-	
+
 	@GetMapping("/showCustomerOffer")
 	public String getCustomers(Model model) {
 		List<Customer> customers = customerService.getAll();
 		model.addAttribute("customers", customers);
 		return "customers";
 	}
-	
+
 	@GetMapping("/deleteCustomer/{id}")
 	public String deleteCustomer(@PathVariable long id) {
 		Customer customer = customerService.getById(id);
-		if(customer != null) {
+		if (customer != null) {
 			customerService.delete(id);
 		}
 		return "redirect:/showCustomerOffer";
 	}
-	
+
 	@GetMapping("/editCustomer/{id}")
 	public String editCustomer(@PathVariable long id, Model model) {
 		Customer customer = customerService.getById(id);
-		if(customer != null) {
+		if (customer != null) {
 			model.addAttribute("customer", customer);
 			return "cusForm";
 		}
 		return "redirect:/showCustomerOffer";
 	}
+	
+	
 }

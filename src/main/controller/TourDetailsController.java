@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.Tour;
 import main.model.TourDetails;
@@ -23,29 +24,28 @@ public class TourDetailsController {
 	
 	@GetMapping("/showTourDetails/{tourId}")
 	public String showTourDetails(@PathVariable long tourId, Model model) {
-		Tour tour = tourService.getById(tourId);
+		Tour tour = tourService.getByIdWithComments(tourId);
 		if(tour != null) {
-			tourService.addTourDetailsIfNotExists(tour);
 			model.addAttribute("tour", tour);
 			return "tour-details";
 		}
-		return "redirect:showTourDetails";
+		return "redirect:/showOffer";
 	}
 	
 	@GetMapping("/editTourDetails/{tourId}")
 	public String editTourDetails(@PathVariable long tourId, Model model) {
 		Tour tour = tourService.getById(tourId);
 		if(tour != null) {
-			tourService.addTourDetailsIfNotExists(tour);
-			model.addAttribute("tour", tour);
+			model.addAttribute("tourDetails", tour.getTourDetails());
 			return "form-tour-details";
 		}
 		return "redirect:/showOffer";
 	}
 	
-	@GetMapping("/processForm/TourDetails/{tourId}")
+	@PostMapping("/processFormTourDetails")
 	public String processTourDetailsData(@ModelAttribute TourDetails tourDetails) {
 		tourDetailsService.saveOrUpdate(tourDetails);
 		return "redirect:/showOffer";
 	}
+	
 }

@@ -4,10 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Customer Detail page</title>
-<script src="js/jquery-3.4.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/bootstrap.min.js"></script>
+<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -23,7 +23,9 @@
 						<th scope="col">客戶名稱 Name</th>
 						<th scope="col">客戶地點 County</th>
 						<th scope="col">Edit</th>
+						<th scope="col">Edit details</th>
 						<th scope="col">Remove</th>
+						<th scope="col">Details</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -32,7 +34,9 @@
 						<td th:text="${customer.name}"></td>
 						<td th:text="${customer.county}"></td>
 						<td><a class="btn btn-primary" th:href="@{/editCustomer/} + ${customer.id}">Edit</a></td>
+						<td><a class="btn btn-primary" th:href="@{/editCustomerDetails/} + ${customer.id}">Edit details</a></td>
 						<td><a class="btn btn-danger" th:href="@{/deleteCustomer/} + ${customer.id}">Delete</a></td>
+						<td><a class="btn btn-success" th:href="@{/showCustomerDetails/} + ${customer.id}">Details</a></td>
 					</tr>
 				</tbody>
 			</table>

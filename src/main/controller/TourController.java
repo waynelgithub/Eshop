@@ -18,7 +18,7 @@ import main.service.TourService;
 
 @Controller
 public class TourController {
-	
+
 	@Autowired
 	private TourService tourService;
 
@@ -27,39 +27,45 @@ public class TourController {
 		model.addAttribute("tour", new Tour());
 		return "form";
 	}
-	
+
 	@PostMapping("/processForm")
 	public String showTourData(@Valid @ModelAttribute Tour tour, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "form";
 		}
 		tourService.saveOrUpdate(tour);
 		return "redirect:showOffer";
 	}
-	
+
 	@GetMapping("/showOffer")
 	public String getTours(Model model) {
 		List<Tour> tours = tourService.getAll();
 		model.addAttribute("tours", tours);
 		return "tours";
 	}
-	
+
 	@GetMapping("/deleteTour/{id}")
 	public String deleteTour(@PathVariable long id) {
 		Tour tour = tourService.getById(id);
-		if(tour != null) {
+		if (tour != null) {
 			tourService.delete(id);
 		}
 		return "redirect:/showOffer";
 	}
-	
+
 	@GetMapping("/editTour/{id}")
 	public String editTour(@PathVariable long id, Model model) {
 		Tour tour = tourService.getById(id);
-		if(tour != null) {
+		if (tour != null) {
 			model.addAttribute("tour", tour);
 			return "form";
 		}
 		return "redirect:/showOffer";
+	}
+	
+	@GetMapping("/addUserToTour/{id}/{userId}")
+	public String addUserToTour(@PathVariable long id, @PathVariable long userId) {
+		tourService.addUserToTour(id, userId);
+		return "redirct:/showOffer";
 	}
 }

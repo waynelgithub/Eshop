@@ -4,22 +4,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Home page</title>
-<script src="js/jquery-3.4.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container">
 
-		<h1>Welcome to Esop 賣場</h1>
+		<h1>Welcome to Eshop 賣場</h1>
 		<a th:href="@{login}" class="btn btn-primary">登入</a> <a
 			th:href="@{logout}" class="btn btn-primary">登出</a> <a
 			th:href="@{/addTour}" class="btn btn-primary">Add a new tour</a> <a
-			th:href="@{/showOffer}" class="btn btn-primary">Show our offer</a> 
-		
-			<a th:href="@{/addCustomer}" class="btn btn-primary">新增客戶 Add a new customer</a>
-			<a th:href="@{/showCustomerOffer}" class="btn btn-primary">客戶資料 Customer detail</a>
+			th:href="@{/showOffer}" class="btn btn-primary">Show our offer</a> <a
+			th:href="@{/addComment}" class="btn btn-primary">Add comment</a> 
+			
+			
+			<a
+			th:href="@{/addCustomer}" class="btn btn-primary">新增客戶 Add a new
+			customer</a> <a th:href="@{/showCustomerOffer}" class="btn btn-primary">客戶資料
+			Customer detail</a>
+			<a
+			th:href="@{/addCustomerComment}" class="btn btn-primary">Add customer comment</a> 
+			
 	</div>
 	<div class="container text-center">
 		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
@@ -54,7 +61,7 @@
 				<div class="p-3 border bg-light">Row column</div>
 			</div>
 		</div>
-		
+
 	</div>
 </body>
 </html>
