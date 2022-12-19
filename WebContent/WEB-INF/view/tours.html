@@ -42,13 +42,13 @@
 						<td th:text="${#dates.format(tour.date, 'yyyy-MM-dd')}"></td>
 						<td th:text="${tour.duration}"></td>
 						<td th:text="${tour.allInclusive}"></td>
-						<td><a class="btn btn-primary" th:href="@{/editTour/} + ${tour.id}">Edit</a></td>
-						<td><a class="btn btn-primary" th:href="@{/editTourDetails/} + ${tour.id}">Edit details</a></td>
-						<td><a class="btn btn-danger" th:href="@{/deleteTour/} + ${tour.id}">Delete</a></td>
-						<td><a class="btn btn-success" th:href="@{/showTourDetails/} + ${tour.id}">Details</a></td>
+						<td><a class="btn btn-outline-primary" th:href="@{/editTour/} + ${tour.id}">Edit</a></td>
+						<td><a class="btn btn-outline-primary" th:href="@{/editTourDetails/} + ${tour.id}">Edit details</a></td>
+						<td><a class="btn btn-outline-danger" th:href="@{/deleteTour/} + ${tour.id}">Delete</a></td>
+						<td><a class="btn btn-outline-success" th:href="@{/showTourDetails/} + ${tour.id}">Details</a></td>
 						<td>
-							<a class="btn btn-success" th:href="@{/addUserToTour/{id}/{userId}{id=${tour.id}, userId=1}}">1</a>
-							<a class="btn btn-success" th:href="@{/addUserToTour/{id}/{userId}{id=${tour.id}, userId=2}}">2</a>
+							<a class="btn btn-outline-success" th:href="@{/addUserToTour/{id}/{userId}{id=${tour.id}, userId=1}}">1</a>
+							<a class="btn btn-outline-success" th:href="@{/addUserToTour/{id}/{userId}{id=${tour.id}, userId=2}}">2</a>
 						</td>
 					</tr>
 				</tbody>
@@ -60,7 +60,7 @@
 		</div>
 
 		<div class="row">
-			<a th:href="@{/}" class="btn btn-warning">Back</a>
+			<a th:href="@{/}" class="btn btn-outline-warning">Back</a>
 		</div>
 	</div>
 </body>
