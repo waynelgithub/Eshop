@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Form details page</title>
+<title>Comment form page</title>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -15,31 +15,37 @@
 			<div class="col-sm"></div>
 
 			<div class="col-sm-8">
-				<h1>Add/edit tour details</h1>
+				<h1>Add new comment</h1>
 
-				<form action="#" th:action="@{/processFormTourDetails}"
-					th:object="${tourDetails}" method="post">
+				<form action="#" th:action="@{/processFormComment}" th:object="${comment}"
+					method="post">
 
 					<div class="form-group">
 						<input type="hidden" class="form-control" th:field="*{id}">
 					</div>
-
+					
 					<div class="form-group">
-						<label>Country</label> <input type="text" class="form-control"
-							th:field="*{country}">
+						<label>Tour</label>
+						
+						<select class="form-control" th:field="*{tour.id}">
+							<option th:each="tour : ${tours}"
+									th:value="${tour.id}"
+									th:text="${tour.name}">
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label>Content</label>
+						<input type="text" class="form-control" th:field="*{content}">
 					</div>
 
-					<div class="form-group">
-						<label>Description</label>
-						<textarea rows="20" class="form-control" th:field="*{description}"></textarea>
-					</div>
 
 					<div class="form-row">
 						<div class="col">
 							<input class="btn btn-success" type="submit" value="Submit">
 						</div>
 						<div class="col">
-							<a th:href="@{/showOffer}" class="btn btn-warning float-right">Back</a>
+							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
 						</div>
 					</div>
 				</form>

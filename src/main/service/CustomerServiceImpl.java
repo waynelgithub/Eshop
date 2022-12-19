@@ -7,36 +7,41 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import main.dao.CustomerDAO;
 import main.model.Customer;
+import main.repository.CustomerRepository;
 
 @Service
 @Transactional
-public class CustomerServiceImpl implements CustomerService{
-	
+public class CustomerServiceImpl implements CustomerService {
+
 	@Autowired
-	private CustomerDAO customerDAO;
+	private CustomerRepository customerRepository;
 
 	@Override
 	public List<Customer> getAll() {
-		return customerDAO.getAll();
+		return customerRepository.findAll();
 	}
 
 	@Override
 	public Customer getById(long id) {
-		return customerDAO.getById(id);
+		return customerRepository.findById(id).get();
 	}
 
 	@Override
 	public void saveOrUpdate(Customer customer) {
-		customerDAO.saveOrUpdate(customer);
-		
+		customerRepository.save(customer);
+
 	}
 
 	@Override
 	public void delete(long id) {
-		customerDAO.delete(id);
-		
+		customerRepository.deleteById(id);
+
+	}
+
+	@Override
+	public Customer getByIdWithComments(long id) {
+		return customerRepository.getByIdWithComments(id);
 	}
 
 }

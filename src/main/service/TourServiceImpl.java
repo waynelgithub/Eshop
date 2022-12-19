@@ -1,5 +1,6 @@
 package main.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,45 +8,58 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import main.dao.TourDAO;
 import main.model.Tour;
-import main.model.TourDetails;
+import main.model.User;
+import main.repository.TourRepository;
+import main.repository.UserRepository;
 
 @Service
 @Transactional
 public class TourServiceImpl implements TourService {
 
 	@Autowired
-	private TourDAO tourDAO;
+	private TourRepository tourRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
+
 	@Override
 	public List<Tour> getAll() {
-		return tourDAO.getAll();
+		return tourRepository.findAll();
 	}
 
 	@Override
 	public Tour getById(long id) {
-		return tourDAO.getById(id);
+		return tourRepository.findById(id).get();
 	}
 
 	@Override
 	public void saveOrUpdate(Tour tour) {
-		tourDAO.saveOrUpdate(tour);
+		tourRepository.save(tour);
 	}
 
 	@Override
 	public void delete(long id) {
-		tourDAO.delete(id);
+		tourRepository.deleteById(id);
 	}
 
 	@Override
-	public void addTourDetailsIfNotExists(Tour tour) {
-		if(tour.getTourDetails() == null) {
-			tour.setTourDetails(new TourDetails());
-			saveOrUpdate(tour);
-		} 
+	public Tour getByIdWithComments(long id) {
+		return tourRepository.getByIdWithComments(id);
 	}
-	
-	
+
+	@Override
+	public void addUserToTour(long id, long userId) {
+		Tour tour = getById(id);
+		if(tour.getUsers() == null) {
+			tour.setUsers(new ArrayList<>());
+		}
+		
+		User user = userRepository.getOne(userId);
+		if(user != null) {
+			tour.getUsers().add(user);
+			saveOrUpdate(tour);
+		}
+	}
 
 }
