@@ -29,13 +29,29 @@ public class Sorder {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger id;
+	private long id;
 	
-	public BigInteger getId() {
+	@Column(name = "ord_num")
+	private BigInteger ordNum;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "order_date")
+	private Date orderDate;
+	
+	@Column(name = "cust_num")
+	private BigInteger custNum;
+	
+	//@DecimalMax
+	@Column(name = "ord_amt")
+	private BigDecimal ordAmt;
+	
+
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -70,21 +86,6 @@ public class Sorder {
 	public void setOrdAmt(BigDecimal ordAmt) {
 		this.ordAmt = ordAmt;
 	}
-
-	@Column(name = "ord_num")
-	private BigInteger ordNum;
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "order_date")
-	private Date orderDate;
-	
-	@Column(name = "cust_num")
-	private BigInteger custNum;
-	
-	//@DecimalMax
-	@Column(name = "ord_amt")
-	private BigDecimal ordAmt;
-	
 
 
 }
