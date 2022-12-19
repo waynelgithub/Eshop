@@ -20,31 +20,31 @@ import main.model.Tour;
 public class PorderController {
 
 	private List<Porder> porders = new ArrayList<>();
-	
+
 //	@RequestMapping("/")
 //	public String getHome() {
 //		return "home";
 //	}
-	
+
 	@GetMapping("/addPorder")
 	public String showForm(Model model) {
 		model.addAttribute("porder", new Porder());
 		return "addPorder";
 	}
-	
+
 	@PostMapping("/submitPorder")
 	public String showTourData(@Valid @ModelAttribute Porder porder, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "addPorder";
 		}
 		porders.add(porder);
 		return "redirect:showPorders";
 	}
-	
+
 	@GetMapping("/showPorders")
 	public String getTours(Model model) {
 		model.addAttribute("porders", porders);
 		return "porderList";
 	}
-	
+
 }

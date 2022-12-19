@@ -1,6 +1,7 @@
 package main.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
@@ -26,10 +30,14 @@ public class Tour {
 		AFRICA, ASIA, EUROPE, NORTH_AMERICA, SOUTH_AMERICA;
 	}
 
+	public Tour() {
+		setTourDetails(new TourDetails());
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@NotBlank(message = "{tour.name.notblank}")
 	@Size(min = 5, message = "{tour.name.size}")
 	private String name;
@@ -38,22 +46,37 @@ public class Tour {
 	private String code;
 
 	private Continent continent;
-	
+
 	@NotNull(message = "{tour.date.notnull}")
 	@Future(message = "{tour.date.future}")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
-	
+
 	@Min(value = 7, message = "{tour.duration}")
 	@Max(value = 21, message = "{tour.duration}")
 	private int duration;
-	
+
 	private boolean allInclusive = false;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tour_details_id")
 	private TourDetails tourDetails;
 	
+	@OneToMany(mappedBy = "tour", cascade = CascadeType.ALL)
+	private List<Comment> comments;
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+	
+	@ManyToMany
+	@JoinTable(name = "tour2user", joinColumns = @JoinColumn(name = "tour_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> users;
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -116,6 +139,14 @@ public class Tour {
 
 	public void setTourDetails(TourDetails tourDetails) {
 		this.tourDetails = tourDetails;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }

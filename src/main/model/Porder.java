@@ -26,16 +26,16 @@ public class Porder {
 	private String code;
 
 	private Continent continent;
-	
+
 	@NotNull(message = "{tour.date.notnull}")
 	@Future(message = "{tour.date.future}")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
-	
+
 	@Min(value = 7, message = "{tour.duration}")
 	@Max(value = 21, message = "{tour.duration}")
 	private int duration;
-	
+
 	private boolean allInclusive = false;
 
 	public String getName() {

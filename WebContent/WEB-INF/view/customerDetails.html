@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Customer details page</title>
+<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1 th:text="${customer.name} + ' details'"></h1>
+		</div>
+		
+		<div class="row">
+			<label>Mobile</label>
+			<input type="text" class="form-control" th:field="${customer.customerDetails.mobile}" readonly>
+		</div>
+		
+		<div class="row">
+			<label>Email</label>
+			<textarea class="form-control" rows="20" th:field="${customer.customerDetails.email}" readonly></textarea>
+		</div>
+		
+		<div class="row" th:if="${customer.customerComments.empty}">
+			<h2>There are no comments for this customer</h2>
+		</div>
+		
+		<div class="row">
+			<div th:if="${!customer.customerComments.empty}">
+				<h2>Comment</h2>
+				
+				<ul class="list-group" th:each="cuscomerComment : ${customer.customerComments}">
+					<li class="list-group-item" th:text="${cuscomerComment.content}"></li>
+				</ul>
+			</div>
+		</div>
+					
+		<div class="row">
+			<a th:href="@{/showCustomerOffer}" class="btn btn-warning">Back</a>
+		</div>
+	</div>
+</body>
+</html>
