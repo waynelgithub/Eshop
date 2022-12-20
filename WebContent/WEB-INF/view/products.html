@@ -27,6 +27,7 @@
 						<th scope="col">產品價格</th>
 						<th scope="col">修改資料</th>
 						<th scope="col">刪除產品</th>
+						<th scope="col">刪除產品</th>
 
 				
 					</tr>
@@ -40,7 +41,14 @@
 						<td th:text="${product.prodName}"></td>
 						<td th:text="${product.prodPrice}"></td>
 						<td><a class="btn btn-primary" th:href="@{/editProduct/} + ${product.id}">修改</a></td>
-						<td><a class="btn btn-danger" th:href="@{/deleteProduct/} + ${product.id}">刪除</a></td>																																			
+						<td><a class="btn btn-danger" th:href="@{/deleteProduct/} + ${product.id}">刪除</a></td>
+						<td>
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+							  Launch demo modal
+							</button>							
+
+						</td>																																				
 
 					</tr>
 				</tbody>
@@ -55,6 +63,22 @@
 
 				<a th:href="@{/}" class="btn btn-warning">首頁</a>
 		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">...</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 </body>
 </html>
