@@ -34,14 +34,14 @@ public class TourController {
 			return "form";
 		}
 		tourService.saveOrUpdate(tour);
-		return "redirect:showOffer";
+		return "redirect:/";
 	}
 
-	@GetMapping("/showOffer")
+	@GetMapping("/")
 	public String getTours(Model model) {
 		List<Tour> tours = tourService.getAll();
 		model.addAttribute("tours", tours);
-		return "tours";
+		return "home";
 	}
 
 	@GetMapping("/deleteTour/{id}")

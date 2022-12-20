@@ -23,8 +23,8 @@ public class ShoppingCartController {
 	private ShoppingCartService shoppingCartService;
 	
 	@GetMapping("/addShoppingCart")
-	public String showForm(Model model) {
-		model.addAttribute("tour", new ShoppingCart());
+	public String showShoppingCartForm(Model model) {
+		model.addAttribute("shoppingCart", new ShoppingCart());
 		return "formShoppingCart";
 	}
 
