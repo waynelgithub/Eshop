@@ -1,5 +1,7 @@
 package main.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,15 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 	
 	@Autowired
 	private ShoppingCartDetailsRepository shoppingCartDetailsRepository;
-	
+
+	@Override
+	public List<ShoppingCartDetails> getAll() {
+		return shoppingCartDetailsRepository.findAll();
+	}
+
 	@Override
 	public ShoppingCartDetails getById(long id) {
-		return shoppingCartDetailsRepository.getOne(id);
+		return shoppingCartDetailsRepository.findById(id).get();
 	}
 
 	@Override
@@ -28,8 +35,10 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 
 	@Override
 	public void delete(long id) {
-		shoppingCartDetailsRepository.deleteById(id);
+		shoppingCartDetailsRepository.deleteById(id);		
 	}
+	
+
 	
 	
 
