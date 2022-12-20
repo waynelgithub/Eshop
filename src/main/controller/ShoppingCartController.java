@@ -58,7 +58,7 @@ public class ShoppingCartController {
 		ShoppingCart shoppingCart = shoppingCartService.getById(id);
 		if (shoppingCart != null) {
 			model.addAttribute("shoppingCart", shoppingCart);
-			return "form";
+			return "formShoppingCart";
 		}
 		return "redirect:/showShoppingCartOffer";
 	}
