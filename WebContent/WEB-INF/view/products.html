@@ -4,10 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>產品列表頁</title>
-<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -27,7 +27,6 @@
 						<th scope="col">產品價格</th>
 						<th scope="col">修改資料</th>
 						<th scope="col">刪除產品</th>
-						<th scope="col">刪除產品</th>
 
 				
 					</tr>
@@ -41,14 +40,7 @@
 						<td th:text="${product.prodName}"></td>
 						<td th:text="${product.prodPrice}"></td>
 						<td><a class="btn btn-primary" th:href="@{/editProduct/} + ${product.id}">修改</a></td>
-						<td><a class="btn btn-danger" th:href="@{/deleteProduct/} + ${product.id}">刪除</a></td>
-						<td>
-							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-							  Launch demo modal
-							</button>							
-
-						</td>																																				
+						<td><a class="btn btn-danger" th:href="@{/deleteProduct/} + ${product.id}">刪除</a></td>																																			
 
 					</tr>
 				</tbody>
@@ -64,21 +56,85 @@
 				<a th:href="@{/}" class="btn btn-warning">首頁</a>
 		</div>
 	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-	        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body">...</div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever='href="/Eshop/deleteProduct/1"'>Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+        <a class="btn btn-danger" id="delete" >刪除</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
+<script type="text/javascript">
+	const exampleModal = document.getElementById('staticBackdrop')
+	exampleModal.addEventListener('show.bs.modal', event => {
+	  // Button that triggered the modal
+	  const button = event.relatedTarget
+	  // Extract info from data-bs-* attributes
+	  const recipient = button.getAttribute('data-bs-whatever')
+	  // If necessary, you could initiate an AJAX request here
+	  // and then do the updating in a callback.
+	  //
+	  // Update the modal's content.
+	  //const modalTitle = exampleModal.querySelector('.modal-title')
+	  //modalTitle.textContent = `New message to ${recipient}`
+	  
+	  const modalBodyInput = exampleModal.querySelector('#staticBackdropLabel')
+	  modalBodyInput.value = "recipient"
+	  
+	  const modalBodyInput2 = exampleModal.querySelector('#delete')
+	  modalBodyInput2.value = "recipient"
+	  
+	  
+	})
+</script>
 </body>
 </html>
