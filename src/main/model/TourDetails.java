@@ -10,21 +10,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tour_details")
 public class TourDetails {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	private String country;
 	
-	@Column(length = 2000)	
+	@Column(length = 2000)
 	private String description;
-	
+
 	/*
 	 * uncomment if you want to have a bidirectional mapping
 	@OneToOne(mappedBy = "tourDetails")
-	private Tour tour; */
-
+	private Tour tour;
+	*/
+	
 	public long getId() {
 		return id;
 	}
@@ -49,6 +50,4 @@ public class TourDetails {
 		this.description = description;
 	}
 	
-	
-
 }

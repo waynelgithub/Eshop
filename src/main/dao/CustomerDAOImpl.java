@@ -14,7 +14,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public List<Customer> getAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -29,17 +29,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public void saveOrUpdate(Customer customer) {
-		Session session = sessionFactory.getCurrentSession();	
+		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(customer);
 	}
 
 	@Override
 	public void delete(long id) {
-		Session session = sessionFactory.getCurrentSession();	
+		Session session = sessionFactory.getCurrentSession();
 		Customer customer = getById(id);
-		session.delete(customer);	
+		session.delete(customer);
 	}
-	
-	
 
 }
