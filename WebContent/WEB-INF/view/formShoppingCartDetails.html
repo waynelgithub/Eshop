@@ -15,25 +15,14 @@
 	<div class="container">
 
 		<form action="#" class="col g-3 p-5" th:action="@{/processShoppingCartForm}"
-			th:object="${shoppingCart}" method="post">
+			th:object="${shoppingCartDetails}" method="post">
 			<div class="form-group">
 				<input type="hidden" class="form-control" th:field="*{id}">
 			</div>
 
-
-			<div class="form-group">
-				<input type="hidden" class="form-control"
-					th:field="*{shoppingCartDetails.id}">
-			</div>
-
-			<div class="form-group">
-				<input type="hidden" class="form-control"
-					th:field="*{shoppingCartDetails.price}">
-			</div>
-
 			<div class="form-group">
 				<label>商品名稱 Name</label> <input type="text" class="form-control"
-					th:field="*{name}">
+					th:text="${tour.name}" th:value="${tour.name}">
 			</div>
 			<div class="form-group">
 				<label class="form-label">商品數量 Quantity</label> <input type="text"

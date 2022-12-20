@@ -13,7 +13,7 @@ import main.repository.ShoppingCartRepository;
 
 @Service
 @Transactional
-public class ShoppingCartImpl implements ShoppingCartService {
+public class ShoppingCartSericeImpl implements ShoppingCartService {
 
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepository;

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "shopping_cart_details")
@@ -20,10 +21,10 @@ public class ShoppingCartDetails {
 	private long id;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	
 	@JoinColumn(name = "tour_id")
 	private Tour tour;
 	
+	@Min(value = 1, message = "{ShoppingCartDetails.quantity}")
 	private int quantity;
 	
 	private BigDecimal price;
