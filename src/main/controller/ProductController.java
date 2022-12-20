@@ -54,7 +54,7 @@ public class ProductController {
 		if(product != null) {
 			productService.delete(id);
 		}
-		return "redirect:showProduct";
+		return "redirect:../showProduct";
 	}
 	
 	@GetMapping("/editProduct/{id}")
@@ -64,7 +64,7 @@ public class ProductController {
 			model.addAttribute("product", product);
 			return "addProduct";
 		}
-		return "redirect:showProduct";
+		return "redirect:../showProduct";
 	}
 	
 }

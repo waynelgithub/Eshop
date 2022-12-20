@@ -8,28 +8,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Product {
- 
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@DecimalMin(value = "10000", message = "{product.number.min}")
 	@Column(name = "prod_num")
-	private BigInteger prodNum;
+	private long prodNum;
 	
+	@Size(min = 2, message = "{product.type.size}")
 	@Column(name = "prod_type")
 	private String prodType;
 	
+	@Size(min = 2, message = "{product.prodline.size}")
 	@Column(name = "prod_line")
 	private String prodline;
 	
+	@NotBlank(message = "{product.name.notblank}")
+	@Size(min = 2, message = "{product.name.size}")
 	@Column(name = "prod_name")
 	private String prodName;
 	
+	@DecimalMin(value = "0.0", message = "{product.price.min}")
 	@Column(name = "prod_price")
 	private BigDecimal prodPrice;
 	
@@ -45,14 +52,12 @@ public class Product {
 	}
 
 
-
-
-	public BigInteger getProdNum() {
+	public long getProdNum() {
 		return prodNum;
 	}
 
 
-	public void setProdNum(BigInteger prodNum) {
+	public void setProdNum(long prodNum) {
 		this.prodNum = prodNum;
 	}
 
@@ -95,11 +100,5 @@ public class Product {
 	public void setProdPrice(BigDecimal prodPrice) {
 		this.prodPrice = prodPrice;
 	}
-
-
-
-
-
-	
 
 }

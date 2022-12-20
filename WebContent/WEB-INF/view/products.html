@@ -4,10 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>產品列表頁</title>
-<script src="js/jquery-3.4.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/bootstrap.min.js"></script>
+<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -50,10 +50,10 @@
 		<div class="row" th:if="${products.empty}">
 			<h3>尚無任何產品</h3>
 		</div>
+		<div class="container">
+				<a th:href="@{/addProduct}" class="btn btn-primary">新增產品</a> 
 
-		<div class="row">
-			<a th:href="@{/addProduct}" class="btn btn-warning">新增產品</a>
-			<a th:href="@{/}" class="btn btn-warning">首頁</a>
+				<a th:href="@{/}" class="btn btn-warning">首頁</a>
 		</div>
 	</div>
 </body>

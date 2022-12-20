@@ -6,34 +6,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import main.dao.SorderDAO;
 import main.model.Sorder;
+import main.repository.SorderRepository;
 
 @Service
 @Transactional
 public class SorderServiceImpl implements SorderService {
 	
+	
 	@Autowired
-	private SorderDAO sorderDAO;
+	private SorderRepository sorderRepository;
 
 	@Override
 	public List<Sorder> getAll() {
-		return sorderDAO.getAll();
+		return sorderRepository.findAll();
 	}
 
 	@Override
 	public Sorder getById(long id) {
-		return sorderDAO.getById(id);
+		return sorderRepository.findById(id).get();
 	}
 
 	@Override
 	public void saveOrUpdate(Sorder sorder) {
-		sorderDAO.saveOrUpdate(sorder);		
+		sorderRepository.save(sorder);		
 	}
 
 	@Override
 	public void delete(long id) {
-		sorderDAO.delete(id);		
+		sorderRepository.deleteById(id);		
 	}
 
 
