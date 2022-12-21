@@ -2,11 +2,9 @@ package main.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import main.model.Product;
-import main.model.Sorder;
+import main.model.OrderDetail;
 
 @Repository
-public interface SorderRepository extends JpaRepository<Sorder, Long> {
+public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
 
 }

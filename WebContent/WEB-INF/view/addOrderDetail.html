@@ -17,7 +17,7 @@
 			<div class="col-sm-8">
 				<h1>編輯訂單明細</h1>
 
-				<form action="#" th:action="@{/submitSorderDetail}" th:object="${sorderDetail}"
+				<form action="#" th:action="@{/saveOrderDetail}" th:object="${orderDetail}"
 					method="post">
 
 					<div class="form-group">
@@ -27,10 +27,10 @@
 					<div class="form-group">
 						<label>訂單編號</label>
 						
-						<select class="form-control" th:field="*{sorder.id}">
-							<option th:each="sorder : ${sorders}"
-									th:value="${sorder.id}"
-									th:text="${sorder.ordNum}">
+						<select class="form-control" th:field="*{order.id}">
+							<option th:each="order : ${orders}"
+									th:value="${order.id}"
+									th:text="${order.ordNum}">
 							</option>
 						</select>
 					</div>

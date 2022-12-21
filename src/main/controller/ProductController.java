@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.Product;
-import main.model.Sorder;
-import main.model.Tour;
+
 import main.service.ProductService;
-import main.service.SorderService;
+
 
 @Controller
 public class ProductController {
