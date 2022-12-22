@@ -3,16 +3,16 @@ package main.model;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Sorder {
+public class OrderDetail {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,18 +33,18 @@ public class Sorder {
 	@Column(name = "ord_num")
 	private long ordNum;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "order_date")
-	private Date orderDate;
+	@Column(name = "prod_num")
+	private long prodNum;
 	
-	@Column(name = "cust_num")
-	private long custNum;
+	@Column(name = "ord_qty")
+	private int ordQty;
 	
-	@Column(name = "ord_amt")
-	private BigDecimal ordAmt;
+	@Column(name = "ord_price")
+	private BigDecimal ordPrice;
 	
-	@OneToMany(mappedBy = "sorder", cascade = CascadeType.ALL)
-	private List<SorderDetail> sorderDetails;
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private Order order;
 	
 
 	public long getId() {
@@ -63,37 +63,42 @@ public class Sorder {
 		this.ordNum = ordNum;
 	}
 
-	public Date getOrderDate() {
-		return orderDate;
+	public long getProdNum() {
+		return prodNum;
 	}
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+	public void setProdNum(long prodNum) {
+		this.prodNum = prodNum;
 	}
 
-	public long getCustNum() {
-		return custNum;
+	public int getOrdQty() {
+		return ordQty;
 	}
 
-	public void setCustNum(long custNum) {
-		this.custNum = custNum;
+	public void setOrdQty(int ordQty) {
+		this.ordQty = ordQty;
 	}
 
-	public BigDecimal getOrdAmt() {
-		return ordAmt;
+	public BigDecimal getOrdPrice() {
+		return ordPrice;
 	}
 
-	public void setOrdAmt(BigDecimal ordAmt) {
-		this.ordAmt = ordAmt;
+	public void setOrdPrice(BigDecimal ordPrice) {
+		this.ordPrice = ordPrice;
 	}
 
-	public List<SorderDetail> getSorderDetails() {
-		return sorderDetails;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setSorderDetails(List<SorderDetail> sorderDetails) {
-		this.sorderDetails = sorderDetails;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
+	
+
+
+
+
 	
 
 
