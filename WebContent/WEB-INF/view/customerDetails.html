@@ -11,27 +11,27 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row">
-			<h1 th:text="${customer.name} + ' details'"></h1>
+		<div class="bg-warning p-3 rounded-bottom">
+			<h1 class="text-dark text-center" th:text="${customer.name} + ' details'"></h1>
 		</div>
 		
-		<div class="row">
-			<label>Mobile</label>
+		<div class="row mt-3 px-5">
+			<h3>Mobile</h3>
 			<input type="text" class="form-control" th:field="${customer.customerDetails.mobile}" readonly>
 		</div>
 		
-		<div class="row">
-			<label>Email</label>
-			<textarea class="form-control" rows="20" th:field="${customer.customerDetails.email}" readonly></textarea>
+		<div class="row mt-3 px-5">
+			<h3>Email</h3>
+			<input type="text" class="form-control" th:field="${customer.customerDetails.email}" readonly>
 		</div>
 		
-		<div class="row" th:if="${customer.customerComments.empty}">
-			<h2>There are no comments for this customer</h2>
+		<div class="row mt-3 px-5" th:if="${customer.customerComments.empty}">
+			<h3>There are no comments for this customer</h3>
 		</div>
 		
-		<div class="row">
+		<div class="row mt-3 px-5">
 			<div th:if="${!customer.customerComments.empty}">
-				<h2>Comment</h2>
+				<h3>Comment</h3>
 				
 				<ul class="list-group" th:each="cuscomerComment : ${customer.customerComments}">
 					<li class="list-group-item" th:text="${cuscomerComment.content}"></li>
@@ -39,8 +39,8 @@
 			</div>
 		</div>
 					
-		<div class="row">
-			<a th:href="@{/showCustomerOffer}" class="btn btn-warning">Back</a>
+		<div class="row mt-3 px-5">
+			<a th:href="@{/showCustomerOffer}" class="btn btn-outline-warning">Back</a>
 		</div>
 	</div>
 </body>
