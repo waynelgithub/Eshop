@@ -36,8 +36,8 @@
 						<td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd')}"></td>
 						<td th:text="${order.custNum}"></td>
 						<td th:text="${order.ordAmt}"></td>
-						<td><a class="btn btn-primary" th:href="@{/editOrder/} + ${order.id}">修改</a></td>
-						<td><a class="btn btn-danger" th:href="@{/deleteOrder/} + ${order.id}">刪除</a></td>							
+						<td><a class="btn btn-primary" th:href="@{/edit-order/} + ${order.id}">修改</a></td>
+						<td><a class="btn btn-danger" th:href="@{/delete-order/} + ${order.id}">刪除</a></td>							
 					</tr>
 				</tbody>
 			</table>

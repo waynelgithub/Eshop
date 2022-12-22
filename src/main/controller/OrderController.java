@@ -30,39 +30,39 @@ public class OrderController {
 		return "order-form";
 	}
 	
-	@PostMapping("/saveOrder")
-	public String showOrderData(@Valid @ModelAttribute Order order, BindingResult bindingResult) {
+	@PostMapping("/save-order")
+	public String saveOrderData(@Valid @ModelAttribute Order order, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return "order-form";
 		}
 		orderService.saveOrUpdate(order);
-		return "redirect:showOrders";
+		return "redirect:show-orders";
 	}
 	
-	@GetMapping("/showOrders")
+	@GetMapping("/show-orders")
 	public String getOrders(Model model) {
 		List<Order> orders=orderService.getAll();
 		model.addAttribute("orders", orders);
 		return "orders";
 	}
 	
-	@GetMapping("/deleteOrder/{id}")
+	@GetMapping("/delete-order/{id}")
 	public String deleteOrder(@PathVariable int id) {
 		Order order = orderService.getById(id);
 		if(order != null) {
 			orderService.delete(id);
 		}
-		return "redirect:../showOrders";
+		return "redirect:/show-orders";
 	}
 	
-	@GetMapping("/editOrder/{id}")
+	@GetMapping("/edit-order/{id}")
 	public String editOrder(@PathVariable int id, Model model) {
 		Order order = orderService.getById(id);
 		if(order != null) {
 			model.addAttribute("order", order);
 			return "order-form";
 		}
-		return "redirect:../showOrders";
+		return "redirect:/show-orders";
 	}
 	
 }
