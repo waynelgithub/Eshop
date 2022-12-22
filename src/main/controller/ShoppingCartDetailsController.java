@@ -34,15 +34,15 @@ public class ShoppingCartDetailsController {
 			return "form-shopping-cart-details";
 		}
 		shoppingCartDetailsService.saveOrUpdate(shoppingCartDetails);
-		return "redirect:/show-shopping-cart-details-offer";
+		return "redirect:/shopping-cart";
 	}
 	
 	
-	@GetMapping("/show-shopping-cart-details-offer")
+	@GetMapping("/show-shopping-cart-offer")
 	public String getShoppingCartDetails(Model model) {
 		List<ShoppingCartDetails> shoppingCartDetails = shoppingCartDetailsService.getAll();
 		model.addAttribute("shoppingCartDetails", shoppingCartDetails);
-		return "shopping-carts";
+		return "shopping-cart";
 	}
 
 	@GetMapping("/delete-shopping-cart-details/{id}")
@@ -51,7 +51,7 @@ public class ShoppingCartDetailsController {
 		if (shoppingCartDetails != null) {
 			shoppingCartDetailsService.delete(id);
 		}
-		return "redirect:/show-shopping-cart-details-offer";
+		return "redirect:/shopping-cart";
 	}
 
 	@GetMapping("/edit-shopping-cart-details/{id}")
@@ -61,6 +61,6 @@ public class ShoppingCartDetailsController {
 			model.addAttribute("shoppingCartDetails", shoppingCartDetails);
 			return "form-shopping-cart-details";
 		}
-		return "redirect:/show-shopping-cart-details-offer";
+		return "redirect:/shopping-cart";
 	}
 }

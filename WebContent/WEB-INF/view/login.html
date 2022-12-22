@@ -22,7 +22,7 @@
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" herf="http://use.fontawesome.com/releases/v5.3.1/css/all.css">
-<link rel="stylesheet" type="text/css" href="resources/css/login.css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </head>
 
 <body class="m-auto">
@@ -38,29 +38,31 @@
 							Invalid username and password.
 						</div>
 						
-						<div class="input-froup form-group">
+						<div class="input-group form-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
 							<input type="text" class="form-control" name="username" placeholder="Login">
 						</div>
-						
-						<div class="input-froup form-group">
+						<div class="input-group form-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" class="form-control" name="password" placeholder="password">
+							<input type="password" class="form-control" name="password" placeholder="Password">
 						</div>
-						
 						<div class="form-group">
 							<input type="submit" value="Login" class="btn login-button">
 							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
 						</div>
 					</form>
 				</div>
+				<div class="card-footer">
+					<div class="d-flex justify-content-center footer">
+						Don't have an account?<a th:href="@{/signup}">Sign up</a>
+					</div>
+				</div>
 			</div>
 		</div>
-		
 	</div>
 </body>
 

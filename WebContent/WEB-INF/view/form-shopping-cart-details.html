@@ -19,24 +19,43 @@
 			<div class="form-group">
 				<input type="hidden" class="form-control" th:field="*{id}">
 			</div>
-
+			
 			<div class="form-group">
-				<label>商品名稱 Name</label> <input type="text" class="form-control"
-					th:text="${tour.name}" th:value="${tour.name}">
+				<input type="hidden" class="form-control"
+					th:field="*{product.id}">
+			</div>
+			
+			<div class="form-group">
+				<input type="hidden" class="form-control"
+					th:field="*{product.prodNum}">
+			</div>
+			
+			<div class="form-group">
+				<input type="hidden" class="form-control"
+					th:field="*{product.prodType}">
+			</div>
+			
+			<div class="form-group">
+				<input type="hidden" class="form-control"
+					th:field="*{product.prodline}">
+			</div>
+						
+			<div class="form-group">
+				<label>商品名稱</label> <input type="text" class="form-control"
+					th:text="${product.name}" th:value="${product.name}">
 			</div>
 			<div class="form-group">
-				<label class="form-label">商品數量 Quantity</label> <input type="text"
+				<label class="form-label">商品數量</label> <input type="text"
 					class="form-control" th:field="*{shoppingCartDetails.quantity}">
 			</div>
 
 			<div class="form-row">
 				<div class="col">
 					<input class="btn btn-outline-success" type="submit"
-						value="儲存 Save">
+						value="儲存">
 				</div>
 				<div class="col ps-2">
-					<a th:href="@{/}" class="btn btn-outline-warning float-right">取消
-						Cancel</a>
+					<a th:href="@{/}" class="btn btn-outline-warning float-right">取消</a>
 				</div>
 			</div>
 		</form>

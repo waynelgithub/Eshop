@@ -21,8 +21,8 @@ public class ShoppingCartDetails {
 	private long id;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tour_id")
-	private Tour tour;
+	@JoinColumn(name = "product_id")
+	private Product product;
 	
 	@Min(value = 1, message = "{ShoppingCartDetails.quantity}")
 	private int quantity;
@@ -37,12 +37,12 @@ public class ShoppingCartDetails {
 		this.id = id;
 	}
 
-	public Tour getTour() {
-		return tour;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setTour(Tour tour) {
-		this.tour = tour;
+	public void setTour(Product product) {
+		this.product = product;
 	}
 
 	public int getQuantity() {

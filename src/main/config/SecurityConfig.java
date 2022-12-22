@@ -1,5 +1,8 @@
 package main.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,8 +16,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private DataSource dataSource;
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -24,17 +30,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public AccessDeniedHandler accessDeniedHandler() {
 		return new TourAgencyAccessDeniedHandler();
 	}
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
-			.inMemoryAuthentication()
-			.withUser("John").password(passwordEncoder().encode("admin")).roles("ADMIN")
-			.and()
-			.withUser("Eric").password(passwordEncoder().encode("employee")).roles("EMPLOYEE")
-			.and()
-			.withUser("Micheael").password(passwordEncoder().encode("client")).roles("CLIENT");
-	}
+			.jdbcAuthentication().dataSource(dataSource)
+			.usersByUsernameQuery("select login, password, enabled from user where login=?")
+			.authoritiesByUsernameQuery("select login, role from role where login=?");
+		}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -51,14 +54,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.permitAll()
 			.and()
 				.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/login"))
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/")
 				.invalidateHttpSession(true)
 				.permitAll()
 			.and()
 				.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 	}
-	
-	
 	
 }
