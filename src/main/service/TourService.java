@@ -18,4 +18,5 @@ public interface TourService {
 	
 	public void addUserToTour(long id, long userId);
 
+	public List<Tour> getAllforNextMonth();
 }

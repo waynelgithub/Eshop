@@ -9,12 +9,12 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return null;
+		return new Class[] { SecurityConfig.class, DatabaseConfig.class };
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { WebConfig.class, DatabaseConfig.class };
+		return new Class[] { WebConfig.class };
 	}
 
 	@Override

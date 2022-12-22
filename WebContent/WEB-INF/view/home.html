@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Home page</title>
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>Home page</title>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
 </head>
 
 <body class="m-auto">
@@ -24,12 +30,12 @@
 		</div>
 
 		<div class="p-3 m-0 d-flex justify-content-end">
-			<a th:href="@{/addTour}" class="p-1">Add a new tour</a>
-			<a th:href="@{/showOffer}" class="p-1">Show our offer</a>
+			<a th:href="@{/addTour}" class="p-1">Add a new tour</a> <a
+				th:href="@{/showOffer}" class="p-1">Show our offer</a>
 			<!-- <a th:href="@{/addComment}" class="p-1">Add comment</a> -->
-			<a th:href="@{/showShoppingCartOffer}" class="p-1">購物車</a>
-			<a th:href="@{/addCustomer}" class="p-1">新增客戶</a>
-			<a th:href="@{/showCustomerOffer}" class="p-1">客戶資料</a>
+			<a th:href="@{/showShoppingCartOffer}" class="p-1">購物車</a> <a
+				th:href="@{/addCustomer}" class="p-1">新增客戶</a> <a
+				th:href="@{/showCustomerOffer}" class="p-1">客戶資料</a>
 			<!-- <a th:href="@{/addCustomerComment}" class="p-1">新增評論 Add customer comment</a> -->
 			<!-- <a th:href="@{/addProduct}" class="p-1">新增產品資料</a>			
 			<a th:href="@{/showProduct}" class="p-1">檢視產品列表</a>	
@@ -37,14 +43,16 @@
 			<a th:href="@{/showSorders}" class="p-1">檢視訂單列表</a>		
 			<a th:href="@{/addSorderDetail}" class="p-1">新增訂單明細資料</a>			
 			<a th:href="@{/showSorderDetail}" class="p-1">檢視訂單明細</a> -->
-			<a th:href="@{login}" class="p-1">登入/註冊</a>
-			<a th:href="@{logout}" class="p-1">登出</a>
+			<a sec:authorize="isAnonymous()" th:href="@{/login}" class="p-1">登入/註冊</a>
+			<a sec:authorize="!isAnonymous()" th:href="@{/logout}" class="p-1">登出</a>
 		</div>
 
-		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 p-5" th:if="${!tours.empty}">
+		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 p-5"
+			th:if="${!tours.empty}">
 			<div class="col my-1" th:each="tour : ${tours}">
 				<div class="card mx-0" style="width: 12rem;">
-					<img th:src="@{/images/wallpaper_httyd1_1920x1200-3_INTL.jpg}" class="card-img-top" alt="...">
+					<img th:src="@{/images/wallpaper_httyd1_1920x1200-3_INTL.jpg}"
+						class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title" th:text="${tour.name}"></h5>
 						<h5 class="card-title" th:text="${tour.tourDetails.description}"></h5>
@@ -53,7 +61,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row p-5" th:if="${tours.empty}">
 			<h3>No tours in the offer</h3>
 		</div>
