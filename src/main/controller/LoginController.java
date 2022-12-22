@@ -10,4 +10,9 @@ public class LoginController {
 	public String showLoginPage() {
 		return "login";
 	}
+	
+	@RequestMapping("/forbidden")
+	public String showForbiddenError() {
+		return "error-403";
+	}
 }

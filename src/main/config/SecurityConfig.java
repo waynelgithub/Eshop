@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -17,6 +18,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+	
+	@Bean
+	public AccessDeniedHandler accessDeniedHandler() {
+		return new TourAgencyAccessDeniedHandler();
 	}
 
 	@Override
@@ -35,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.antMatchers("/", "/login")
 				.permitAll()
+			.antMatchers("/addTour")
+				.hasAnyRole("ADMIN", "EMPLOYEE")
 			.and()
 				.formLogin()
 				.loginPage("/login")
@@ -46,7 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.logoutRequestMatcher(new AntPathRequestMatcher("/login"))
 				.logoutSuccessUrl("/")
 				.invalidateHttpSession(true)
-				.permitAll();
+				.permitAll()
+			.and()
+				.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 	}
 	
 	
