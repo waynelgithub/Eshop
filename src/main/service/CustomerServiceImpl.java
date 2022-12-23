@@ -39,9 +39,4 @@ public class CustomerServiceImpl implements CustomerService {
 
 	}
 
-	@Override
-	public Customer getByIdWithComments(long id) {
-		return customerRepository.getByIdWithComments(id);
-	}
-
 }

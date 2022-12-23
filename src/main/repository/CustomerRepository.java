@@ -8,6 +8,4 @@ import main.model.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	
-	@Query("from Customer c left join fetch c.customerComments where c.id = :id")
-	public Customer getByIdWithComments(@Param("id") long id);
 }
