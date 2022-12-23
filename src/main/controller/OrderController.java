@@ -41,7 +41,7 @@ public class OrderController {
 	
 	@GetMapping("/show-orders")
 	public String getOrders(Model model) {
-		List<Order> orders=orderService.getAll();
+		List<Order> orders = orderService.getAll();
 		model.addAttribute("orders", orders);
 		return "orders";
 	}
