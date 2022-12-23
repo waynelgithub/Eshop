@@ -11,7 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-
+/**
+ * 
+ * @author hsu
+ *
+ */
 @Entity
 @Table(name = "shopping_cart_details")
 public class ShoppingCartDetails {
@@ -39,7 +43,7 @@ public class ShoppingCartDetails {
 	public long getId() {
 		return id;
 	}
-
+	
 	public void setId(long id) {
 		this.id = id;
 	}

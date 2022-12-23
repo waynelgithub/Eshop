@@ -41,7 +41,7 @@ public class ShoppingCartController {
 	public String getTours(Model model) {
 		List<ShoppingCart> shoppingCarts = shoppingCartService.getAll();
 		model.addAttribute("shoppingCarts", shoppingCarts);
-		return "shoppingCart";
+		return "shopping-cart";
 	}
 
 	@GetMapping("/delete-shopping-cart/{id}")
