@@ -20,19 +20,13 @@
 			<div class="form-group">
 				<input type="hidden" class="form-control" th:field="*{id}">
 			</div>
-
+			
 			<div class="form-group">
-				<input type="hidden" class="form-control" th:field="*{shoppingCartDetails.id}">
+				<input disabled type="hidden" class="form-control" th:field="*{date}">
 			</div>
-
+			
 			<div class="form-group">
-				<label class="form-label">商品數量</label>
-				<input type="text" class="form-control" th:field="*{shoppingCartDetails.productName}">
-			</div>
-
-			<div class="form-group">
-				<label class="form-label">單價</label> 
-				<input disabled type="text"	class="form-control" th:value="${shoppingCartDetails.productPrice}">
+				<input disabled type="hidden" class="form-control" th:field="*{amount}">
 			</div>
 
 			<div class="form-row m-1">

@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="row p-5">
-			<table class="table table-hover table-secondary" th:if="${!shoppingCartDetails.empty}">
+			<table class="table table-hover table-secondary" th:if="${!shoppingCarts.empty}">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
@@ -28,19 +28,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="shoppingCartDetails : ${shoppingCartDetail}">
-						<td th:text="${shoppingCartDetailsStat.count}"></td>
-						<td th:text="${shoppingCartDetails.name}"></td>
-						<td th:text="${shoppingCartDetails.quantity}"></td>
-						<td th:text="${shoppingCartDetails.price}"></td>
-						<td th:text="${shoppingCartDetails.price * shoppingCartDetails.quantity}"></td>
+					<tr th:each="shoppingCart : ${shoppingCarts}">
+						<td th:text="${shoppingCartsStat.count}"></td>
+						<td th:text="${shoppingCarts.name}"></td>
+						<td th:text="${shoppingCarts.quantity}"></td>
+						<td th:text="${shoppingCarts.price}"></td>
+						<td th:text="${shoppingCarts.price * shoppingCarts.quantity}"></td>
 						<td><a class="btn btn-outline-danger" th:href="@{/shoppingCartDetails/} + ${shoppingCartDetails.id}">取消 Cancel</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 
-		<div class="p-5 d-flex justify-content-end" th:if="${!shoppingCartDetails.empty}">
+		<div class="p-5 d-flex justify-content-end" th:if="${!shoppingCarts.empty}">
 			<h3>總金額 NT$ 
 			<input th:each="shoppingCartDetails : ${shoppingCartDetail}" 
 				   class="text-danger" 
@@ -48,7 +48,7 @@
 				   th:text="${shoppingCart.amount}"></h3>
 		</div>
 
-		<div class="row p-5" th:if="${shoppingCartDetails.empty}">
+		<div class="row p-5" th:if="${shoppingCarts.empty}">
 			<h3>沒有商品</h3>
 		</div>
 

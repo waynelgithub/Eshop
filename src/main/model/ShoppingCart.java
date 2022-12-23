@@ -29,6 +29,8 @@ public class ShoppingCart {
 	
 	@OneToMany(mappedBy = "shoppingCart",cascade = CascadeType.ALL)
 	private List<ShoppingCartDetails> shoppingCartDetails;
+	
+	private long customer_num;
 
 	public long getId() {
 		return id;
@@ -62,12 +64,12 @@ public class ShoppingCart {
 		this.shoppingCartDetails = shoppingCartDetails;
 	}
 
-//	public ShoppingCartDetails getShoppingCartDetails() {
-//		return shoppingCartDetails;
-//	}
-//
-//	public void setShoppingCartDetails(ShoppingCartDetails shoppingCartDetails) {
-//		this.shoppingCartDetails = shoppingCartDetails;
-//	}
+	public long getCustomer_num() {
+		return customer_num;
+	}
+
+	public void setCustomer_num(long customer_num) {
+		this.customer_num = customer_num;
+	}
 	
 }

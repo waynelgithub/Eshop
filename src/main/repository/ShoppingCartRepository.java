@@ -12,4 +12,7 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long
 
 	@Query("from ShoppingCart s left join fetch s.shoppingCartDetails where s.id = :id")
 	public ShoppingCart getByIdWithShoppingCartDetails(@Param("id") long id);
+	
+	@Query("from ShoppingCart s join fetch s.shoppingCartDetails where s.customer_num = :id")
+	public ShoppingCart getCustomerNum(@Param("id") long id);
 }

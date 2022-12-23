@@ -27,6 +27,9 @@ public class ShoppingCartDetails {
 	@Column(name = "product_name")
 	private String productName;
 	
+	@Column(name = "product_number")
+	private long productNum;
+	
 	@Column(name = "product_price")
 	private BigDecimal productPrice;
 	
@@ -71,5 +74,13 @@ public class ShoppingCartDetails {
 
 	public void setProductPrice(BigDecimal productPrice) {
 		this.productPrice = productPrice;
+	}
+
+	public long getProductNum() {
+		return productNum;
+	}
+
+	public void setProductNum(long productNum) {
+		this.productNum = productNum;
 	}
 }

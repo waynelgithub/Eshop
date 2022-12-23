@@ -44,6 +44,11 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	public ShoppingCart getByIdWithShoppingCartDetails(long id) {
 		return shoppingCartRepository.getByIdWithShoppingCartDetails(id);
 	}
+	
+	@Override
+	public ShoppingCart getCustomerNum(long id) {
+		return shoppingCartRepository.getCustomerNum(id);
+	}
 
 
 }
