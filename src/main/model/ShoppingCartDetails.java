@@ -1,5 +1,8 @@
 package main.model;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +23,12 @@ public class ShoppingCartDetails {
 	@ManyToOne
 	@JoinColumn(name = "shoppingCart_id")
 	private ShoppingCart shoppingCart;
+	
+	@Column(name = "product_name")
+	private String productName;
+	
+	@Column(name = "product_price")
+	private BigDecimal productPrice;
 	
 	@Min(value = 1, message = "{ShoppingCartDetails.quantity}")
 	private int quantity;
@@ -46,5 +55,21 @@ public class ShoppingCartDetails {
 
 	public void setShoppingCart(ShoppingCart shoppingCart) {
 		this.shoppingCart = shoppingCart;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public BigDecimal getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(BigDecimal productPrice) {
+		this.productPrice = productPrice;
 	}
 }
