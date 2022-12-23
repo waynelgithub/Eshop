@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import main.model.ShoppingCart;
 import main.service.ShoppingCartService;
 
+/**
+ * 
+ * @author hsu
+ *
+ */
 @Controller
 public class ShoppingCartController {
 	
