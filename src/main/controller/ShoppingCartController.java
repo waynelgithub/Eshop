@@ -22,45 +22,45 @@ public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 	
-	@GetMapping("/addShoppingCart")
+	@GetMapping("/add-shopping-cart")
 	public String showShoppingCartForm(Model model) {
 		model.addAttribute("shoppingCart", new ShoppingCart());
-		return "formShoppingCart";
+		return "form-shopping-cart";
 	}
 
-	@PostMapping("/processShoppingCartForm")
+	@PostMapping("/processs-shopping-cart-form")
 	public String showTourData(@Valid @ModelAttribute ShoppingCart shoppingCart, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			return "formShoppingCart";
+			return "form-shopping-cart";
 		}
 		shoppingCartService.saveOrUpdate(shoppingCart);
-		return "redirect:/showShoppingCartOffer";
+		return "redirect:/show-shopping-cart";
 	}
 
-	@GetMapping("/showShoppingCartOffer")
+	@GetMapping("/show-shopping-cart")
 	public String getTours(Model model) {
 		List<ShoppingCart> shoppingCarts = shoppingCartService.getAll();
 		model.addAttribute("shoppingCarts", shoppingCarts);
-		return "shoppingCarts";
+		return "shoppingCart";
 	}
 
-	@GetMapping("/deleteShoppingCart/{id}")
+	@GetMapping("/delete-shopping-cart/{id}")
 	public String deleteTour(@PathVariable long id) {
 		ShoppingCart shoppingCart = shoppingCartService.getById(id);
 		if (shoppingCart != null) {
 			shoppingCartService.delete(id);
 		}
-		return "redirect:/showShoppingCartOffer";
+		return "redirect:/show-shopping-cart";
 	}
 
-	@GetMapping("/editShoppingCart/{id}")
+	@GetMapping("/edit-shopping-cart/{id}")
 	public String editTour(@PathVariable long id, Model model) {
 		ShoppingCart shoppingCart = shoppingCartService.getById(id);
 		if (shoppingCart != null) {
 			model.addAttribute("shoppingCart", shoppingCart);
-			return "formShoppingCart";
+			return "form-shopping-cart";
 		}
-		return "redirect:/showShoppingCartOffer";
+		return "redirect:/show-shopping-cart";
 	}
 
 }

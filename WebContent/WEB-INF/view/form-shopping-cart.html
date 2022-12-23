@@ -3,20 +3,20 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<title>Shopping Card page</title>
-<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<script th:src="@{/js/bootstrap.min.js}"></script>
+	<meta charset="UTF-8">
+	<title>Shopping Card page</title>
+	<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 
 <body>
 	<div class="container">
 
 		<form action="#" class="col g-3 p-5"
-			th:action="@{/process-shopping-cart-details-form}"
-			th:object="${shoppingCartDetails}" method="post">
+			th:action="@{/process-shopping-cart-form}"
+			th:object="${shoppingCart}" method="post">
 			<div class="form-group">
 				<input type="hidden" class="form-control" th:field="*{id}">
 			</div>

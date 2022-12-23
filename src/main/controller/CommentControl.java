@@ -23,7 +23,7 @@ public class CommentControl {
 	@Autowired
 	private CommentService commentService;
 	
-	@GetMapping("/addComment")
+	@GetMapping("/add-comment")
 	public String showCommentForm(Model model) {
 		List<Tour> tours = tourService.getAll();
 		model.addAttribute("tours", tours);
@@ -31,7 +31,7 @@ public class CommentControl {
 		return "form-comment";
 	}
 	
-	@PostMapping("/processFormComment")
+	@PostMapping("/process-form-comment")
 	public String addCommentData(@ModelAttribute Comment comment) {
 		commentService.save(comment);
 		return "home";

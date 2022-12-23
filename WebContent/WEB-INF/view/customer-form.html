@@ -18,45 +18,41 @@
 			<h1 class="text-dark text-center">新增客戶資料</h1>
 		</div>
 
-		<form action="#" class="col g-3 p-5" th:action="@{/processCustomerForm}"
+		<form action="#" class="col g-3 p-5" th:action="@{/process-customer-form}"
 			th:object="${customer}" method="post">
 			<div class="form-group">
 				<input type="hidden" class="form-control" th:field="*{id}">
 			</div>
 
-
 			<div class="form-group">
-				<input type="hidden" class="form-control"
-					th:field="*{customerDetails.id}">
+				<input type="hidden" class="form-control" th:field="*{customerDetails.id}">
 			</div>
 
 			<div class="form-group">
-				<input type="hidden" class="form-control"
-					th:field="*{customerDetails.mobile}">
+				<label>客戶名稱</label>
+				<input type="text" class="form-control" th:field="*{name}" required>
+			</div>
+			
+			<div class="form-group">
+				<label class="form-label">客戶地區</label> 
+				<input type="text" class="form-control" th:field="*{county}" required>
 			</div>
 
 			<div class="form-group">
-				<input type="hidden" class="form-control"
-					th:field="*{customerDetails.email}">
+				<input type="text" class="form-control"	th:field="*{customerDetails.mobile}" required>
 			</div>
 
 			<div class="form-group">
-				<label>客戶名稱 Name</label> <input type="text" class="form-control"
-					th:field="*{name}">
-			</div>
-			<div class="form-group">
-				<label class="form-label">客戶地點 County</label> <input type="text"
-					class="form-control" th:field="*{county}">
+				<input type="text" class="form-control"	th:field="*{customerDetails.email}" required>
 			</div>
 
 			<div class="form-row">
 				<div class="col">
-					<input class="btn btn-outline-success" type="submit"
-						value="儲存 Save">
+					<input class="btn btn-outline-success" type="submit" value="儲存">
 				</div>
+				
 				<div class="col ps-2">
-					<a th:href="@{/}" class="btn btn-outline-warning float-right">取消
-						Cancel</a>
+					<a th:href="@{/}" class="btn btn-outline-warning float-right">取消</a>
 				</div>
 			</div>
 		</form>

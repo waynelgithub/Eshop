@@ -32,7 +32,7 @@
 			<!-- <a th:href="@{/addTour}" class="p-1">Add a new tour</a> <a
 				th:href="@{/showOffer}" class="p-1">Show our offer</a> -->
 			<!-- <a th:href="@{/addComment}" class="p-1">Add comment</a> -->
-			<a th:href="@{/showShoppingCartOffer}" class="p-1">購物車</a> <a
+			<a th:href="@{/}" class="p-1">購物車</a> <a
 				th:href="@{/addCustomer}" class="p-1">新增客戶</a> <a
 				th:href="@{/showCustomerOffer}" class="p-1">客戶資料</a>
 			<!-- <a th:href="@{/addCustomerComment}" class="p-1">新增評論 Add customer comment</a> -->
@@ -56,7 +56,7 @@
 					<div class="card-body">
 						<h5 class="card-title" th:text="${product.prodName}"></h5>
 						<h5 class="card-title" th:text="${product.prodPrice}"></h5>
-						<a th:href="@{/add-shopping-cart-details}" class="btn btn-primary">加入購物車</a>
+						<a th:href="@{/add-shopping-cart-details/} + ${product.id}" class="btn btn-primary">加入購物車</a>
 					</div>
 				</div>
 			</div>

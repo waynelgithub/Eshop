@@ -10,57 +10,37 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
 import main.service.ShoppingCartDetailsService;
+import main.service.ShoppingCartService;
 
 @Controller
 public class ShoppingCartDetailsController {
-	
+
 	@Autowired
 	private ShoppingCartDetailsService shoppingCartDetailsService;
 	
+	@Autowired
+	private ShoppingCartService shoppingCartService;
+	
 	@GetMapping("/add-shopping-cart-details")
 	public String showShoppingCartForm(Model model) {
-		model.addAttribute("shoppingCartDetails", new ShoppingCartDetails());
+		List<ShoppingCart> shoppingCarts = shoppingCartService.getAll();
+		model.addAttribute("shoppingCarts", shoppingCarts);
+		model.addAttribute("shoppingCartDetail", shoppingCartDetailsService);
 		return "form-shopping-cart-details";
 	}
 	
 	@PostMapping("/process-shopping-cart-details-form")
-	public String showShoppingCartDetailsData(@Valid @ModelAttribute ShoppingCartDetails shoppingCartDetails, BindingResult bindingResult) {
+	public String showShoppingCartDetailsData(@Valid @ModelAttribute ShoppingCartDetails shoppingCartDetails,
+			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "form-shopping-cart-details";
 		}
 		shoppingCartDetailsService.saveOrUpdate(shoppingCartDetails);
-		return "redirect:/shopping-cart";
-	}
-	
-	
-	@GetMapping("/show-shopping-cart-offer")
-	public String getShoppingCartDetails(Model model) {
-		List<ShoppingCartDetails> shoppingCartDetails = shoppingCartDetailsService.getAll();
-		model.addAttribute("shoppingCartDetails", shoppingCartDetails);
-		return "shopping-cart";
-	}
-
-	@GetMapping("/delete-shopping-cart-details/{id}")
-	public String deleteShoppingCartDetails(@PathVariable long id) {
-		ShoppingCartDetails shoppingCartDetails = shoppingCartDetailsService.getById(id);
-		if (shoppingCartDetails != null) {
-			shoppingCartDetailsService.delete(id);
-		}
-		return "redirect:/shopping-cart";
-	}
-
-	@GetMapping("/edit-shopping-cart-details/{id}")
-	public String editShoppingCartDetails(@PathVariable long id, Model model) {
-		ShoppingCartDetails shoppingCartDetails = shoppingCartDetailsService.getById(id);
-		if (shoppingCartDetails != null) {
-			model.addAttribute("shoppingCartDetails", shoppingCartDetails);
-			return "form-shopping-cart-details";
-		}
-		return "redirect:/shopping-cart";
+		return "redirect:/";
 	}
 }

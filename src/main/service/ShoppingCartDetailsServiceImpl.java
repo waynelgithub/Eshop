@@ -37,9 +37,5 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 	public void delete(long id) {
 		shoppingCartDetailsRepository.deleteById(id);		
 	}
-	
-
-	
-	
 
 }

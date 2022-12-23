@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>訂單資訊頁</title>
+<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm"></div>
+
+			<div class="col-sm">
+				<h1>修改訂單資訊</h1>
+
+				<form action="#" th:action="@{/submitSorder}" th:object="${sorder}"
+					method="post" th:accept-charset="utf-8">
+					<div class="form-group">
+						<input type="hidden" class="form-control" th:field="*{id}">
+					</div>					
+					<div class="form-group">
+						<label>Order Number</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('ordNum')}" th:errors="*{ordNum}"></div>
+						<input type="text" class="form-control" th:field="*{ordNum}">
+					</div>
+
+					<div class="form-group">
+						<label>Order date</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}"></div>
+						<input type="date" class="form-control" th:field="*{orderDate}">
+					</div>
+
+					<div class="form-group">
+						<label>Customer Number</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('custNum')}" th:errors="*{custNum}"></div>
+						<input type="number" class="form-control" th:field="*{custNum}">
+					</div>
+
+					<div class="form-group">
+						<label>Order Amount</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('ordAmt')}" th:errors="*{ordAmt}"></div>
+						<input type="number" class="form-control" th:field="*{ordAmt}">
+					</div>
+
+
+					<div class="form-row">
+						<div class="col">
+							<input class="btn btn-success" type="submit" value="Submit">
+						</div>
+						<div class="col">
+							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-sm"></div>
+		</div>
+	</div>
+</body>
+</html>
