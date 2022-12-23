@@ -3,7 +3,11 @@ package main.service;
 import java.util.List;
 
 import main.model.Order;
-
+/**
+ * 
+ * @author hsu
+ *
+ */
 public interface OrderService {
 
 	public List<Order> getAll();

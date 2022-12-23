@@ -4,7 +4,11 @@ import java.util.List;
 
 import main.model.Product;
 
-
+/**
+ * 
+ * @author hsu
+ *
+ */
 public interface ProductService {
 
 	public List<Product> getAll();

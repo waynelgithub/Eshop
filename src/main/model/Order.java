@@ -14,7 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
+/**
+ * 
+ * @author hsu
+ *
+ */
 @Entity
 @Table(name = "sales_order")
 public class Order {

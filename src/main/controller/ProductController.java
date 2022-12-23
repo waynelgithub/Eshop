@@ -17,6 +17,11 @@ import main.model.Product;
 
 import main.service.ProductService;
 
+/**
+ * 
+ * @author hsu
+ *
+ */
 
 @Controller
 public class ProductController {

@@ -23,7 +23,11 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
+/**
+ * 
+ * @author hsu
+ *
+ */
 @Entity
 @Table(name = "sales_order_detail")
 public class OrderDetail {

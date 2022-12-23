@@ -8,7 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import main.model.Product;
 import main.repository.ProductRepository;
-
+/**
+ * 
+ * @author hsu
+ *
+ */
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
