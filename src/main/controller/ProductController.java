@@ -24,7 +24,6 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	
 	@GetMapping("/add-product")
 	public String showProductForm(Model model) {
 		model.addAttribute("product", new Product());
