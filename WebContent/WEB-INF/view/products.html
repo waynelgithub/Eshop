@@ -1,114 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="UTF-8">
-<title>產品列表頁</title>
-<script th:src="@{/js/popper.min.js}"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <meta charset="UTF-8">
+    <title>產品列表頁</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script type=module th:src="@{/js/modal.js}"></script>
 </head>
 
 <body>
-	<div class="container">
-		<div class="row">
-			<h1>產品列表</h1>
-		</div>
-
-		<div class="row">
-			<table class="table table-hover" th:if="${!products.empty}">
-				<thead>
-					<tr>
-						<th scope="col">產品編號</th>
-						<th scope="col">產品大類</th>
-						<th scope="col">產品中類</th>
-						<th scope="col">產品名稱</th>
-						<th scope="col">產品價格</th>
-						<th scope="col">修改資料</th>
-						<th scope="col">刪除產品</th>
-
-
-
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="product : ${products}">
-						<td th:text="${product.prodNum}"></td>
-						<td th:text="${product.prodType}"></td>
-						<td th:text="${product.prodline}"></td>
-						<td th:text="${product.prodName}"></td>
-						<td th:text="${product.prodPrice}"></td>
-						<td><a class="btn btn-primary"
-							th:href="@{/edit-product/} + ${product.id}">修改</a></td>
-						<td><a class="btn btn-danger" data-bs-toggle="modal"
-							data-bs-target="#staticBackdrop"
-							th:data-bs-action-href="@{/delete-product/} + ${product.id}"
-							data-bs-modal-tile="刪除">刪除</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="row" th:if="${products.empty}">
-			<h3>尚無任何產品</h3>
-		</div>
-		<div class="container">
-			<a th:href="@{/add-product}" class="btn btn-primary">新增產品</a> <a
-				th:href="@{/}" class="btn btn-warning">首頁</a>
-		</div>
-	</div>
-
-	<!--  modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="modal-title">Modal Title</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">...</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">取消</button>
-					<a class="btn btn-danger" id="action-href" href="#">確定</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<script type="text/javascript">
-        const dialogModal = document.getElementById('staticBackdrop')
-        dialogModal.addEventListener('show.bs.modal', event => {
-            // Button that triggered the modal
-            const button = event.relatedTarget
-
-            // Extract info from data-bs-* attributes
-            const href = button.getAttribute('data-bs-action-href')
-            const title = button.getAttribute('data-bs-modal-tile')
-
-            // If necessary, you could initiate an AJAX request here
-            // and then do the updating in a callback.
-
-            // Update the modal's title.	
-            const modalTitle = dialogModal.querySelector('#modal-title')
-            modalTitle.textContent = title
-
-         	// Update the modal's body.	
-            const modalBody = dialogModal.querySelector('.modal-body')
-            modalBody.textContent = '你確定你要' + title + '嗎？'
-
-        	// Update the modal's action button.	
-            const modalAction = dialogModal.querySelector('#action-href')
-            modalAction.setAttribute('href', href)
-
-        })
-    </script>
+    <div class="container">
+        <div class="row">
+            <h1>產品列表</h1>
+        </div>
+        <div class="row">
+            <table class="table table-hover" th:if="${!products.empty}">
+                <thead>
+                    <tr>
+                        <th scope="col">產品編號</th>
+                        <th scope="col">產品大類</th>
+                        <th scope="col">產品中類</th>
+                        <th scope="col">產品名稱</th>
+                        <th scope="col">產品價格</th>
+                        <th scope="col">修改資料</th>
+                        <th scope="col">刪除產品</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.prodNum}"></td>
+                        <td th:text="${product.prodType}"></td>
+                        <td th:text="${product.prodline}"></td>
+                        <td th:text="${product.prodName}"></td>
+                        <td th:text="${product.prodPrice}"></td>
+                        <td><a class="btn btn-primary" th:href="@{/edit-product/} + ${product.id}">修改</a></td>
+                        <td><a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                th:data-bs-action-href="@{/delete-product/} + ${product.id}"
+                                data-bs-modal-tile="刪除">刪除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row" th:if="${products.empty}">
+            <h3>尚無任何產品</h3>
+        </div>
+        <div class="container">
+            <a th:href="@{/add-product}" class="btn btn-primary">新增產品</a> 
+            <a th:href="@{/}"
+                class="btn btn-warning">首頁</a>
+        </div>
+    </div>
+    <my-modal>
+    </my-modal>
 </body>
 
 </html>
