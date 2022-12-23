@@ -17,7 +17,7 @@
 			<div class="col-sm-8">
 				<h1>編輯訂單明細</h1>
 
-				<form action="#" th:action="@{/saveOrderDetail}" th:object="${orderDetail}"
+				<form action="#" th:action="@{/save-order-detail}" th:object="${orderDetail}"
 					method="post">
 
 					<div class="form-group">
@@ -73,7 +73,7 @@
 							<input class="btn btn-success" type="submit" value="Submit">
 						</div>
 						<div class="col">
-							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
+							<a th:href="@{/add-order-detail}" class="btn btn-warning float-right">返回</a>
 						</div>
 					</div>
 				</form>

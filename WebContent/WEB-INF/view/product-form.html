@@ -17,7 +17,7 @@
 			<div class="col-sm">
 				<h1>產品資料修改</h1>
 
-				<form action="#" th:action="@{/submitProduct}" th:object="${product}"
+				<form action="#" th:action="@{/save-product}" th:object="${product}"
 					method="post" th:accept-charset="utf-8">
 					<div class="form-group">
 						<input type="hidden" class="form-control" th:field="*{id}">

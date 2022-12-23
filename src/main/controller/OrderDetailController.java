@@ -33,7 +33,7 @@ public class OrderDetailController {
 	private ProductService productService;
 	
 	
-	@GetMapping("/addOrderDetail")
+	@GetMapping("/add-order-detail")
 	public String showOrderDetailForm(Model model) {
 		List<Order> orders = orderService.getAll();
 		model.addAttribute("orders", orders);
@@ -41,42 +41,42 @@ public class OrderDetailController {
 		model.addAttribute("products", products);		
 		
 		model.addAttribute("orderDetail", new OrderDetail());
-		return "addOrderDetail";
+		return "order-detail-form";
 	}
 	
-	@PostMapping("/saveOrderDetail")
-	public String showOrderDetailData(@Valid @ModelAttribute OrderDetail orderDetail, BindingResult bindingResult) {
+	@PostMapping("/save-order-detail")
+	public String saveOrderDetailData(@Valid @ModelAttribute OrderDetail orderDetail, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return "addOrderDetail";
+			return "order-detail-form";
 		}
 		orderDetailService.saveOrUpdate(orderDetail);
-		return "redirect:showOrderDetail";
+		return "redirect:show-order-details";
 	}
 	
-	@GetMapping("/showOrderDetail")
+	@GetMapping("/show-order-details")
 	public String getOrderDetails(Model model) {
 		List<OrderDetail> orderDetails=orderDetailService.getAll();
 		model.addAttribute("orderDetails", orderDetails);
-		return "orderDetails";
+		return "order-details";
 	}
 	
-	@GetMapping("/deleteOrderDetail/{id}")
+	@GetMapping("/delete-order-detail/{id}")
 	public String deleteOrderDetail(@PathVariable int id) {
 		OrderDetail orderDetail = orderDetailService.getById(id);
 		if(orderDetail != null) {
 			orderDetailService.delete(id);
 		}
-		return "redirect:../showOrderDetail";
+		return "redirect:/show-order-details";
 	}
 	
-	@GetMapping("/editOrderDetail/{id}")
+	@GetMapping("/edit-order-detail/{id}")
 	public String editOrderDetail(@PathVariable int id, Model model) {
 		OrderDetail orderDetail = orderDetailService.getById(id);
 		if(orderDetail != null) {
 			model.addAttribute("orderDetail", orderDetail);
-			return "addOrderDetail";
+			return "order-detail-form";
 		}
-		return "redirect:../showOrderDetail";
+		return "redirect:/show-order-details";
 	}
 	
 }
