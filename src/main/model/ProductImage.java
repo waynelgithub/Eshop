@@ -1,7 +1,5 @@
 package main.model;
 
-import java.sql.Blob;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +18,7 @@ public class ProductImage {
 	private long imageNum;
 	
     @Column(name = "image_blob", columnDefinition="MEDIUMBLOB")
-    private Blob imageBlob;
+    private byte[] image;
     
 	@Column(name = "file_name")
 	private String fileName;
@@ -33,14 +31,6 @@ public class ProductImage {
 		this.imageNum = imageNum;
 	}
 
-	public Blob getImageBlob() {
-		return imageBlob;
-	}
-
-	public void setImageBlob(Blob imageBlob) {
-		this.imageBlob = imageBlob;
-	}
-
 	public String getFileName() {
 		return fileName;
 	}
@@ -48,6 +38,16 @@ public class ProductImage {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
+	
 
 //	@Column(name = "prod_num")
 //	private long prodNum;

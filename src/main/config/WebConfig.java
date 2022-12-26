@@ -11,6 +11,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -65,6 +66,12 @@ public class WebConfig implements WebMvcConfigurer {
 		bean.setValidationMessageSource(messageSource());
 		return bean;
 	}
+	
+//	@Bean(name = "filterMultipartResolver")
+//	public CommonsMultipartResolver multiPartResolver(){
+//	    CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+//	    return resolver;
+//	}
 
 	@Override
 	public Validator getValidator() {

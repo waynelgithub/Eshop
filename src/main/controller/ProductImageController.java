@@ -2,34 +2,32 @@ package main.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
+
 import java.sql.SQLException;
 import java.util.Base64;
-import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialException;
-import javax.validation.Valid;
+
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import main.model.Product;
 import main.model.ProductImage;
-import main.repository.ProductImageRepository;
 import main.service.ProductImageService;
-import main.service.ProductImageServiceImpl;
-import main.service.ProductService;
+
 
 
 @Controller
@@ -50,34 +48,23 @@ public class ProductImageController {
 		File initialFile = new File("/home/wl/Documents/ABC/pen1.png");
 		InputStream stream = new FileInputStream(initialFile);
 		byte[] bytes = IOUtils.toByteArray(stream);
-		Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
+
 		
 		ProductImage productImage = new ProductImage();
 		productImage.setFileName("pen01.png");
-		productImage.setImageBlob(blob);
+		productImage.setImage(bytes);
 				
 		productImageService.saveOrUpdate(productImage);
 
 		initialFile = new File("/home/wl/Documents/ABC/ruler1.png");
 		stream = new FileInputStream(initialFile);
 		bytes = IOUtils.toByteArray(stream);
-		blob = new javax.sql.rowset.serial.SerialBlob(bytes);
 		
 		ProductImage productImage2 = new ProductImage();
 		productImage2.setFileName("ruler01.png");
-		productImage2.setImageBlob(blob);
+		productImage2.setImage(bytes);
 		
 		productImageService.saveOrUpdate(productImage2);		
-		
-	}
-	
-	@GetMapping("/get-product-image")
-	public void getProductImage() throws SQLException, IOException  {
-		ProductImage pi = productImageService.getById((long) 1);
-		Blob blob = pi.getImageBlob();
-		InputStream in = blob.getBinaryStream();
-		OutputStream out = new FileOutputStream("/home/wl/Documents/ABC/pen02.png");
-		IOUtils.copy(in, out);
 		
 	}
 	
@@ -85,11 +72,7 @@ public class ProductImageController {
 	public String getProductImageToWeb(Model model) throws SQLException, IOException  {
 		
 		ProductImage pi = productImageService.getById(2);
-		Blob blob = pi.getImageBlob();
-		
-		
-		//convert blob to byte array[]
-		byte[] bytes = blob.getBinaryStream().readAllBytes();
+		byte[] bytes = pi.getImage();
 		
 		//convert byte array to base64 string
 		String encodedString = Base64.getEncoder().encodeToString(bytes);
@@ -98,10 +81,48 @@ public class ProductImageController {
 		model.addAttribute("img", encodedString);
 		return "base64-image-demo";
 		
-		
-
-		
 	}
+	
+	@GetMapping("/image-upload")
+	public String showProductImageUpload(Model model) {
+		model.addAttribute("productImage", new ProductImage());
+		return "product-image-upload-demo";
+	}
+
+
+	@PostMapping(value = "/product-image-upload")
+	public String saveImage(@RequestParam MultipartFile file)
+			throws Exception {
+
+		String filename = file.getOriginalFilename();
+		
+		byte[] bytes = file.getBytes();
+
+		ProductImage productImage = new ProductImage();
+		productImage.setFileName(filename);
+		productImage.setImage(bytes);
+				
+		productImageService.saveOrUpdate(productImage);
+
+	
+
+		return "product-image-upload-demo";
+	}
+	
+	
+	
+//	@GetMapping("/get-product-image")
+//	public void getProductImage() throws SQLException, IOException  {
+//		ProductImage pi = productImageService.getById((long) 1);
+//		Blob blob = pi.getImageBlob();
+//		InputStream in = blob.getBinaryStream();
+//		OutputStream out = new FileOutputStream("/home/wl/Documents/ABC/pen02.png");
+//		IOUtils.copy(in, out);
+//		
+//	}
+	
+	
+	
 	
 //	@PostMapping("/save-product")
 //	public String saveProductData(@Valid @ModelAttribute Product product, BindingResult bindingResult) {
