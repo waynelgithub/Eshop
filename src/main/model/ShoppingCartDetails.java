@@ -11,11 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-/**
- * 
- * @author hsu
- *
- */
+
 @Entity
 @Table(name = "shopping_cart_details")
 public class ShoppingCartDetails {
@@ -29,16 +25,16 @@ public class ShoppingCartDetails {
 	private ShoppingCart shoppingCart;
 	
 	@Column(name = "product_name")
-	private String productName;
+	private String productName = "電腦";
 	
 	@Column(name = "product_number")
-	private long productNum;
+	private long productNum = 12345;
 	
 	@Column(name = "product_price")
-	private BigDecimal productPrice;
+	private BigDecimal productPrice = new BigDecimal(1111);
 	
 	@Min(value = 1, message = "{ShoppingCartDetails.quantity}")
-	private int quantity;
+	private int quantity = 1;
 	
 	public long getId() {
 		return id;

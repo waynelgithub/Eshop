@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import main.model.OrderDetail;
 import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
 import main.service.ShoppingCartDetailsService;
@@ -31,7 +32,7 @@ public class ShoppingCartDetailsController {
 	public String showShoppingCartForm(Model model) {
 		List<ShoppingCart> shoppingCarts = shoppingCartService.getAll();
 		model.addAttribute("shoppingCarts", shoppingCarts);
-		model.addAttribute("shoppingCartDetail", new ShoppingCartDetails());
+		model.addAttribute("shoppingCartDetails", new ShoppingCartDetails());
 		return "form-shopping-cart-details";
 	}
 	
@@ -42,16 +43,7 @@ public class ShoppingCartDetailsController {
 			return "form-shopping-cart-details";
 		}
 		shoppingCartDetailsService.saveOrUpdate(shoppingCartDetails);
-		return "redirect:/";
+		return "redirect:/show-shopping-cart";
 	}
 	
-	@GetMapping("/show-shopping-cart-details/{shoppingCartId}")
-	public String showShoppingCartDetails(@PathVariable long shoppingCartId, Model model) {
-		ShoppingCart shoppingCart = shoppingCartService.getByIdWithShoppingCartDetails(shoppingCartId);
-		if(shoppingCart != null) {
-			model.addAttribute("shoppingCart", shoppingCart);
-			return "shopping-cart";
-		}
-		return "redirect:/";
-	}
 }

@@ -5,21 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Home page</title>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script type=module th:src="@{/js/modal.js}"></script>
 </head>
 
 <body class="m-auto">
@@ -33,7 +22,8 @@
 				th:href="@{/showOffer}" class="p-1">Show our offer</a>
 			<a th:href="@{/addComment}" class="p-1">Add comment</a> -->
 			<a th:href="@{/show-shopping-cart}" class="p-1">購物車</a> 
-			<a th:href="@{/add-shopping-cart-details}" class="p-1">新增購物車</a> 
+			<a th:href="@{/add-shopping-cart}" class="p-1">新增購物車</a> 
+			<a th:href="@{/add-shopping-cart-details}" class="p-1">新增購物清單</a> 
 			<a th:href="@{/add-customer}" class="p-1">新增客戶</a> 
 			<a th:href="@{/show-customers}" class="p-1">客戶資料</a>
 			<a th:href="@{/add-product}" class="p-1">新增產品資料</a>			
@@ -48,7 +38,7 @@
 		</div>
 
 		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 p-5"
-			th:if="${!products.empty}">
+			th:if="${!product.empty}">
 			<div class="col my-1" th:each="product : ${products}">
 				<div class="card mx-0" style="width: 12rem;">
 					<img th:src="@{/images/wallpaper_httyd1_1920x1200-3_INTL.jpg}"
@@ -62,7 +52,7 @@
 			</div>
 		</div>
 
-		<div class="row p-5" th:if="${products.empty}">
+		<div class="row p-5" th:if="${product.empty}">
 			<h3>無任何產品</h3>
 		</div>
 	</div>

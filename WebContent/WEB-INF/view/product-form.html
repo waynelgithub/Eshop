@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>產品資料頁</title>
+<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm"></div>
+
+			<div class="col-sm">
+				<h1>產品資料修改test</h1>
+
+				<form action="#" th:action="@{/save-product}" th:object="${product}"
+					method="post" th:accept-charset="utf-8">
+					<div class="form-group">
+						<input type="hidden" class="form-control" th:field="*{id}">
+					</div>
+					<div class="form-group">
+						<label>產品編號</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('prodNum')}" th:errors="*{prodNum}"></div>
+						<input type="text" class="form-control" th:field="*{prodNum}">
+						<small class="form-text text-muted">編號需大於10000</small>	
+					</div>
+					<div class="form-group">
+						<label>產品大類</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('prodType')}" th:errors="*{prodType}"></div>
+						<input type="text" class="form-control" th:field="*{prodType}">
+					</div>
+					<div class="form-group">
+						<label>產品中類</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('prodline')}" th:errors="*{prodline}"></div>
+						<input type="text" class="form-control" th:field="*{prodline}">
+					</div>					
+					<div class="form-group">
+						<label>產品名稱</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('prodName')}" th:errors="*{prodName}"></div>
+						<input type="text" class="form-control" th:field="*{prodName}">
+						<small class="form-text text-muted">請輸入至少2個字</small>						
+					</div>	
+					<div class="form-group">
+						<label>產品價格</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('prodPrice')}" th:errors="*{prodPrice}"></div>
+						<input type="number" class="form-control" th:field="*{prodPrice}">
+					</div>
+
+<!--  -->
+					<div class="form-row">
+						<div class="col">
+							<input class="btn btn-success" type="submit" value="Submit">
+						</div>
+						<div class="col">
+							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+
+			<div class="col-sm"></div>
+		</div>
+	</div>
+</body>
+</html>

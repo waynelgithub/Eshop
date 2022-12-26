@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Shopping Card page</title>
+<title>購物車明細</title>
 <script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -13,7 +13,8 @@
 
 <body>
 	<div class="container">
-
+		<h1>購物車明細</h1>
+		
 		<form action="#" class="col g-3 p-5"
 			th:action="@{/process-shopping-cart-details-form}"
 			th:object="${shoppingCartDetails}" method="post">
@@ -22,30 +23,30 @@
 			</div>
 
 			<div class="form-group">
-				<input type="hidden" class="form-control" th:field="*{shoppingCart.id}">
+				<input type="text" class="form-control" th:field="*{shoppingCart.id}">
 			</div>
 			
 			<div class="form-group">
-				<input type="hidden" class="form-control" th:field="*{productNum}">
+				<input type="text" class="form-control" th:field="*{productNum}">
 			</div>
 
 			<div class="form-group">
-				<label>商品名稱</label> <input disabled type="text" class="form-control"
-				th:field="*{productName}">
+				<label>商品名稱</label> 
+				<input disabled type="text" class="form-control" th:field="*{productName}">
 			</div>
 			<div class="form-group">
-				<label class="form-label">商品數量</label> <input type="text"
-					class="form-control" th:field="*{quantity}">
+				<label class="form-label">商品數量</label> 
+				<input type="text" class="form-control" th:field="*{quantity}">
 			</div>
 
 			<div class="form-group">
-				<label class="form-label">單價</label> <input disabled type="text"
-					class="form-control" th:field="*{productPrice}">
+				<label class="form-label">單價</label> 
+				<input disabled type="text"	class="form-control" th:field="*{productPrice}">
 			</div>
 
 			<div class="form-row">
 				<div class="col">
-					<input class="btn btn-outline-success" type="submit" value="儲存">
+					<input class="btn btn-outline-success" type="submit" value="加入購物車">
 				</div>
 				<div class="col ps-2">
 					<a th:href="@{/}" class="btn btn-outline-warning float-right">取消</a>

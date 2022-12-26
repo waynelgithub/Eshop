@@ -1,6 +1,7 @@
 package main.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import main.model.ShoppingCart;
 
@@ -18,6 +19,5 @@ public interface ShoppingCartService {
 	
 	public ShoppingCart getCustomerNum(long id);
 	
-//	public void addUserToTour(long id, long userId);
-
+	public List<ShoppingCart> findFirstByOrderById();
 }

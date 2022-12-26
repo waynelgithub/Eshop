@@ -1,5 +1,8 @@
 package main.repository;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +18,6 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long
 	
 	@Query("from ShoppingCart s join fetch s.shoppingCartDetails where s.customer_num = :id")
 	public ShoppingCart getCustomerNum(@Param("id") long id);
+	
+	List<ShoppingCart> findFirstByOrderById(); 
 }

@@ -6,12 +6,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,16 +20,15 @@ public class ShoppingCart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotNull(message = "{tour.date.notnull}")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date date = new Date();
 	
-	private BigDecimal amount;
+	private BigDecimal amount = new BigDecimal(0);
 	
-	@OneToMany(mappedBy = "shoppingCart",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "shoppingCart",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ShoppingCartDetails> shoppingCartDetails;
 	
-	private long customer_num;
+	private long customer_num = 1;
 
 	public long getId() {
 		return id;

@@ -1,6 +1,7 @@
 package main.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -50,5 +51,9 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 		return shoppingCartRepository.getCustomerNum(id);
 	}
 
+	@Override
+	public List<ShoppingCart> findFirstByOrderById() {
+		return shoppingCartRepository.findFirstByOrderById();
+	}
 
 }

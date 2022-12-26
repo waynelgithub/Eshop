@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>訂單明細</title>
+<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm"></div>
+
+			<div class="col-sm-8">
+				<h1>編輯訂單明細test</h1>
+
+				<form action="#" th:action="@{/save-order-detail}" th:object="${orderDetail}"
+					method="post">
+
+					<div class="form-group">
+						<input type="hidden" class="form-control" th:field="*{id}">
+					</div>
+					
+					<div class="form-group">
+						<label>訂單編號</label>
+						
+						<select class="form-control" th:field="*{order.id}">
+							<option th:each="order : ${orders}"
+									th:value="${order.id}"
+									th:text="${order.ordNum}">
+							</option>
+						</select>
+					</div>
+<!-- 
+					<div class="form-group">
+						<label>產品編號</label>
+						
+						<select class="form-control" th:field="*{product.id}">
+							<option th:each="product : ${products}"
+									th:value="${product.id}"
+									th:text="${product.prodName}">
+							</option>
+						</select>
+					</div>		
+ -->					
+					<div class="form-group">
+						<label>產品編號</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('prodNum')}" th:errors="*{prodNum}"></div>
+						<input type="number" class="form-control" th:field="*{prodNum}">
+					</div>
+
+					<div class="form-group">
+						<label>產品銷售數量</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('ordQty')}" th:errors="*{ordQty}"></div>
+						<input type="number" class="form-control" th:field="*{ordQty}">
+					</div>
+
+					<div class="form-group">
+						<label>產品銷售價格</label>
+						<div class="alert alert-danger" role="alert"
+							th:if="${#fields.hasErrors('ordPrice')}" th:errors="*{ordPrice}"></div>
+						<input type="number" class="form-control" th:field="*{ordPrice}">
+					</div>
+
+
+					<div class="form-row">
+						<div class="col">
+							<input class="btn btn-success" type="submit" value="Submit">
+						</div>
+						<div class="col">
+							<a th:href="@{/add-order-detail}" class="btn btn-warning float-right">返回</a>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-sm"></div>
+		</div>
+	</div>
+</body>
+</html>

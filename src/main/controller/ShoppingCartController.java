@@ -33,19 +33,22 @@ public class ShoppingCartController {
 		return "form-shopping-cart";
 	}
 
-	@PostMapping("/processs-shopping-cart-form")
+	@PostMapping("/process-shopping-cart-form")
 	public String showTourData(@Valid @ModelAttribute ShoppingCart shoppingCart, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "form-shopping-cart";
 		}
 		shoppingCartService.saveOrUpdate(shoppingCart);
-		return "redirect:/show-shopping-cart";
+		return "redirect:show-shopping-cart";
 	}
 
 	@GetMapping("/show-shopping-cart")
 	public String getTours(Model model) {
 		List<ShoppingCart> shoppingCarts = shoppingCartService.getAll();
-		model.addAttribute("shoppingCarts", shoppingCarts);
+		shoppingCarts.get(0);
+		int valueId = shoppingCarts.indexOf(0);
+		ShoppingCart shoppingCart = shoppingCartService.getByIdWithShoppingCartDetails(valueId);
+		model.addAttribute("shoppingCart", shoppingCart);
 		return "shopping-cart";
 	}
 
