@@ -66,4 +66,9 @@ public class ShoppingCartController {
 		return "redirect:/show-shopping-cart";
 	}
 	
+	@GetMapping("/payment")
+	public String showPayment() {
+		return "payment";
+	}
+	
 }
