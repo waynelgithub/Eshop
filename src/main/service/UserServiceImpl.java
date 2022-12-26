@@ -7,6 +7,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Service;
 
 import main.model.Role;
+import main.model.Tour;
 import main.model.User;
 import main.repository.RoleRepository;
 import main.repository.UserRepository;
@@ -36,6 +37,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean loginExists(String login) {
 		return userRepository.existsByLogin(login);
+	}
+	
+	@Override
+	public User getById(long id) {
+		return userRepository.findById(id).get();
 	}
 
 }
