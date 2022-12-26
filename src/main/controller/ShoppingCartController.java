@@ -1,7 +1,5 @@
 package main.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +22,8 @@ public class ShoppingCartController {
 	
 	@GetMapping("/add-shopping-cart")
 	public String showShoppingCartForm(Model model) {
-		List<ShoppingCart> shoppingCarts = shoppingCartService.getAll();
-		if (shoppingCarts == null) {
+		ShoppingCart shoppingCart = shoppingCartService.getByCustomerNum(1);
+		if (shoppingCart == null) {
 			model.addAttribute("shoppingCart", new ShoppingCart());
 			return "form-shopping-cart";
 		}
@@ -41,10 +39,10 @@ public class ShoppingCartController {
 		return "redirect:show-shopping-cart";
 	}
 
-	@GetMapping("/show-shopping-cart/{id}")
-	public String getTours(@PathVariable long id, Model model) {
-//		List<ShoppingCart> shoppingCarts = shoppingCartService.getAll();
-		ShoppingCart shoppingCart = shoppingCartService.getCustomerNum(id);
+	@GetMapping("/show-shopping-cart")
+	public String getTours(Model model) {
+		shoppingCartService.sumAmount();
+		ShoppingCart shoppingCart = shoppingCartService.getByCustomerNum(1);
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "shopping-cart";
 	}
@@ -67,5 +65,5 @@ public class ShoppingCartController {
 		}
 		return "redirect:/show-shopping-cart";
 	}
-
+	
 }

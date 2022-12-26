@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import main.model.OrderDetail;
 import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
 import main.service.ShoppingCartDetailsService;
@@ -43,6 +42,12 @@ public class ShoppingCartDetailsController {
 			return "form-shopping-cart-details";
 		}
 		shoppingCartDetailsService.saveOrUpdate(shoppingCartDetails);
+		return "redirect:/show-shopping-cart";
+	}
+	
+	@GetMapping("/shopping-cart-detail/{id}")
+	public String deleteShoppingCartDetailsData(@PathVariable long id) {
+		shoppingCartDetailsService.deleteByIdWithShoppingCartDetails(id);
 		return "redirect:/show-shopping-cart";
 	}
 	

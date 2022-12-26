@@ -37,5 +37,10 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 	public void delete(long id) {
 		shoppingCartDetailsRepository.deleteById(id);		
 	}
+	
+	@Override
+	public void deleteByIdWithShoppingCartDetails(long id) {
+		shoppingCartDetailsRepository.deleteByIdWithShoppingCartDetails(id);
+	}
 
 }

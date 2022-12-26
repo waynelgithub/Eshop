@@ -14,4 +14,5 @@ public interface ShoppingCartDetailsService {
 
 	public void delete(long id);
 	
+	public void deleteByIdWithShoppingCartDetails(long id);
 }

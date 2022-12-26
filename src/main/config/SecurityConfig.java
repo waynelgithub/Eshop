@@ -1,6 +1,5 @@
 package main.config;
 
-import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;

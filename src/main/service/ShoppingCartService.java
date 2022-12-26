@@ -1,5 +1,6 @@
 package main.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,9 @@ public interface ShoppingCartService {
 	
 	public ShoppingCart getByIdWithShoppingCartDetails(long id);
 	
-	public ShoppingCart getCustomerNum(long id);
+	public ShoppingCart getByCustomerNum(long id);
 	
 	public List<ShoppingCart> findFirstByOrderById();
+	
+	public void sumAmount();
 }

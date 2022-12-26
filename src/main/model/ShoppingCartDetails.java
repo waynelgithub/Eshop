@@ -25,16 +25,16 @@ public class ShoppingCartDetails {
 	private ShoppingCart shoppingCart;
 	
 	@Column(name = "product_name")
-	private String productName = "電腦";
+	private String productName;
 	
 	@Column(name = "product_number")
-	private long productNum = 12345;
+	private long productNum;
 	
 	@Column(name = "product_price")
-	private BigDecimal productPrice = new BigDecimal(1111);
+	public BigDecimal productPrice;
 	
 	@Min(value = 1, message = "{ShoppingCartDetails.quantity}")
-	private int quantity = 1;
+	public int quantity;
 	
 	public long getId() {
 		return id;

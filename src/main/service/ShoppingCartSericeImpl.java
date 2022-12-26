@@ -1,5 +1,6 @@
 package main.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import main.model.ShoppingCart;
+import main.model.ShoppingCartDetails;
+import main.repository.ShoppingCartDetailsRepository;
 import main.repository.ShoppingCartRepository;
 
 @Service
@@ -18,7 +21,8 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepository;
 	
-//	@Autowired
+	@Autowired
+	private ShoppingCartDetailsRepository shoppingCartDetailsRepository;
 //	private CustomerRepository customerRepository;
 	
 	@Override
@@ -47,13 +51,29 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	}
 	
 	@Override
-	public ShoppingCart getCustomerNum(long id) {
+	public ShoppingCart getByCustomerNum(long id) {
 		return shoppingCartRepository.getCustomerNum(id);
 	}
 
 	@Override
 	public List<ShoppingCart> findFirstByOrderById() {
 		return shoppingCartRepository.findFirstByOrderById();
+	}
+	
+	@Override
+	public void sumAmount() {
+		ShoppingCart shoppingCart = getByCustomerNum(1);
+		List<ShoppingCartDetails> shoppingCartDetails = shoppingCart.getShoppingCartDetails();
+		BigDecimal amount = new BigDecimal(0.0);
+		
+		for(int i = 0; i < shoppingCartDetails.size(); i++) {
+			BigDecimal qty = new BigDecimal(shoppingCartDetails.get(i).quantity);
+			BigDecimal price = shoppingCartDetails.get(i).productPrice;
+			amount = amount.add((price.multiply(qty)));
+		}
+		
+		shoppingCart.setAmount(amount);
+		saveOrUpdate(shoppingCart);
 	}
 
 }

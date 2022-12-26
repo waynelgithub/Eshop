@@ -18,7 +18,7 @@ public class ShoppingCart {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	public long id;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date date = new Date();

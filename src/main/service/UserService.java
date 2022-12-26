@@ -1,6 +1,5 @@
 package main.service;
 
-import main.model.Tour;
 import main.model.User;
 
 public interface UserService {
