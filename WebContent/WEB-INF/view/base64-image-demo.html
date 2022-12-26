@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>base 64 image</title>
+
+</head>
+
+<body>
+            <table  >
+                <thead>
+                    <tr>
+                        <th scope="col">產品圖片</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img width="900"  th:src="'data:image/png;base64,'+${img}"></td>
+
+                    </tr>
+                </tbody>
+            </table>
+</body>
+
+</html>

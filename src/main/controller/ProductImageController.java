@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.List;
 
 import javax.sql.rowset.serial.SerialException;
@@ -35,7 +36,7 @@ import main.service.ProductService;
 public class ProductImageController {
 
 	@Autowired
-	private ProductImageRepository productImageServiceRepository;
+	private ProductImageService productImageService;
 	
 	
 	@GetMapping("/add-product-image")
@@ -46,37 +47,59 @@ public class ProductImageController {
 	
 	@GetMapping("/save-product-image")
 	public void saveProductImage() throws IOException, SerialException, SQLException {
-		File initialFile = new File("C:\\ABC\\pen1.png");
+		File initialFile = new File("/home/wl/Documents/ABC/pen1.png");
 		InputStream stream = new FileInputStream(initialFile);
 		byte[] bytes = IOUtils.toByteArray(stream);
 		Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
 		
 		ProductImage productImage = new ProductImage();
-		productImage.setFileName("pen1.png");
+		productImage.setFileName("pen01.png");
 		productImage.setImageBlob(blob);
 				
-		productImageServiceRepository.save(productImage);
+		productImageService.saveOrUpdate(productImage);
 
-		initialFile = new File("C:\\ABC\\ruler1.png");
+		initialFile = new File("/home/wl/Documents/ABC/ruler1.png");
 		stream = new FileInputStream(initialFile);
 		bytes = IOUtils.toByteArray(stream);
 		blob = new javax.sql.rowset.serial.SerialBlob(bytes);
 		
 		ProductImage productImage2 = new ProductImage();
-		productImage2.setFileName("ruler1.png");
+		productImage2.setFileName("ruler01.png");
 		productImage2.setImageBlob(blob);
 		
-		productImageServiceRepository.save(productImage2);		
+		productImageService.saveOrUpdate(productImage2);		
 		
 	}
 	
 	@GetMapping("/get-product-image")
 	public void getProductImage() throws SQLException, IOException  {
-		ProductImage pi = productImageServiceRepository.findById((long) 1).get();
+		ProductImage pi = productImageService.getById((long) 1);
 		Blob blob = pi.getImageBlob();
 		InputStream in = blob.getBinaryStream();
-		OutputStream out = new FileOutputStream("C:\\ABC\\pen2.png");
+		OutputStream out = new FileOutputStream("/home/wl/Documents/ABC/pen02.png");
 		IOUtils.copy(in, out);
+		
+	}
+	
+	@GetMapping("/get-product-image-to-web")
+	public String getProductImageToWeb(Model model) throws SQLException, IOException  {
+		
+		ProductImage pi = productImageService.getById(2);
+		Blob blob = pi.getImageBlob();
+		
+		
+		//convert blob to byte array[]
+		byte[] bytes = blob.getBinaryStream().readAllBytes();
+		
+		//convert byte array to base64 string
+		String encodedString = Base64.getEncoder().encodeToString(bytes);
+
+
+		model.addAttribute("img", encodedString);
+		return "base64-image-demo";
+		
+		
+
 		
 	}
 	
