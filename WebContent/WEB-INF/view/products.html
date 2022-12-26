@@ -7,13 +7,13 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script type=module th:src="@{/js/modal.js}"></script>
+    <script type=module th:src="@{/js/dialog-modal.js}"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <h1>產品列表test</h1>
+            <h1>產品列表</h1>
         </div>
         <div class="row">
             <table class="table table-hover" th:if="${!products.empty}">
@@ -38,7 +38,7 @@
                         <td><a class="btn btn-primary" th:href="@{/edit-product/} + ${product.id}">修改</a></td>
                         <td><a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                 th:data-bs-action-href="@{/delete-product/} + ${product.id}"
-                                data-bs-modal-tile="刪除">刪除</a></td>
+                                data-bs-modal-message-id="msg-delete-product">刪除</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -52,8 +52,8 @@
                 class="btn btn-warning">首頁</a>
         </div>
     </div>
-    <my-modal>
-    </my-modal>
+	<my-dialog-modal>
+	</my-dialog-modal>
 </body>
 
 </html>
