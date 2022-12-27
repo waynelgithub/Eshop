@@ -3,11 +3,12 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-	<title>Shopping Cart page</title>
-	<script src="js/jquery-3.4.1.slim.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<script src="js/bootstrap.min.js"></script>
+	<title>購物車 page</title>
+	<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script type=module th:src="@{/js/dialog-modal.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -30,9 +31,18 @@
 					<tr th:each="shoppingCartDetails : ${shoppingCart.shoppingCartDetails}">
 						<td class="align-middle text-center" th:text="${shoppingCartDetailsStat.count}"></td>
 						<td class="align-middle text-center" th:text="${shoppingCartDetails.productName}"></td>
-						<td class="align-middle text-right" th:text="${shoppingCartDetails.quantity}"></td>
-						<td class="align-middle text-right" th:text="${#numbers.formatDecimal(shoppingCartDetails.productPrice, 0, 'COMMA', 2, 'POINT')}"></td>
-						<td class="align-middle d-flex justify-content-center"><a class="btn btn-outline-danger" th:href="@{/shopping-cart-detail/} + ${shoppingCartDetails.id}">取消</a></td>
+						<td class="align-middle text-right text-end" th:text="${shoppingCartDetails.quantity}"></td>
+						<td class="align-middle text-right text-end" th:text="${#numbers.formatDecimal(shoppingCartDetails.productPrice, 0, 'COMMA', 2, 'POINT')}"></td>
+						<td class="align-middle d-flex justify-content-center">
+							<a 
+								class="btn btn-outline-danger" 
+								data-bs-toggle="modal" 
+								data-bs-target="#staticBackdrop"
+								th:data-bs-action-href="@{/shopping-cart-detail/} + ${shoppingCartDetails.id}"
+								data-bs-modal-message-id="msg-delete-product">
+								取消
+							</a>
+							</td>
 					</tr>
 				</tbody>
 			</table>
@@ -57,5 +67,6 @@
 			<a style="width: 5rem;" th:href="@{/payment}" class="btn btn-outline-warning">結帳</a>
 		</div>
 	</div>
+	<my-dialog-modal></my-dialog-modal>
 </body>
 </html>

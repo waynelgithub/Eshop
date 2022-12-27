@@ -21,15 +21,15 @@
 			<!-- <a th:href="@{/addTour}" class="p-1">Add a new tour</a> <a
 				th:href="@{/showOffer}" class="p-1">Show our offer</a>
 			<a th:href="@{/addComment}" class="p-1">Add comment</a> -->
-			<a th:href="@{/show-shopping-cart}" class="p-1">購物車</a> 
-			<a th:href="@{/add-shopping-cart}" class="p-1">新增購物車</a> 
-			<a th:href="@{/add-shopping-cart-details}" class="p-1">新增購物清單</a> 
-			<a th:href="@{/add-customer}" class="p-1">新增客戶</a> 
-			<a th:href="@{/show-customers}" class="p-1">客戶資料</a>
-			<a th:href="@{/add-product}" class="p-1">新增產品資料</a>			
+			<a sec:authorize="hasRole('CLIENT')" th:href="@{/show-shopping-cart}" class="p-1">購物車</a> 
+			<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-shopping-cart}" class="p-1">新增購物車</a> 
+			<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-shopping-cart-details}" class="p-1">新增購物清單</a> 
+			<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-customer}" class="p-1">新增客戶</a> 
+			<a sec:authorize="hasRole('CLIENT')" th:href="@{/show-customers}" class="p-1">客戶資料</a>
+			<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-product}" class="p-1">新增產品資料</a>			
 			<!-- <a th:href="@{/showProduct}" class="p-1">檢視產品列表</a>	 -->
-			<a th:href="@{/addSorder}" class="p-1">新增訂單資料</a>			
-			<a th:href="@{/showSorders}" class="p-1">檢視訂單列表</a>		
+			<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/addSorder}" class="p-1">新增訂單資料</a>			
+			<a sec:authorize="hasRole('CLIENT')" th:href="@{/showSorders}" class="p-1">檢視訂單列表</a>		
 			<!-- <a th:href="@{/addSorderDetail}" class="p-1">新增訂單明細資料</a>			
 			<a th:href="@{/showSorderDetail}" class="p-1">檢視訂單明細</a> -->
 			<a sec:authorize="isAnonymous()" th:href="@{/login}" class="p-1">登入/註冊</a>
@@ -37,25 +37,25 @@
 			<a sec:authorize="!isAnonymous()" th:href="@{/logout}" class="p-1">登出</a>
 		</div>
 
-		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 p-5"
+		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 px-5"
 			th:if="${!products.empty}">
 			<div class="col my-1" th:each="product : ${products}">
 				<div class="card mx-0" style="width: 12rem;">
 					<img th:src="@{/images/wallpaper_httyd1_1920x1200-3_INTL.jpg}"
 						class="card-img-top" alt="...">
 					<div class="card-body">
-						<h5 class="card-title" th:text="${product.prodName}"></h5>
-						<h5 class="card-title" th:text="${product.prodPrice}"></h5>
-						<h5 class="card-title" th:text="${product.prodNum}"></h5>
+						<h4 class="card-title" th:text="${product.prodName}"></h4>
+						<h5 class="card-title" th:text="${#numbers.formatDecimal(product.prodPrice, 0, 'COMMA', 2, 'POINT')}"></h5>
 						<div class="row">
-							<a th:href="@{/add-shopping-cart-details/} + ${product.id}" class="btn btn-primary">加入購物車</a>
+							<a sec:authorize="!isAnonymous()" th:href="@{/add-shopping-cart-details/} + ${product.id}" class="btn btn-primary">加入購物車</a>
+							<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/}" class="btn btn-primary">編輯產品</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="row p-5" th:if="${products.empty}">
+		<div class="row px-5" th:if="${products.empty}">
 			<h3>無任何產品</h3>
 		</div>
 	</div>
