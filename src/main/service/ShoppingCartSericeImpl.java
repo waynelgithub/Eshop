@@ -1,6 +1,7 @@
 package main.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
+import main.model.User;
 import main.repository.ShoppingCartDetailsRepository;
 import main.repository.ShoppingCartRepository;
+import main.repository.UserRepository;
 
 @Service
 @Transactional
@@ -23,7 +26,9 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	
 	@Autowired
 	private ShoppingCartDetailsRepository shoppingCartDetailsRepository;
-//	private CustomerRepository customerRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Override
 	public List<ShoppingCart> getAll() {
@@ -52,7 +57,7 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	
 	@Override
 	public ShoppingCart getByCustomerNum(long id) {
-		return shoppingCartRepository.getCustomerNum(id);
+		return shoppingCartRepository.getByCustomerNum(id);
 	}
 
 	@Override
@@ -66,14 +71,26 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 		List<ShoppingCartDetails> shoppingCartDetails = shoppingCart.getShoppingCartDetails();
 		BigDecimal amount = new BigDecimal(0.0);
 		
-		for(int i = 0; i < shoppingCartDetails.size(); i++) {
-			BigDecimal qty = new BigDecimal(shoppingCartDetails.get(i).quantity);
-			BigDecimal price = shoppingCartDetails.get(i).productPrice;
-			amount = amount.add((price.multiply(qty)));
+		if (shoppingCartDetails != null) {
+			for(int i = 0; i < shoppingCartDetails.size(); i++) {
+				BigDecimal qty = new BigDecimal(shoppingCartDetails.get(i).quantity);
+				BigDecimal price = shoppingCartDetails.get(i).productPrice;
+				amount = amount.add((price.multiply(qty)));
+			}
 		}
-		
 		shoppingCart.setAmount(amount);
 		saveOrUpdate(shoppingCart);
 	}
-
+	
+	@Override
+	public ShoppingCart setCustomerNum(String login) {
+		User user = userRepository.findByLogin(login);
+		return shoppingCartRepository.getByCustomerNum(user.getId());
+	}
+	
+	@Override
+	public long getCusNum(String login) {
+		User user = userRepository.findByLogin(login);
+		return user.getId();		
+	}
 }

@@ -1,5 +1,9 @@
 package main.controller;
 
+import java.math.BigDecimal;
+import java.security.Principal;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +25,8 @@ public class ShoppingCartController {
 	private ShoppingCartService shoppingCartService;
 	
 	@GetMapping("/add-shopping-cart")
-	public String showShoppingCartForm(Model model) {
-		ShoppingCart shoppingCart = shoppingCartService.getByCustomerNum(1);
+	public String showShoppingCartForm(Model model, Principal principal) {
+		ShoppingCart shoppingCart = shoppingCartService.setCustomerNum(principal.getName());
 		if (shoppingCart == null) {
 			model.addAttribute("shoppingCart", new ShoppingCart());
 			return "form-shopping-cart";
@@ -31,18 +35,22 @@ public class ShoppingCartController {
 	}
 
 	@PostMapping("/process-shopping-cart-form")
-	public String showTourData(@Valid @ModelAttribute ShoppingCart shoppingCart, BindingResult bindingResult) {
+	public String showTourData(@Valid @ModelAttribute ShoppingCart shoppingCart, BindingResult bindingResult, Principal principal) {
 		if (bindingResult.hasErrors()) {
 			return "form-shopping-cart";
 		}
+//		shoppingCart.setAmount(new BigDecimal(0));
+//		shoppingCart.setCustomer_num(shoppingCartService.getCusNum(principal.getName()));
+//		shoppingCart.setDate(new Date());
 		shoppingCartService.saveOrUpdate(shoppingCart);
 		return "redirect:show-shopping-cart";
 	}
 
 	@GetMapping("/show-shopping-cart")
-	public String getTours(Model model) {
+	public String getTours(Model model, Principal principal) {
 		shoppingCartService.sumAmount();
-		ShoppingCart shoppingCart = shoppingCartService.getByCustomerNum(1);
+		long id = shoppingCartService.getCusNum(principal.getName());
+		ShoppingCart shoppingCart = shoppingCartService.getByCustomerNum(id);
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "shopping-cart";
 	}

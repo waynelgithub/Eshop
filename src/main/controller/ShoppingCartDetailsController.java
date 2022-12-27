@@ -1,5 +1,6 @@
 package main.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import main.model.Product;
 import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
+import main.service.ProductService;
 import main.service.ShoppingCartDetailsService;
 import main.service.ShoppingCartService;
 
@@ -27,21 +30,27 @@ public class ShoppingCartDetailsController {
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 	
-	@GetMapping("/add-shopping-cart-details")
-	public String showShoppingCartForm(Model model) {
-		List<ShoppingCart> shoppingCarts = shoppingCartService.getAll();
-		model.addAttribute("shoppingCarts", shoppingCarts);
-		model.addAttribute("shoppingCartDetails", new ShoppingCartDetails());
+	@Autowired
+	private ProductService productService;
+	
+	@GetMapping("/add-shopping-cart-details/{productId}")
+	public String showShoppingCartForm(Model model, Principal principal, @PathVariable long productId) {
+		long cusNum = shoppingCartService.getCusNum(principal.getName());
+
+		ShoppingCartDetails shoppingCartDetail = shoppingCartDetailsService.addShoppingCartDetail(productId, cusNum);
+		
+		model.addAttribute("shoppingCart", shoppingCartDetail.getShoppingCart());
+		model.addAttribute("shoppingCartDetail", shoppingCartDetail);
 		return "form-shopping-cart-details";
 	}
 	
 	@PostMapping("/process-shopping-cart-details-form")
-	public String showShoppingCartDetailsData(@Valid @ModelAttribute ShoppingCartDetails shoppingCartDetails,
+	public String showShoppingCartDetailsData(@Valid @ModelAttribute ShoppingCartDetails shoppingCartDetail,
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "form-shopping-cart-details";
 		}
-		shoppingCartDetailsService.saveOrUpdate(shoppingCartDetails);
+		shoppingCartDetailsService.saveOrUpdate(shoppingCartDetail);
 		return "redirect:/show-shopping-cart";
 	}
 	

@@ -1,8 +1,6 @@
 package main.service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import main.model.ShoppingCart;
 
@@ -23,4 +21,9 @@ public interface ShoppingCartService {
 	public List<ShoppingCart> findFirstByOrderById();
 	
 	public void sumAmount();
+	
+	public long getCusNum(String login);
+	
+	public ShoppingCart setCustomerNum(String login);
+	
 }

@@ -21,9 +21,9 @@ public class ShoppingCart {
 	public long id;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date date = new Date();
+	private Date date;
 	
-	private BigDecimal amount = new BigDecimal(0);
+	private BigDecimal amount;
 	
 	@OneToMany(mappedBy = "shoppingCart",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ShoppingCartDetails> shoppingCartDetails;

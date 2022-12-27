@@ -17,22 +17,24 @@
 		
 		<form action="#" class="col g-3 p-5"
 			th:action="@{/process-shopping-cart-details-form}"
-			th:object="${shoppingCartDetails}" method="post">
+			th:object="${shoppingCartDetail}" method="post">
 			<div class="form-group">
 				<input type="hidden" class="form-control" th:field="*{id}">
 			</div>
 
 			<div class="form-group">
-				<input type="text" class="form-control" th:field="*{shoppingCart.id}">
+				<label>shoppingCart.id</label> 
+				<input readonly type="text" class="form-control" th:field="*{shoppingCart.id}" th:value="${shoppingCart.id}">
 			</div>
 			
 			<div class="form-group">
-				<input type="text" class="form-control" th:field="*{productNum}">
+				<label>productNum</label>
+				<input readonly type="text" class="form-control" th:field="*{productNum}" th:value="${productNum}">
 			</div>
 
 			<div class="form-group">
 				<label>商品名稱</label> 
-				<input disabled type="text" class="form-control" th:field="*{productName}">
+				<input readonly type="text" class="form-control" th:field="*{productName}">
 			</div>
 			<div class="form-group">
 				<label class="form-label">商品數量</label> 
@@ -41,7 +43,7 @@
 
 			<div class="form-group">
 				<label class="form-label">單價</label> 
-				<input disabled type="text"	class="form-control" th:field="*{productPrice}">
+				<input type="text"	class="form-control" th:field="*{productPrice}">
 			</div>
 
 			<div class="form-row">

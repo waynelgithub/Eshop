@@ -14,4 +14,7 @@ public interface ShoppingCartDetailsRepository extends JpaRepository<ShoppingCar
 	@Modifying
 	@Query("delete from ShoppingCartDetails s where s.id = :id")
 	public void deleteByIdWithShoppingCartDetails(@Param("id") long id);
+
+	@Query("from ShoppingCartDetails s where s.productNum = :id")
+	public ShoppingCartDetails getByProductNum(@Param("id") long id);
 }

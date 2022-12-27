@@ -15,4 +15,10 @@ public interface ShoppingCartDetailsService {
 	public void delete(long id);
 	
 	public void deleteByIdWithShoppingCartDetails(long id);
+	
+	public ShoppingCartDetails getByProductNum(long num);
+	
+	public long getProductNum(long id);
+	
+	public ShoppingCartDetails addShoppingCartDetail(long productId, long customerNum);
 }

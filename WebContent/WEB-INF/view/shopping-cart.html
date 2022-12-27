@@ -3,11 +3,11 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Shopping Cart page</title>
-<script src="js/jquery-3.4.1.slim.min.js"></script>
-<script src="js/popper.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/bootstrap.min.js"></script>
+	<title>Shopping Cart page</title>
+	<script src="js/jquery-3.4.1.slim.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -16,47 +16,45 @@
 		</div>
 
 		<div class="row p-5">
-			<table class="table table-hover table-secondary" th:if="${!shoppingCart.shoppingCartDetails.empty}">
+			<table class="table table-hover table-light table-striped" th:if="${!shoppingCart.shoppingCartDetails.empty}">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
-						<th scope="col">商品名稱</th>
-						<th scope="col">數量</th>
-						<th scope="col">單價</th>
-						<th scope="col">小計</th>
-						<th scope="col"></th>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">#</th>
+						<th class="align-middle text-center" style="width: 15rem" scope="col">商品名稱</th>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">數量</th>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">單價</th>
+						<th class="align-middle" style="width: 10rem" scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="shoppingCartDetails : ${shoppingCart.shoppingCartDetails}">
-						<td th:text="${shoppingCartDetailsStat.count}"></td>
-						<td th:text="${shoppingCartDetails.productName}"></td>
-						<td th:text="${shoppingCartDetails.quantity}"></td>
-						<td th:text="${shoppingCartDetails.productPrice}"></td>
-						<td th:text="${shoppingCartDetails.productPrice * shoppingCartDetails.quantity}"></td>
-						<td><a class="btn btn-outline-danger" th:href="@{/shopping-cart-detail/} + ${shoppingCartDetails.id}">取消</a></td>
+						<td class="align-middle text-center" th:text="${shoppingCartDetailsStat.count}"></td>
+						<td class="align-middle text-center" th:text="${shoppingCartDetails.productName}"></td>
+						<td class="align-middle text-right" th:text="${shoppingCartDetails.quantity}"></td>
+						<td class="align-middle text-right" th:text="${#numbers.formatDecimal(shoppingCartDetails.productPrice, 0, 'COMMA', 2, 'POINT')}"></td>
+						<td class="align-middle d-flex justify-content-center"><a class="btn btn-outline-danger" th:href="@{/shopping-cart-detail/} + ${shoppingCartDetails.id}">取消</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 
-		<div class="p-5 d-flex justify-content-end" th:if="${!shoppingCart.shoppingCartDetails.empty}">
+		<div class="px-5 d-flex justify-content-end" th:if="${!shoppingCart.shoppingCartDetails.empty}">
 			<h3>總金額 NT$ 
 				<span th:if="${!shoppingCart.shoppingCartDetails.empty}" 
 					   class="text-danger" 
 					   th:value="${shoppingCart.amount}"
-					   th:text="${shoppingCart.amount}"></span>
+					   th:text="${#numbers.formatDecimal(shoppingCart.amount, 0, 'COMMA', 2, 'POINT')}"></span>
 				<span th:if="${shoppingCart.shoppingCartDetails.empty}" th:text="0"></span>
 			</h3>
 		</div>
 
-		<div class="row p-5" th:if="${shoppingCart.shoppingCartDetails.empty}">
+		<div class="row px-5" th:if="${shoppingCart.shoppingCartDetails.empty}">
 			<h3>沒有商品</h3>
 		</div>
 
-		<div class="row p-5">
-			<a th:href="@{/}" class="mx-1">繼續購物</a>
-			<a th:href="@{/payment}" class="btn btn-outline-warning">結帳</a>
+		<div class="row px-5 d-flex justify-content-end align-items-center">
+			<a style="width: 8rem;" th:href="@{/}" class="mx-5 text-center">繼續購物</a>
+			<a style="width: 5rem;" th:href="@{/payment}" class="btn btn-outline-warning">結帳</a>
 		</div>
 	</div>
 </body>
