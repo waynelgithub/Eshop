@@ -71,7 +71,7 @@ public class ProductImageController {
 	@GetMapping("/get-product-image-to-web")
 	public String getProductImageToWeb(Model model) throws SQLException, IOException  {
 		
-		ProductImage pi = productImageService.getById(2);
+		ProductImage pi = productImageService.getById(1);
 		byte[] bytes = pi.getImage();
 		
 		//convert byte array to base64 string
