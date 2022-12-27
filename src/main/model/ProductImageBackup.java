@@ -9,8 +9,8 @@ import javax.persistence.Lob;
 
 
 
-@Entity(name = "product_image")
-public class ProductImage {
+//@Entity(name = "product_image")
+public class ProductImageBackup {
 
 	
 	@Id
@@ -18,7 +18,9 @@ public class ProductImage {
 	@Column(name = "image_num")
 	private long imageNum;
 	
-   
+    @Column(name = "image_blob", columnDefinition="MEDIUMBLOB")
+    private byte[] image;
+    
     @Lob
     @Column(name = "image_String", columnDefinition="MEDIUMTEXT")
     private String imageBase64String;
@@ -42,6 +44,13 @@ public class ProductImage {
 		this.fileName = fileName;
 	}
 
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public String getImageBase64String() {
 		return imageBase64String;
@@ -49,7 +58,13 @@ public class ProductImage {
 
 	public void setImageBase64String(String imageBase64String) {
 		this.imageBase64String = imageBase64String;
-	}	
+	}
+	
+	
+
+//	@Column(name = "prod_num")
+//	private long prodNum;
+	
 	
 
 }

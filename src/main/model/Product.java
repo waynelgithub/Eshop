@@ -3,11 +3,15 @@ package main.model;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -39,6 +43,10 @@ public class Product {
 	@DecimalMin(value = "0.0", message = "{product.price.min}")
 	@Column(name = "prod_price")
 	private BigDecimal prodPrice;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_image_num")
+	private ProductImage productImage;
 	
 
 	
@@ -99,6 +107,16 @@ public class Product {
 
 	public void setProdPrice(BigDecimal prodPrice) {
 		this.prodPrice = prodPrice;
+	}
+
+
+	public ProductImage getProductImage() {
+		return productImage;
+	}
+
+
+	public void setProductImage(ProductImage productImage) {
+		this.productImage = productImage;
 	}
 
 }
