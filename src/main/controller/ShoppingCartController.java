@@ -39,9 +39,6 @@ public class ShoppingCartController {
 		if (bindingResult.hasErrors()) {
 			return "form-shopping-cart";
 		}
-//		shoppingCart.setAmount(new BigDecimal(0));
-//		shoppingCart.setCustomer_num(shoppingCartService.getCusNum(principal.getName()));
-//		shoppingCart.setDate(new Date());
 		shoppingCartService.saveOrUpdate(shoppingCart);
 		return "redirect:show-shopping-cart";
 	}

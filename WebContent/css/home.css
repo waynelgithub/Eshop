@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.navbar-collapse {
+	display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+nav {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+
+body {
+    background-color: rgba(250, 201, 68, 0.5);
+    height: 100%;
+}
+
+.card {
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 13rem;
+	height: 20.5rem
+}
+
+.navbar-brand {
+	width: 5rem;
+	height: 5rem;
+}
+
+.footer-link {
+	width: 20rem;
+	height: 7rem;
+}
+
+.footer-link img{
+	width: 7rem;
+    height: 7rem;
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0.5);
+}

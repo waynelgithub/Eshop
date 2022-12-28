@@ -33,7 +33,7 @@ public class ShoppingCartDetails {
 	@Column(name = "product_price")
 	public BigDecimal productPrice;
 	
-	@Min(value = 1, message = "{ShoppingCartDetails.quantity}")
+	@Min(value = 1, message = "{shopping.cart.quantity}")
 	public int quantity;
 	
 	public long getId() {

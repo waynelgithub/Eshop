@@ -3,7 +3,12 @@
 html, body {
 	background-size: cover;
 	background-repeat: no-repeat;
+	background-color: rgba(250, 201, 68, 0.5);
 	height: 100%;
+}
+
+a {
+	text-decoration: none;
 }
 
 .container {
@@ -12,7 +17,7 @@ html, body {
 }
 
 .card {
-	width: 350px;
+	width: 25rem;
 	height: auto;
 	margin-top: auto;
 	margin-bottom: auto;
@@ -26,9 +31,12 @@ html, body {
 
 .input-group-prepend span {
 	width: 40px;
+	height: 40px;
 	background-color: blue;
 	color: white;
 	border: 0 !important;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 .login-button {
