@@ -41,7 +41,7 @@
 								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-customer}" class="p-1 text-decoration-none">新增客戶</a>
 							</li>
 							<li class="nav-item">
-								<a sec:authorize="hasRole('CLIENT')" th:href="@{/show-customers}" class="p-1 text-decoration-none">客戶資料</a>
+								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/show-customers}" class="p-1 text-decoration-none">客戶資料</a>
 							</li>
 							<li class="nav-item">
 								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-product}" class="p-1 text-decoration-none">新增產品資料</a>
@@ -56,7 +56,7 @@
 								<a sec:authorize="hasRole('CLIENT')" th:href="@{/showSorders}" class="p-1 text-decoration-none">檢視訂單列表</a>
 							</li>
 							<li class="nav-item">
-								<a th:href="@{/addSorderDetail}" class="p-1 text-decoration-none">新增訂單明細資料</a>
+								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/addSorderDetail}" class="p-1 text-decoration-none">新增訂單明細資料</a>
 							</li>
 							<li class="nav-item">
 								<a th:href="@{/showSorderDetail}" class="p-1 text-decoration-none">檢視訂單明細</a>
