@@ -27,20 +27,20 @@
 			</div>
 
 			<div class="form-group my-2">
-				<label>Mobile</label> <input type="text" class="form-control" th:field="*{mobile}">
+				<label>手機號碼</label> <input type="text" class="form-control" th:field="*{mobile}">
 			</div>
 
 			<div class="form-group my-2">
-				<label>Email</label>
+				<label>電子郵件</label>
 				<input type="text" class="form-control" th:field="*{email}">
 			</div>
 
-			<div class="form-row my-3">
+			<div class="form-row my-3 px-5">
 				<div class="col">
-					<input class="btn btn-outline-success" type="submit" value="Submit">
+					<input class="btn btn-outline-success" type="submit" value="儲存">
 				</div>
 				<div class="col">
-					<a th:href="@{/showCustomerOffer}" class="btn btn-outline-warning float-right">Back</a>
+					<a th:href="@{/showCustomerOffer}" class="btn btn-outline-warning float-right">返回</a>
 				</div>
 			</div>
 		</form>
