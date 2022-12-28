@@ -1,5 +1,7 @@
 package main.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -70,6 +72,14 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 		Product product = productRepository.findById(productId).get();
 		
 		ShoppingCart shoppingCart = shoppingCartRepository.getByCustomerNum(customerNum);
+		if (shoppingCart == null) {
+			BigDecimal amount = new BigDecimal(0);
+			shoppingCart = new ShoppingCart();
+			shoppingCart.setAmount(amount);
+			shoppingCart.setCustomer_num(customerNum);
+			shoppingCart.setDate(new Date());
+		}
+		shoppingCartRepository.save(shoppingCart);
 		
 		ShoppingCartDetails shoppingCartDetail = shoppingCartDetailsRepository.getByProductNum(product.getProdNum());
 		if (shoppingCartDetail == null) {

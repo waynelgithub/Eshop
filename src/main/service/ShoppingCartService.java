@@ -20,7 +20,7 @@ public interface ShoppingCartService {
 	
 	public List<ShoppingCart> findFirstByOrderById();
 	
-	public void sumAmount();
+	public void sumAmount(long id);
 	
 	public long getCusNum(String login);
 	

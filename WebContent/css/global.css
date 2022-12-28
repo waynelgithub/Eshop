@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+body {
+    background-color: rgba(250, 201, 68, 0.5);
+    height: 100%;
+}
+
+.readonly {
+    background-color: rgb(138, 134, 134);
+    border: 0 !important;
+}
+
+.readonly:focus {
+    background-color: rgb(138, 134, 134);
+    border: 0 !important;
+}
+
+.readonly:hover {
+    background-color: rgb(138, 134, 134);
+    border: 0 !important;
+}

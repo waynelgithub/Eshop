@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import "global.css";
 
 .navbar-collapse {
 	display: flex;
@@ -10,11 +11,6 @@ nav {
     background-color: rgba(255, 255, 255, 0.5);
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
-}
-
-body {
-    background-color: rgba(250, 201, 68, 0.5);
-    height: 100%;
 }
 
 .card {

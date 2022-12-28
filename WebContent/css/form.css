@@ -1,0 +1,8 @@
+@charset "UTF-8";
+@import "global.css";
+
+.navbar-fixed-top {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}

@@ -66,18 +66,21 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	}
 	
 	@Override
-	public void sumAmount() {
-		ShoppingCart shoppingCart = getByCustomerNum(1);
-		List<ShoppingCartDetails> shoppingCartDetails = shoppingCart.getShoppingCartDetails();
+	public void sumAmount(long id) {
+		ShoppingCart shoppingCart = getByCustomerNum(id);
 		BigDecimal amount = new BigDecimal(0.0);
 		
-		if (shoppingCartDetails != null) {
-			for(int i = 0; i < shoppingCartDetails.size(); i++) {
-				BigDecimal qty = new BigDecimal(shoppingCartDetails.get(i).quantity);
-				BigDecimal price = shoppingCartDetails.get(i).productPrice;
-				amount = amount.add((price.multiply(qty)));
+		if (shoppingCart != null) {
+			List<ShoppingCartDetails> shoppingCartDetails = shoppingCart.getShoppingCartDetails();
+			if (shoppingCartDetails != null) {
+				for(int i = 0; i < shoppingCartDetails.size(); i++) {
+					BigDecimal qty = new BigDecimal(shoppingCartDetails.get(i).quantity);
+					BigDecimal price = shoppingCartDetails.get(i).productPrice;
+					amount = amount.add((price.multiply(qty)));
+				}
 			}
 		}
+		
 		shoppingCart.setAmount(amount);
 		saveOrUpdate(shoppingCart);
 	}

@@ -9,11 +9,12 @@
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script type=module th:src="@{/js/dialog-modal.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/form.css}">
 </head>
 <body>
 	<div class="container">
-		<div class="bg-warning p-3 rounded-bottom">
-			<h1 class="text-dark text-center"></h1>
+		<div class="px-3 py-1 shadow navbar-fixed-top">
+			<h1 class="text-dark text-center">購物車</h1>
 		</div>
 
 		<div class="row p-5">
@@ -48,7 +49,7 @@
 			</table>
 		</div>
 
-		<div class="px-5 d-flex justify-content-end" th:if="${!shoppingCart.shoppingCartDetails.empty}">
+		<div class="px-5 d-flex justify-content-end my-2" th:if="${!shoppingCart.shoppingCartDetails.empty}">
 			<h3>總金額 NT$ 
 				<span th:if="${!shoppingCart.shoppingCartDetails.empty}" 
 					   class="text-danger" 
@@ -58,11 +59,11 @@
 			</h3>
 		</div>
 
-		<div class="row px-5" th:if="${shoppingCart.shoppingCartDetails.empty}">
+		<div class="row px-5 my-2" th:if="${shoppingCart.shoppingCartDetails.empty}">
 			<h3>沒有商品</h3>
 		</div>
-
-		<div class="row px-5 d-flex justify-content-end align-items-center">
+		
+		<div class="row px-5 d-flex justify-content-end align-items-center my-3">
 			<a style="width: 8rem;" th:href="@{/}" class="mx-5 text-center">繼續購物</a>
 			<a style="width: 5rem;" th:href="@{/payment}" class="btn btn-outline-warning">結帳</a>
 		</div>

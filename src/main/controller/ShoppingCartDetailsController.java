@@ -1,7 +1,6 @@
 package main.controller;
 
 import java.security.Principal;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import main.model.Product;
-import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
-import main.service.ProductService;
 import main.service.ShoppingCartDetailsService;
 import main.service.ShoppingCartService;
 
@@ -29,9 +25,6 @@ public class ShoppingCartDetailsController {
 	
 	@Autowired
 	private ShoppingCartService shoppingCartService;
-	
-	@Autowired
-	private ProductService productService;
 	
 	@GetMapping("/add-shopping-cart-details/{productId}")
 	public String showShoppingCartForm(Model model, Principal principal, @PathVariable long productId) {
