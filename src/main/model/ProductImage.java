@@ -18,7 +18,7 @@ public class ProductImage {
 	@Column(name = "image_num")
 	private long imageNum;
 	
-   
+    
     @Lob
     @Column(name = "image_String", columnDefinition="MEDIUMTEXT")
     private String imageBase64String;
@@ -46,7 +46,7 @@ public class ProductImage {
 	public String getImageBase64String() {
 		return imageBase64String;
 	}
-
+	
 	public void setImageBase64String(String imageBase64String) {
 		this.imageBase64String = imageBase64String;
 	}	

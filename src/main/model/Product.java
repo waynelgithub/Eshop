@@ -1,7 +1,6 @@
 package main.model;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

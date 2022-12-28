@@ -9,7 +9,11 @@ public interface ProductService {
 
 	public List<Product> getAll();
 	
+	public List<Product> getAllWithImage();
+	
 	public Product getById(long id);
+	
+	public Product getByIdWithImage(long id);
 	
 	public void saveOrUpdate(Product product);
 	
