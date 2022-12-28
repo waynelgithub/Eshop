@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+html, body {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: rgba(250, 201, 68, 0.5);
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+.container {
+	height: 100%;
+	align-content: center;
+}
+
+.card {
+	width: 25rem;
+	height: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+	background-color: rgba(0,0,0,0.6) !important;
+}
+
+.card-header {
+	color: white;
+	text-align: center;
+}
+
+.input-group-prepend span {
+	width: 40px;
+	height: 40px;
+	background-color: blue;
+	color: white;
+	border: 0 !important;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.login-button {
+	color: white;
+	background-color: blue;
+	width: 100px;
+}
+
+.login-button:hover {
+	color: blue;
+	background-color: white;
+}
+
+.footer {
+	color: white;
+}
+
+.footer a {
+	margin-left: 40px;
+}
+
+.alert-login {
+	background-color: red;
+	border: 0 !important;
+	color: white;
+}

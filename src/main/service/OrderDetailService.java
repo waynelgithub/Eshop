@@ -4,7 +4,6 @@ import java.util.List;
 
 import main.model.OrderDetail;
 
-
 public interface OrderDetailService {
 
 	public List<OrderDetail> getAll();

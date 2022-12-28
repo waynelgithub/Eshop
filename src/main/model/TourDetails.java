@@ -1,5 +1,7 @@
 package main.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,10 @@ public class TourDetails {
 	
 	private String country;
 	
-	@Column(length = 2000)
+	@Column(length = 200)
 	private String description;
+	
+	private BigDecimal price;
 
 	/*
 	 * uncomment if you want to have a bidirectional mapping
@@ -48,6 +52,14 @@ public class TourDetails {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 	
 }

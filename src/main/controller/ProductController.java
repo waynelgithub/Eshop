@@ -89,4 +89,11 @@ public class ProductController {
 		return "redirect:/show-products";
 	}
 	
+	@GetMapping("/")
+	public String showProductOnHomeTest(Model model) {
+		List<Product> products=productService.getAll();
+		model.addAttribute("products", products);
+		return "home";
+	}
+	
 }

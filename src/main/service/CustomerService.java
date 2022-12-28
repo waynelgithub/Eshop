@@ -14,6 +14,4 @@ public interface CustomerService {
 
 	public void delete(long id);
 	
-	public Customer getByIdWithComments(long id);
-
 }

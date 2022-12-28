@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<title>Error 403 page</title>
+	<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body class="m-auto">
+	<div class="container">
+		<div class="row">
+			<h2>You don't have permission to view this page</h2>
+		</div>
+		
+		<div class="row">
+			<a th:href="@{/}" class="btn btn-warning">Back</a>
+		</div>
+	</div>
+</body>
+
+</html>

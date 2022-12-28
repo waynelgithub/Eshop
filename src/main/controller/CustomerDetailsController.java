@@ -24,7 +24,7 @@ public class CustomerDetailsController {
 	
 	@GetMapping("/showCustomerDetails/{customerId}")
 	public String showCustomerDetails(@PathVariable long customerId, Model model) {
-		Customer customer = customerService.getByIdWithComments(customerId);
+		Customer customer = customerService.getById(customerId);
 		if(customer != null) {
 			model.addAttribute("customer", customer);
 			return "customerDetails";

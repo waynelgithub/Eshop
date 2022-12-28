@@ -8,6 +8,4 @@ import main.model.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 	
-	
-
 }

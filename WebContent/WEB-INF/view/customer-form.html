@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<title>Customer page</title>
+<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/form.css}">
+</head>
+
+<body>
+	<div class="container">
+		<div class="px-3 py-1 shadow navbar-fixed-top">
+			<h1 class="text-dark text-center">新增客戶資料</h1>
+		</div>
+
+		<form action="#" class="col g-3 p-5" th:action="@{/process-customer-form}"
+			th:object="${customer}" method="post">
+			<div class="form-group my-2">
+				<input type="hidden" class="form-control" th:field="*{id}">
+			</div>
+
+			<div class="form-group my-2">
+				<input type="hidden" class="form-control" th:field="*{customerDetails.id}">
+			</div>
+
+			<div class="form-group my-2">
+				<label>客戶名稱</label>
+				<input type="text" class="form-control" th:field="*{name}" required>
+			</div>
+			
+			<div class="form-group my-2">
+				<label class="form-label">客戶地區</label> 
+				<input type="text" class="form-control" th:field="*{county}" required>
+			</div>
+
+			<div class="form-group my-2">
+				<label class="form-label">手機號碼</label> 
+				<input type="text" class="form-control"	th:field="*{customerDetails.mobile}" required>
+			</div>
+
+			<div class="form-group my-2">
+				<label class="form-label">電子郵件</label> 
+				<input type="text" class="form-control"	th:field="*{customerDetails.email}" required>
+			</div>
+
+			<div class="form-row px-5 d-flex justify-content-between align-items-center my-3">
+				<input class="btn btn-outline-success" type="submit" value="儲存">
+				<a th:href="@{/}" class="btn btn-outline-warning float-right">取消</a>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

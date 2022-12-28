@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Home page</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script type=module th:src="@{/js/modal.js}"></script>
+</head>
+<body>
+	<div class="container">
+			<div class="bg-warning p-3 rounded-bottom">
+				<h1 class="text-dark text-center">付款方式</h1>
+			</div>
+			
+			<form action="#" method="post">
+	
+				<!-- <div class="form-group">
+					<input type="hidden" class="form-control" th:field="*{id}">
+				</div> -->
+				
+				<div class="form-check">
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+				  <label class="form-check-label" for="flexRadioDefault1">
+				    信用卡
+				  </label>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+				  <label class="form-check-label" for="flexRadioDefault2">
+				    面交自取
+				  </label>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+				  <label class="form-check-label" for="flexRadioDefault3">
+				    ATM轉帳
+				  </label>
+				</div>
+	
+				<div class="form-row">
+					<div class="col">
+						<input class="btn btn-success" type="submit" value="下一步">
+					</div>
+					<div class="col">
+						<a th:href="@{/}" class="btn btn-warning float-right">返回</a>
+					</div>
+				</div>
+			</form>
+	</div>
+</body>
+</html>
