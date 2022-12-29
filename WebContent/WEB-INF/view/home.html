@@ -13,73 +13,83 @@
 </head>
 
 <body>
-	<div class="container">
-		<nav class="navbar navbar-expand-lg bg-body-tertiary px-3 py-1 shadow navbar-fixed-top">
-			<div class="container-fluid">
-				<a class="navbar-brand" th:href="@{/}">
-					<img th:src="@{/images/logo/logo_transparent.png}" class="card-img-top object-fit-sm-contain" alt="eshop">
-					<span class="fs-5">歡迎來到 E-Shop 賣場</span>
-				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-					data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-						<ul class="navbar-nav">
-							<li class="nav-item">
-								<a sec:authorize="hasRole('CLIENT')" th:href="@{/show-shopping-cart}" class="p-1 text-decoration-none">購物車</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-shopping-cart}" class="p-1 text-decoration-none">新增購物車</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-shopping-cart-details}"
-									class="p-1 text-decoration-none">新增購物清單</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-customer}" class="p-1 text-decoration-none">新增客戶</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/show-customers}" class="p-1 text-decoration-none">客戶資料</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-product}" class="p-1 text-decoration-none">新增產品資料</a>
-							</li>
-							<!-- <li class="nav-item">
-								<a th:href="@{/showProduct}" class="p-1 text-decoration-none">檢視產品列表</a>	
-							</li> -->
-							<li class="nav-item">
-								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/addSorder}" class="p-1 text-decoration-none">新增訂單資料</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="hasRole('CLIENT')" th:href="@{/showSorders}" class="p-1 text-decoration-none">檢視訂單列表</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/addSorderDetail}" class="p-1 text-decoration-none">新增訂單明細資料</a>
-							</li>
-							<li class="nav-item">
-								<a th:href="@{/showSorderDetail}" class="p-1 text-decoration-none">檢視訂單明細</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="isAnonymous()" th:href="@{/login}" class="p-1 text-decoration-none">登入/註冊</a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="!isAnonymous()" th:href="@{/showCustomerDetails}" class="p-1 text-decoration-none"><span
-										sec:authentication="name"></span></a>
-							</li>
-							<li class="nav-item">
-								<a sec:authorize="!isAnonymous()" th:href="@{/logout}" class="p-1 text-decoration-none">登出</a>
-							</li>
-						</ul>
-				</div>
-			</div>
-		</nav>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary px-3 py-1 shadow">
+		<div class="container-fluid">
+			<a class="navbar-brand nav-link active align-middle" aria-current="page" th:href="@{/}">
+				<img th:src="@{/images/logo/logo_transparent.png}" alt="Logo" width="50" height="50"
+					class="d-inline-block align-middle">
+				歡迎來到 E-Shop 賣場
+			</a>
 
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a sec:authorize="hasRole('CLIENT')" th:href="@{/show-shopping-cart}"
+							class="p-1 text-decoration-none nav-link">購物車</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-shopping-cart}"
+							class="p-1 text-decoration-none nav-link">新增購物車</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-shopping-cart-details}"
+							class="p-1 text-decoration-none nav-link">新增購物清單</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-customer}"
+							class="p-1 text-decoration-none nav-link">新增客戶</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/show-customers}"
+							class="p-1 text-decoration-none nav-link">客戶資料</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-product}"
+							class="p-1 text-decoration-none nav-link">新增產品資料</a>
+					</li>
+					<!-- <li class="nav-item">
+								<a th:href="@{/showProduct}" class="p-1 text-decoration-none nav-link">檢視產品列表</a>	
+							</li> -->
+					<li class="nav-item">
+						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/addSorder}"
+							class="p-1 text-decoration-none nav-link">新增訂單資料</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="hasRole('CLIENT')" th:href="@{/showSorders}"
+							class="p-1 text-decoration-none nav-link">檢視訂單列表</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/addSorderDetail}"
+							class="p-1 text-decoration-none nav-link">新增訂單明細資料</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="hasRole('CLIENT')" th:href="@{/showSorderDetail}" class="p-1 text-decoration-none nav-link">檢視訂單明細</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="isAnonymous()" th:href="@{/login}" class="p-1 text-decoration-none nav-link">登入/註冊</a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="!isAnonymous()" th:href="@{/show-customer}"
+							class="p-1 text-decoration-none nav-link"><span sec:authentication="name"></span></a>
+					</li>
+					<li class="nav-item">
+						<a sec:authorize="!isAnonymous()" th:href="@{/logout}" class="p-1 text-decoration-none nav-link">登出</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
 		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 px-5 my-3" th:if="${!products.empty}">
 			<div class="col my-1" th:each="product : ${products}">
 				<div class="card mx-0 border border-dark-subtle shadow">
-					<img th:src="@{/images/wallpaper_httyd1_1920x1200-3_INTL.jpg}" class="object-fit-cover card-img-top border-bottom border-3" alt="...">
+					<img th:src="@{/images/wallpaper_httyd1_1920x1200-3_INTL.jpg}"
+						class="object-fit-cover card-img-top border-bottom border-3" alt="...">
 					<div class="card-body">
 						<h4 class="card-title fw-bold" th:text="${product.prodName}"></h4>
 						<h5 class="card-title fw-normal"
@@ -97,28 +107,30 @@
 		<div class="row px-5 my-3" th:if="${products.empty}">
 			<h3>無任何產品</h3>
 		</div>
-		
-		<footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary navbar-fixed-bottom">
-		  <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
-		    <div class="row">
-		      <div class="col-lg-3 mb-3">
-		        <a class="d-inline-flex align-items-center mb-2 text-body-secondary text-decoration-none footer-link" th:href="@{/}" aria-label="Eshop">
-		          <img th:src="@{/images/logo/logo_transparent.png}" class="card-img-top object-fit-sm-contain" alt="eshop">
-		          <span class="fs-5">E-Shop</span>
-		        </a>
-		      </div>
-		      <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-		        <h5 class="fw-bold">顧客中心</h5>
-		        <ul class="list-unstyled">
-		          <li class="mb-2"><a th:href="@{/}">購物車</a></li>
-		          <li class="mb-2"><a th:href="@{/}">顧客資料</a></li>
-		          <li class="mb-2"><a th:href="@{/}">訂單明細</a></li>
-		        </ul>
-		      </div>
-		    </div>
-		  </div>
-		</footer>
 	</div>
+	<footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary navbar-fixed-bottom">
+		<div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+			<div class="row">
+				<div class="col-lg-3 mb-3">
+					<a class="d-inline-flex align-items-center mb-2 text-body-secondary text-decoration-none footer-link"
+						th:href="@{/}" aria-label="Eshop">
+						<img th:src="@{/images/logo/logo_transparent.png}" class="card-img-top object-fit-sm-contain"
+							alt="eshop">
+						<span class="fs-5">E-Shop</span>
+					</a>
+				</div>
+				<div class="col-6 col-lg-2 offset-lg-1 mb-3">
+					<h5 class="fw-bold">顧客中心</h5>
+					<ul class="list-unstyled">
+						<li class="mb-2"><a th:href="@{/}">購物車</a></li>
+						<li class="mb-2"><a th:href="@{/}">顧客資料</a></li>
+						<li class="mb-2"><a th:href="@{/}">訂單明細</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
 </body>
 
 </html>
