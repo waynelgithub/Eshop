@@ -26,4 +26,5 @@ public interface ShoppingCartService {
 	
 	public ShoppingCart setCustomerNum(String login);
 	
+	public ShoppingCart showShoppingCart(long id);
 }

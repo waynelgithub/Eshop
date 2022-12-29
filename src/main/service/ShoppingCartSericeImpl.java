@@ -1,6 +1,7 @@
 package main.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +25,6 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepository;
 	
-	@Autowired
-	private ShoppingCartDetailsRepository shoppingCartDetailsRepository;
-
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -72,7 +70,7 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 		
 		if (shoppingCart != null) {
 			List<ShoppingCartDetails> shoppingCartDetails = shoppingCart.getShoppingCartDetails();
-			if (shoppingCartDetails != null) {
+			if (!shoppingCartDetails.isEmpty()) {
 				for(int i = 0; i < shoppingCartDetails.size(); i++) {
 					BigDecimal qty = new BigDecimal(shoppingCartDetails.get(i).quantity);
 					BigDecimal price = shoppingCartDetails.get(i).productPrice;
@@ -80,7 +78,6 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 				}
 			}
 		}
-		
 		shoppingCart.setAmount(amount);
 		saveOrUpdate(shoppingCart);
 	}
@@ -95,5 +92,23 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	public long getCusNum(String login) {
 		User user = userRepository.findByLogin(login);
 		return user.getId();		
+	}
+
+	@Override
+	public ShoppingCart showShoppingCart(long id) {
+		ShoppingCart shoppingCart = getByCustomerNum(id);
+		
+		if (shoppingCart == null) {
+			List<ShoppingCartDetails> shoppingCartDetails = new ArrayList<>();
+			shoppingCart = new ShoppingCart();
+			shoppingCart.setAmount(new BigDecimal(0));
+			shoppingCart.setCustomer_num(id);
+			shoppingCart.setDate(new Date());
+			shoppingCart.setShoppingCartDetails(shoppingCartDetails);
+			saveOrUpdate(shoppingCart);
+		} else {
+			sumAmount(id);
+		}
+		return shoppingCart;
 	}
 }
