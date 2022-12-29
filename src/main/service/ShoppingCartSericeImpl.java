@@ -95,19 +95,19 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	}
 
 	@Override
-	public ShoppingCart showShoppingCart(long id) {
-		ShoppingCart shoppingCart = getByCustomerNum(id);
+	public ShoppingCart showShoppingCart(long customerNum) {
+		ShoppingCart shoppingCart = getByCustomerNum(customerNum);
 		
 		if (shoppingCart == null) {
 			List<ShoppingCartDetails> shoppingCartDetails = new ArrayList<>();
 			shoppingCart = new ShoppingCart();
 			shoppingCart.setAmount(new BigDecimal(0));
-			shoppingCart.setCustomer_num(id);
+			shoppingCart.setCustomer_num(customerNum);
 			shoppingCart.setDate(new Date());
 			shoppingCart.setShoppingCartDetails(shoppingCartDetails);
 			saveOrUpdate(shoppingCart);
 		} else {
-			sumAmount(id);
+			sumAmount(customerNum);
 		}
 		return shoppingCart;
 	}

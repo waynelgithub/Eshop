@@ -18,7 +18,7 @@ public interface ShoppingCartDetailsService {
 	
 	public ShoppingCartDetails getByProductNum(long num);
 	
-	public long getProductNum(long id);
+	public long getProductNum(long productId);
 	
 	public ShoppingCartDetails addShoppingCartDetail(long productId, long customerNum);
 }

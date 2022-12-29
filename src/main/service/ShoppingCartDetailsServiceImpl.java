@@ -61,8 +61,8 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 	}
 	
 	@Override
-	public long getProductNum(long id) {
-		Product product = productRepository.getOne(id);
+	public long getProductNum(long productId) {
+		Product product = productRepository.getOne(productId);
 		return product.getProdNum();		
 	}
 

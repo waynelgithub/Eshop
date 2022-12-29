@@ -26,8 +26,10 @@ public class Customer {
 	private String county;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_details")
+	@JoinColumn(name = "customer_details_id")
 	private CustomerDetails customerDetails;
+	
+	private long customerNum;
 
 	public String getName() {
 		return name;
@@ -67,6 +69,14 @@ public class Customer {
 
 	public void setUserId(long userId) {
 		this.userId = userId;
+	}
+
+	public long getCustomerNum() {
+		return customerNum;
+	}
+
+	public void setCustomerNum(long customerNum) {
+		this.customerNum = customerNum;
 	}
 
 }

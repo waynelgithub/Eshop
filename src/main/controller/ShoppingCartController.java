@@ -1,10 +1,6 @@
 package main.controller;
 
-import java.math.BigDecimal;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.ShoppingCart;
-import main.model.ShoppingCartDetails;
 import main.service.ShoppingCartService;
 
 @Controller
@@ -48,8 +43,8 @@ public class ShoppingCartController {
 
 	@GetMapping("/show-shopping-cart")
 	public String getTours(Model model, Principal principal) {
-		long id = shoppingCartService.getCusNum(principal.getName());
-		ShoppingCart shoppingCart = shoppingCartService.showShoppingCart(id);
+		long userId = shoppingCartService.getCusNum(principal.getName());
+		ShoppingCart shoppingCart = shoppingCartService.showShoppingCart(userId);
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "shopping-cart";
 	}
