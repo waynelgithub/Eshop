@@ -1,6 +1,7 @@
 package main.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +20,9 @@ public class Customer {
 	@Size(min = 1)
 	private String name;
 
+	@Column(name = "user_id")
+	private long userId;
+	
 	private String county;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -55,6 +59,14 @@ public class Customer {
 
 	public void setCustomerDetails(CustomerDetails customerDetails) {
 		this.customerDetails = customerDetails;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 }

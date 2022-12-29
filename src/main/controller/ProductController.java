@@ -54,6 +54,12 @@ public class ProductController {
 		productImage.setFileName(filename);
 		productImage.setImageBase64String(encodedString);
 		
+		Product oldProduct = productService.getByIdWithImage(product.getId());
+		
+		if(oldProduct != null)	{
+			productImage.setImageNum(oldProduct.getProductImage().getImageNum());
+		}
+		
 		//prepare product with image
 		product.setProductImage(productImage);
 		

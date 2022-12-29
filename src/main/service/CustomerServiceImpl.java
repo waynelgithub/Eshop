@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import main.model.Customer;
+import main.model.User;
 import main.repository.CustomerRepository;
+import main.repository.UserRepository;
 
 @Service
 @Transactional
@@ -17,6 +19,8 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	private UserRepository userRepository;
 	@Override
 	public List<Customer> getAll() {
 		return customerRepository.findAll();
@@ -37,4 +41,14 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepository.deleteById(id);
 	}
 
+	@Override
+	public Customer getByUserId(long id) {
+		return customerRepository.getByUserId(id);
+	}
+
+	@Override
+	public long getUserId(String name) {
+		User user = userRepository.findByLogin(name);
+		return user.getId();
+	}
 }
