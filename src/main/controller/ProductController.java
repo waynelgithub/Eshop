@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import main.model.Product;
 import main.model.ProductImage;
+import main.repository.ProductRepository;
 import main.service.ProductService;
 
 
@@ -90,8 +91,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("/")
-	public String showProductOnHomeTest(Model model) {
-		List<Product> products=productService.getAll();
+	public String showProductsOnHomePage(Model model) {
+		List<Product> products=productService.getAllWithImage();
 		model.addAttribute("products", products);
 		return "home";
 	}

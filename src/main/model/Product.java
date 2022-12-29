@@ -15,7 +15,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Entity
+@Entity(name ="product")
 public class Product {
 
 	@Id

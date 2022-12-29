@@ -19,7 +19,7 @@ public class ProductImage {
 	private long imageNum;
 	
     
-    @Lob
+
     @Column(name = "image_String", columnDefinition="MEDIUMTEXT")
     private String imageBase64String;
     

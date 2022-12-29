@@ -76,10 +76,10 @@
 			</div>
 		</nav>
 
-		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 px-5 my-3" th:if="${!products.empty}">
+		<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 px-3 my-3" th:if="${!products.empty}">
 			<div class="col my-1" th:each="product : ${products}">
 				<div class="card mx-0 border border-dark-subtle shadow">
-					<img th:src="@{/images/wallpaper_httyd1_1920x1200-3_INTL.jpg}" class="object-fit-cover card-img-top border-bottom border-3" alt="...">
+					<img th:src="'data:image/png;base64,'+${product.productImage.imageBase64String}" class="object-fit-cover card-img-top border-bottom border-3" alt="...">
 					<div class="card-body">
 						<h4 class="card-title fw-bold" th:text="${product.prodName}"></h4>
 						<h5 class="card-title fw-normal"

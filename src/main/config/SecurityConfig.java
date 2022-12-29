@@ -47,8 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		encodingFilter.setEncoding("UTF-8");
 		encodingFilter.setForceEncoding(true);
 		http.addFilterBefore(encodingFilter, CsrfFilter.class);
+		
+		//temporarily allow post requests to pass security check
+		http.csrf().disable();
+		
 		http.authorizeRequests()
-			.antMatchers("/", "/login")
+			.antMatchers("/", "/login", "/save-product", "/product-image-upload-with-product-id")
 				.permitAll()
 			.antMatchers("/addTour")
 				.hasAnyRole("ADMIN", "EMPLOYEE")
@@ -66,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 			.and()
 				.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+		
 	}
 	
 }
