@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity(name ="product")
@@ -22,6 +23,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@NotNull(message = "{product.number.min}")
 	@DecimalMin(value = "10000", message = "{product.number.min}")
 	@Column(name = "prod_num")
 	private long prodNum;
@@ -39,10 +41,12 @@ public class Product {
 	@Column(name = "prod_name")
 	private String prodName;
 	
-	@DecimalMin(value = "0.0", message = "{product.price.min}")
+	@NotNull(message = "{product.price.min}")
+	@DecimalMin(value = "0", message = "{product.price.min}")
 	@Column(name = "prod_price")
 	private BigDecimal prodPrice;
 	
+//	@NotNull (message = "{product.productImage.notNull}")
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_image_num")
 	private ProductImage productImage;

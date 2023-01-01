@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		
 		http.authorizeRequests()
-			.antMatchers("/", "/login", "/save-product", "/product-image-upload-with-product-id")
+			.antMatchers("/*", "/login", "/save-product", "/product-image-upload-with-product-id")
 				.permitAll()
 			.antMatchers("/addTour")
 				.hasAnyRole("ADMIN", "EMPLOYEE")

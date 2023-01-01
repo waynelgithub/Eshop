@@ -5,21 +5,23 @@ import java.util.Base64;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import main.model.Product;
 import main.model.ProductImage;
-import main.repository.ProductRepository;
 import main.service.ProductService;
 
 
@@ -37,8 +39,16 @@ public class ProductController {
 	}
 	
 	@PostMapping("/save-product")
-	public String saveProductDataWithImage(@Valid @ModelAttribute Product product,@RequestParam MultipartFile file, BindingResult bindingResult) throws IOException {
-		if(bindingResult.hasErrors()) {
+	public String saveProductDataWithImage(@Valid @ModelAttribute Product product, BindingResult bindingResult, @RequestPart @Valid MultipartFile file, Errors errors) throws IOException {
+		
+		//verify if uploaded multipart file is null
+		if(file.isEmpty()) {
+			//register a GlobalError, and link the message code in the message.properties 
+			errors.reject("upload.file.required");
+		}	
+
+		//
+		if(errors.hasErrors()|bindingResult.hasErrors()) {
 			return "product-form";
 		}
 		
@@ -51,19 +61,22 @@ public class ProductController {
 	
 		//prepare productImage
 		ProductImage productImage = new ProductImage();
+
+			//check if this product id exists
+			Product existingProduct = productService.getByIdWithImage(product.getId());
+			//get existing productImage if product id exists
+			if(existingProduct != null)	{
+				productImage = existingProduct.getProductImage();
+			}
+			
+		// update productImage fields
 		productImage.setFileName(filename);
 		productImage.setImageBase64String(encodedString);
 		
-		Product oldProduct = productService.getByIdWithImage(product.getId());
-		
-		if(oldProduct != null)	{
-			productImage.setImageNum(oldProduct.getProductImage().getImageNum());
-		}
-		
-		//prepare product with image
+		//prepare product with ProductImage
 		product.setProductImage(productImage);
 		
-		//save product and product image by cascadeType=ALL
+		//save product and productImage by cascadeType=ALL
 		productService.saveOrUpdate(product);
 		return "redirect:show-products";
 	}
@@ -96,7 +109,7 @@ public class ProductController {
 		return "redirect:/show-products";
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/product-home")
 	public String showProductsOnHomePage(Model model) {
 		List<Product> products=productService.getAllWithImage();
 		model.addAttribute("products", products);
