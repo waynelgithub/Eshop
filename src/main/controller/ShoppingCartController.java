@@ -42,9 +42,9 @@ public class ShoppingCartController {
 	}
 
 	@GetMapping("/show-shopping-cart")
-	public String getTours(Model model, Principal principal) {
+	public String getShoppingCart(Model model, Principal principal) {
 		ShoppingCart shoppingCart = shoppingCartService.showShoppingCart(principal.getName());
-		shoppingCartService.sumAmount(principal.getName());
+//		shoppingCartService.sumAmount(principal.getName());
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "shopping-cart";
 	}

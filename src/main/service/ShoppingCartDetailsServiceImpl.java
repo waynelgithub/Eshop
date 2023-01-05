@@ -89,6 +89,8 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 			shoppingCartDetail.setProductPrice(product.getProdPrice());
 			shoppingCartDetail.setQuantity(1);
 			shoppingCartDetail.setShoppingCart(shoppingCart);
+		} else {
+			shoppingCartDetail.setQuantity(shoppingCartDetail.getQuantity() + 1);
 		}
 		return shoppingCartDetail;
 	}

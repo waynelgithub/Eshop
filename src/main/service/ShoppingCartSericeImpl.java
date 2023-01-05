@@ -64,7 +64,7 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	@Override
 	public void sumAmount(String customer_num) {
 		ShoppingCart shoppingCart = getByCustomerNum(customer_num);
-		BigDecimal amount = new BigDecimal(0.0);
+		BigDecimal amount = new BigDecimal(0);
 		
 		if (shoppingCart != null) {
 			List<ShoppingCartDetails> shoppingCartDetails = shoppingCart.getShoppingCartDetails();
