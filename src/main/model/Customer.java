@@ -19,9 +19,6 @@ public class Customer {
 
 	@Size(min = 1)
 	private String name;
-
-	@Column(name = "user_id")
-	private long userId;
 	
 	private String county;
 	
@@ -29,7 +26,8 @@ public class Customer {
 	@JoinColumn(name = "customer_details_id")
 	private CustomerDetails customerDetails;
 	
-	private long customerNum;
+	@Column(name = "customer_num")
+	private String customerNum;
 
 	public String getName() {
 		return name;
@@ -63,19 +61,11 @@ public class Customer {
 		this.customerDetails = customerDetails;
 	}
 
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-
-	public long getCustomerNum() {
+	public String getCustomerNum() {
 		return customerNum;
 	}
 
-	public void setCustomerNum(long customerNum) {
+	public void setCustomerNum(String customerNum) {
 		this.customerNum = customerNum;
 	}
 

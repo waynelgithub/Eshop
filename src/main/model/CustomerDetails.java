@@ -18,7 +18,7 @@ public class CustomerDetails {
 	
 	private String email;
 
-	private long customerNum;
+	private String customerNum;
 	
 	public long getId() {
 		return id;
@@ -44,11 +44,11 @@ public class CustomerDetails {
 		this.email = email;
 	}
 
-	public long getCustomerNum() {
+	public String getCustomerNum() {
 		return customerNum;
 	}
 
-	public void setCustomerNum(long customerNum) {
+	public void setCustomerNum(String customerNum) {
 		this.customerNum = customerNum;
 	}
 	

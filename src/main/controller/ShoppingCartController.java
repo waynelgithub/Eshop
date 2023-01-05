@@ -43,8 +43,8 @@ public class ShoppingCartController {
 
 	@GetMapping("/show-shopping-cart")
 	public String getTours(Model model, Principal principal) {
-		long userId = shoppingCartService.getCusNum(principal.getName());
-		ShoppingCart shoppingCart = shoppingCartService.showShoppingCart(userId);
+		ShoppingCart shoppingCart = shoppingCartService.showShoppingCart(principal.getName());
+		shoppingCartService.sumAmount(principal.getName());
 		model.addAttribute("shoppingCart", shoppingCart);
 		return "shopping-cart";
 	}
@@ -66,11 +66,6 @@ public class ShoppingCartController {
 			return "form-shopping-cart";
 		}
 		return "redirect:/show-shopping-cart";
-	}
-	
-	@GetMapping("/payment")
-	public String showPayment() {
-		return "payment";
 	}
 	
 }

@@ -67,7 +67,7 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 	}
 
 	@Override
-	public ShoppingCartDetails addShoppingCartDetail(long productId, long customerNum) {
+	public ShoppingCartDetails addShoppingCartDetail(long productId, String customerNum) {
 		
 		Product product = productRepository.findById(productId).get();
 		

@@ -31,7 +31,7 @@ public class ShoppingCart {
 	@OneToMany(mappedBy = "shoppingCart",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ShoppingCartDetails> shoppingCartDetails;
 	
-	private long customer_num;
+	private String customer_num;
 
 	public long getId() {
 		return id;
@@ -65,11 +65,11 @@ public class ShoppingCart {
 		this.shoppingCartDetails = shoppingCartDetails;
 	}
 
-	public long getCustomer_num() {
+	public String getCustomer_num() {
 		return customer_num;
 	}
 
-	public void setCustomer_num(long customer_num) {
+	public void setCustomer_num(String customer_num) {
 		this.customer_num = customer_num;
 	}
 	

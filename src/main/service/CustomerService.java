@@ -14,7 +14,7 @@ public interface CustomerService {
 
 	public void delete(long id);
 	
-	public Customer getByUserId(long id);
+	public Customer getByCustomerNum(String login);
 	
 	public long getUserId(String name);
 }

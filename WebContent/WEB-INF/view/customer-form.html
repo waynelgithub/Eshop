@@ -30,7 +30,7 @@
 			</div>
 			
 			<div class="form-group my-2">
-				<input type="hidden" class="form-control" th:field="*{userId}">
+				<input type="hidden" class="form-control" th:field="*{customerNum}">
 			</div>
 
 			<div class="form-group my-2">
@@ -55,7 +55,7 @@
 
 			<div class="form-row px-5 d-flex justify-content-between align-items-center my-3">
 				<input class="btn btn-outline-success" type="submit" value="儲存">
-				<a th:href="@{/}" class="btn btn-outline-warning float-right">取消</a>
+				<a th:href="@{/show-customer}" class="btn btn-outline-warning float-right">取消</a>
 			</div>
 		</form>
 	</div>

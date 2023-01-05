@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Customers page</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script type=module th:src="@{/js/modal.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="px-3 py-1 shadow navbar-fixed-top">
+			<h1 class="text-dark text-center">客戶清單</h1>
+		</div>
+
+		<div class="row p-5">
+			<table class="table table-hover table-light table-striped table-bordered"
+				th:if="${!customers.empty}">
+				<thead>
+					<tr>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">#</th>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">姓名</th>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">所在地區</th>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">客戶編號</th>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">手機號碼</th>
+						<th class="align-middle text-center" style="width: 0.5rem" scope="col">Email</th>
+						<th class="align-middle text-center" style="width: 0.5rem" sec:authorize="hasRole('EMPLOYEE')" scope="col">編輯</th>
+						<th class="align-middle text-center" style="width: 0.5rem" sec:authorize="hasRole('ADMIN')" scope="col">刪除</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="customer : ${customers}">
+						<td class="align-middle text-center" th:text="${customerStat.count}"></td>
+						<td class="align-middle text-center" th:text="${customer.name}"></td>
+						<td class="align-middle text-center" th:text="${customer.county}"></td>
+						<td class="align-middle text-center" th:text="${customer.customerNum}"></td>
+						<td class="align-middle text-center" th:text="${customer.customerDetails.mobile}"></td>
+						<td class="align-middle text-center" th:text="${customer.customerDetails.email}"></td>
+						<td class="align-middle text-center" sec:authorize="hasRole('EMPLOYEE')"><a
+							class="btn btn-outline-primary" th:href="@{/edit-customer/} + ${customer.customerNum}">編輯</a></td>
+						<td class="align-middle text-center" sec:authorize="hasRole('ADMIN')">
+							<a
+							class="btn btn-outline-danger" 
+							data-bs-toggle="modal" 
+							data-bs-target="#staticBackdrop" 
+							th:data-bs-action-href="@{/delete-customer/} + ${customerNum}"
+							data-bs-modal-message-id="msg-delete-product">刪除</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row p-5" th:if="${customers.empty}">
+			<h3>沒有客戶資料</h3>
+		</div>
+
+		<div class="row p-5">
+			<a th:href="@{/}" class="btn btn-outline-warning">返回</a>
+		</div>
+	</div>
+</body>
+</html>

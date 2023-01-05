@@ -16,15 +16,15 @@ public interface ShoppingCartService {
 	
 	public ShoppingCart getByIdWithShoppingCartDetails(long id);
 	
-	public ShoppingCart getByCustomerNum(long id);
+	public ShoppingCart getByCustomerNum(String customer_num);
 	
 	public List<ShoppingCart> findFirstByOrderById();
 	
-	public void sumAmount(long id);
+	public void sumAmount(String customerNum);
 	
 	public long getCusNum(String login);
 	
 	public ShoppingCart setCustomerNum(String login);
 	
-	public ShoppingCart showShoppingCart(long customerNum);
+	public ShoppingCart showShoppingCart(String customerNum);
 }

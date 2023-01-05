@@ -25,11 +25,13 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
+	@Autowired
+	private CustomerDetailsService customerDetailsService;
+	
 	@GetMapping("/add-customer")
 	public String showForm(Model model, Principal principal) {
-		long userId = customerService.getUserId(principal.getName());
 		Customer customer = new Customer();
-		customer.setUserId(userId);
+		customer.setCustomerNum(principal.getName());
 		model.addAttribute("customer", customer);
 		return "customer-form";
 	}
@@ -39,25 +41,34 @@ public class CustomerController {
 		if (bindingResult.hasErrors()) {
 			return "customer-form";
 		}
+		CustomerDetails customerDetail = customer.getCustomerDetails();
+		customerDetail.setCustomerNum(customer.getCustomerNum());
+		customerDetailsService.saveOrUpdate(customerDetail);
 		customerService.saveOrUpdate(customer);
 		return "redirect:show-customer";
 	}
 
 	@GetMapping("/show-customer")
-	public String getCustomers(Model model, Principal principal) {
-		long userId = customerService.getUserId(principal.getName());
-		Customer customer = customerService.getByUserId(userId);
+	public String getCustomer(Model model, Principal principal) {
+		Customer customer = customerService.getByCustomerNum(principal.getName());
 		if (customer == null) {
 			return "redirect:/add-customer";
 		}
 		model.addAttribute("customer", customer);
 		return "customer";
 	}
+	
+	@GetMapping("/show-customers")
+	public String getCustomers(Model model) {
+		List<Customer> customers = customerService.getAll();
+		model.addAttribute("customers", customers);
+		return "customers";
+	}
 
-	@GetMapping("/delete-customer")
-	public String deleteCustomer(Principal principal) {
-		long userId = customerService.getUserId(principal.getName());
-		Customer customer = customerService.getById(userId);
+	@GetMapping("/delete-customer/{customerNum}")
+	public String deleteCustomer(Principal principal,@PathVariable String customerNum) {
+//		long userId = customerService.getUserId(principal.getName());
+		Customer customer = customerService.getByCustomerNum(customerNum);
 		if (customer != null) {
 			customerService.delete(customer.getId());
 		}
@@ -66,8 +77,7 @@ public class CustomerController {
 
 	@GetMapping("/edit-customer")
 	public String editCustomer(Model model, Principal principal) {
-		long userId = customerService.getUserId(principal.getName());
-		Customer customer = customerService.getByUserId(userId);
+		Customer customer = customerService.getByCustomerNum(principal.getName());
 		if (customer != null) {
 			model.addAttribute("customer", customer);
 			return "customer-form";
@@ -75,5 +85,23 @@ public class CustomerController {
 		return "redirect:/show-customer";
 	}
 	
+	@GetMapping("/edit-customer/{customerNum}")
+	public String editCustomers(Model model,@PathVariable String customerNum) {
+		Customer customer = customerService.getByCustomerNum(customerNum);
+		if (customer != null) {
+			model.addAttribute("customer", customer);
+			return "customer-form";
+		}
+		return "redirect:/show-customer/{customerNum}";
+	}
 	
+	@GetMapping("/show-customer/{customerNum}")
+	public String getCustomer(Model model,@PathVariable String customerNum) {
+		Customer customer = customerService.getByCustomerNum(customerNum);
+		if (customer == null) {
+			return "redirect:/add-customer";
+		}
+		model.addAttribute("customer", customer);
+		return "customer";
+	}
 }

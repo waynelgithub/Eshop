@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.ShoppingCartDetails;
 import main.service.ShoppingCartDetailsService;
-import main.service.ShoppingCartService;
 
 @Controller
 public class ShoppingCartDetailsController {
@@ -23,14 +22,10 @@ public class ShoppingCartDetailsController {
 	@Autowired
 	private ShoppingCartDetailsService shoppingCartDetailsService;
 	
-	@Autowired
-	private ShoppingCartService shoppingCartService;
-	
 	@GetMapping("/add-shopping-cart-details/{productId}")
 	public String showShoppingCartForm(Model model, Principal principal, @PathVariable long productId) {
-		long cusNum = shoppingCartService.getCusNum(principal.getName());
 
-		ShoppingCartDetails shoppingCartDetail = shoppingCartDetailsService.addShoppingCartDetail(productId, cusNum);
+		ShoppingCartDetails shoppingCartDetail = shoppingCartDetailsService.addShoppingCartDetail(productId, principal.getName());
 		
 		model.addAttribute("shoppingCart", shoppingCartDetail.getShoppingCart());
 		model.addAttribute("shoppingCartDetail", shoppingCartDetail);

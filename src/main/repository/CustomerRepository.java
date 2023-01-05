@@ -8,7 +8,7 @@ import main.model.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-	@Query("from Customer cus where cus.userId = :id")
-	public Customer getByUserId(@Param("id") long id);
+	@Query("from Customer cus where cus.customerNum = :customerNum")
+	public Customer getByCustomerNum(@Param("customerNum") String customerNum);
 
 }
