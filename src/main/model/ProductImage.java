@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 
 
@@ -19,7 +18,6 @@ public class ProductImage {
 	private long imageNum;
 	
     
-
     @Column(name = "image_String", columnDefinition="MEDIUMTEXT")
     private String imageBase64String;
     
