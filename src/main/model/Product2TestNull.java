@@ -13,11 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity(name ="product")
-public class Product {
+//@Entity(name ="product2_test_null")
+public class Product2TestNull {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,17 +29,19 @@ public class Product {
 	@Column(name = "prod_num")
 	private long prodNum;
 	
+	@NotEmpty
 	@Size(min = 2, message = "{product.type.size}")
 	@Column(name = "prod_type")
 	private String prodType;
 	
 	@Size(min = 2, message = "{product.prodline.size}")
-	@Column(name = "prod_line")
+	@Column(name = "prod_line", nullable = false)
 	private String prodline;
 	
+	//@NotNull
 	@NotBlank(message = "{product.name.notblank}")
 	@Size(min = 2, message = "{product.name.size}")
-	@Column(name = "prod_name")
+	@Column(name = "prod_name", nullable = true)
 	private String prodName;
 	
 	@NotNull(message = "{product.price.min}")
@@ -46,7 +49,7 @@ public class Product {
 	@Column(name = "prod_price")
 	private BigDecimal prodPrice;
 	
-//	@NotNull (message = "{product.productImage.notNull}")
+	@NotNull (message = "{product.productImage.notNull}")
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_image_num")
 	private ProductImage productImage;
