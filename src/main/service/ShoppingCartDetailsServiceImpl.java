@@ -56,8 +56,8 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 	}
 	
 	@Override
-	public ShoppingCartDetails getByProductNum(long num) {
-		return shoppingCartDetailsRepository.getByProductNum(num);
+	public ShoppingCartDetails getByProductNum(long num, long id) {
+		return shoppingCartDetailsRepository.getByProductNum(num, id);
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ public class ShoppingCartDetailsServiceImpl implements ShoppingCartDetailsServic
 		}
 		shoppingCartRepository.save(shoppingCart);
 		
-		ShoppingCartDetails shoppingCartDetail = shoppingCartDetailsRepository.getByProductNum(product.getProdNum());
+		ShoppingCartDetails shoppingCartDetail = shoppingCartDetailsRepository.getByProductNum(product.getProdNum(), shoppingCart.getId());
 		if (shoppingCartDetail == null) {
 			shoppingCartDetail = new ShoppingCartDetails();
 			shoppingCartDetail.setProductName(product.getProdName());

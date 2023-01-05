@@ -16,7 +16,7 @@ public interface ShoppingCartDetailsService {
 	
 	public void deleteByIdWithShoppingCartDetails(long id);
 	
-	public ShoppingCartDetails getByProductNum(long num);
+	public ShoppingCartDetails getByProductNum(long num, long id);
 	
 	public long getProductNum(long productId);
 	
