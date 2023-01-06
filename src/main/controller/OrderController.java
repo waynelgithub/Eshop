@@ -1,6 +1,8 @@
 package main.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,14 +16,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.Order;
-
+import main.model.OrderDetail;
+import main.model.ShoppingCart;
+import main.model.ShoppingCartDetails;
 import main.service.OrderService;
+import main.service.ShoppingCartService;
 
 @Controller
 public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private ShoppingCartService shoppingCartService;
 	
 	
 	@GetMapping("/add-order")
@@ -37,6 +45,42 @@ public class OrderController {
 		}
 		orderService.saveOrUpdate(order);
 		return "redirect:show-orders";
+	}
+	
+	@GetMapping("/save-order/{shoppingCartId}")
+	public String saveOrderByShoppingCartId(@Valid @PathVariable int shoppingCartId) {
+		//取出shoppingCart 跟 shopping detail 資料
+		ShoppingCart shoppingCart = shoppingCartService.getByIdWithShoppingCartDetails(shoppingCartId);
+		List<ShoppingCartDetails> shoppingCartDetails = shoppingCart.getShoppingCartDetails();
+		
+		//轉寫到 order & orderDetail		
+		Order order = new Order();
+		order.setCustomerNumer(shoppingCart.getCustomer_num());
+		order.setOrderCreatedDate(shoppingCart.getDate());
+		order.setOrderAmount(shoppingCart.getAmount());
+		
+		List<OrderDetail> orderDetails = shoppingCartDetails.stream()
+				.map(o -> new OrderDetail(
+							o.getProductNum(),
+							o.getQuantity(),
+							o.getProductPrice(),
+							o.getProductPrice().multiply(BigDecimal.valueOf(o.getQuantity())),
+							order
+							)
+					)
+				.collect(Collectors.toList());
+		
+		order.setOrderDetails(orderDetails);
+		
+			//檢視order內容
+			System.out.println(order);
+		
+		//存 order & orderDetail to DB
+		orderService.saveOrUpdate(order);
+	
+		
+		//轉訂單總列表畫面
+		return "redirect:/show-orders";
 	}
 	
 	@GetMapping("/show-orders")

@@ -14,14 +14,11 @@
 	<div class="container">
 			<div class="bg-warning p-3 rounded-bottom">
 				<h1 class="text-dark text-center">付款方式</h1>
-			</div>
-			
+			</div>			
 			<form action="#" method="post">
-	
 				<!-- <div class="form-group">
 					<input type="hidden" class="form-control" th:field="*{id}">
-				</div> -->
-				
+				</div> -->				
 				<div class="form-check">
 				  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
 				  <label class="form-check-label" for="flexRadioDefault1">
@@ -49,7 +46,10 @@
 						<a th:href="@{/}" class="btn btn-warning float-right">返回</a>
 					</div>
 				</div>
-			</form>
+			</form>			
+			<div>
+				<a class="btn btn-success" th:href="@{/show-orders}">檢視訂單</a>
+			</div>
 	</div>
 </body>
 </html>

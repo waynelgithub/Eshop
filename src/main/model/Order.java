@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,62 +24,66 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@Column(name = "order_number")
+	private long orderNumer;
 
-	@Column(name = "ord_num")
-	private long ordNum;
+	@Column(name = "customer_number")
+	private String customerNumer;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "order_date")
-	private Date orderDate;
-
-	@Column(name = "cust_num")
-	private long custNum;
-
-	@Column(name = "ord_amt")
-	private BigDecimal ordAmt;
+	@Column(name = "order_amount")
+	private BigDecimal orderAmount;
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<OrderDetail> orderDetails;
 
-	public long getId() {
-		return id;
+	
+	enum PaymentStatus{
+        Unpaid,
+        Paid
+	}
+	
+    public enum OrderStatus{
+        Open,
+        Filled, 
+        Cancelled
+    }
+    
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+    
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "order_created_date")
+	private Date orderCreatedDate;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(name = "order_modifed_date")
+	private Date orderModifedDate;
+
+	public long getOrderNumer() {
+		return orderNumer;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setOrderNumer(long orderNumer) {
+		this.orderNumer = orderNumer;
 	}
 
-	public long getOrdNum() {
-		return ordNum;
+	public String getCustomerNumer() {
+		return customerNumer;
 	}
 
-	public void setOrdNum(long ordNum) {
-		this.ordNum = ordNum;
+	public void setCustomerNumer(String customerNumer) {
+		this.customerNumer = customerNumer;
 	}
 
-	public Date getOrderDate() {
-		return orderDate;
+	public BigDecimal getOrderAmount() {
+		return orderAmount;
 	}
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
-
-	public long getCustNum() {
-		return custNum;
-	}
-
-	public void setCustNum(long custNum) {
-		this.custNum = custNum;
-	}
-
-	public BigDecimal getOrdAmt() {
-		return ordAmt;
-	}
-
-	public void setOrdAmt(BigDecimal ordAmt) {
-		this.ordAmt = ordAmt;
+	public void setOrderAmount(BigDecimal orderAmount) {
+		this.orderAmount = orderAmount;
 	}
 
 	public List<OrderDetail> getOrderDetails() {
@@ -88,4 +94,32 @@ public class Order {
 		this.orderDetails = orderDetails;
 	}
 
+	public Date getOrderCreatedDate() {
+		return orderCreatedDate;
+	}
+
+	public void setOrderCreatedDate(Date orderCreatedDate) {
+		this.orderCreatedDate = orderCreatedDate;
+	}
+
+	public Date getOrderModifedDate() {
+		return orderModifedDate;
+	}
+
+	public void setOrderModifedDate(Date orderModifedDate) {
+		this.orderModifedDate = orderModifedDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [orderNumer=" + orderNumer + ", customerNumer=" + customerNumer + ", orderAmount=" + orderAmount
+				+ ", orderCreatedDate=" + orderCreatedDate + ", orderModifedDate=" + orderModifedDate
+				+ ", orderDetails=" + orderDetails + "]";
+	}
+
+
+
+
+
+	
 }

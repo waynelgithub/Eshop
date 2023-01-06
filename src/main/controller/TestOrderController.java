@@ -30,31 +30,31 @@ public class TestOrderController {
 	@GetMapping("/test-save-order")
 	public String testSaveOrder() {
 		Order order = new Order();
-		order.setCustNum(2222);
-		order.setOrdAmt(BigDecimal.valueOf(4141));
-		order.setOrderDate(new Date());
-		order.setOrdNum(363636);
+		order.setCustomerNumer("2222");
+		order.setOrderAmount(BigDecimal.valueOf(4141));
+		order.setOrderCreatedDate(new Date());
+		order.setOrderNumer(363636);
 		
 		List<OrderDetail> orderDetails = new ArrayList<>();
 		
 		OrderDetail orderDetail = new OrderDetail();
-		orderDetail.setOrdPrice(BigDecimal.valueOf(55));
-		orderDetail.setOrdQty(3);
-		orderDetail.setProdNum(7243);
+		orderDetail.setUnitPrice(BigDecimal.valueOf(55));
+		orderDetail.setQuantity(3);
+		orderDetail.setProductNumber(7243);
 		orderDetail.setOrder(order);
-		orderDetail.setOrdNum(order.getOrdNum());
 		orderDetails.add(orderDetail);
 
 		orderDetail = new OrderDetail();
-		orderDetail.setOrdPrice(BigDecimal.valueOf(1800));
-		orderDetail.setOrdQty(100);
-		orderDetail.setProdNum(5500);
+		orderDetail.setUnitPrice(BigDecimal.valueOf(88));
+		orderDetail.setQuantity(299);
+		orderDetail.setProductNumber(78544);
 		orderDetail.setOrder(order);
-		orderDetail.setOrdNum(order.getOrdNum());
-		orderDetails.add(orderDetail);		
+		orderDetails.add(orderDetail);	
 		
 				
 		order.setOrderDetails(orderDetails);
+		
+		System.out.println("order:/n"+order);
 		
 				
 		orderService.saveOrUpdate(order);

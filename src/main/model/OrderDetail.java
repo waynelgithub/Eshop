@@ -30,63 +30,77 @@ public class OrderDetail {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@Column(name = "order_detail_id")
+	private long orderDetailId;
 	
-	@Column(name = "ord_num")
-	private long ordNum;
+	@Column(name = "product_number")
+	private long productNumber;
 	
-	@Column(name = "prod_num")
-	private long prodNum;
+	@Column(name = "quantity")
+	private int quantity;
 	
-	@Column(name = "ord_qty")
-	private int ordQty;
+	@Column(name = "unit_price")
+	private BigDecimal unitPrice;
 	
-	@Column(name = "ord_price")
-	private BigDecimal ordPrice;
+	@Column(name = "unit_price_amount")
+	private BigDecimal unitPriceAmount;	
 	
 	@ManyToOne
-	@JoinColumn(name = "order_id")
+	@JoinColumn(name = "order_number")
 	private Order order;
-	
 
-	public long getId() {
-		return id;
+	public OrderDetail(long productNumber, int quantity, BigDecimal unitPrice, BigDecimal unitPriceAmount,
+			Order order) {
+		super();
+		this.productNumber = productNumber;
+		this.quantity = quantity;
+		this.unitPrice = unitPrice;
+		this.unitPriceAmount = unitPriceAmount;
+		this.order = order;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public OrderDetail() {
+		super();
 	}
 
-	public long getOrdNum() {
-		return ordNum;
+	public long getOrderDetailId() {
+		return orderDetailId;
 	}
 
-	public void setOrdNum(long ordNum) {
-		this.ordNum = ordNum;
+	public void setOrderDetailId(long orderDetailId) {
+		this.orderDetailId = orderDetailId;
 	}
 
-	public long getProdNum() {
-		return prodNum;
+	public long getProductNumber() {
+		return productNumber;
 	}
 
-	public void setProdNum(long prodNum) {
-		this.prodNum = prodNum;
+	public void setProductNumber(long productNumber) {
+		this.productNumber = productNumber;
 	}
 
-	public int getOrdQty() {
-		return ordQty;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setOrdQty(int ordQty) {
-		this.ordQty = ordQty;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	public BigDecimal getOrdPrice() {
-		return ordPrice;
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
 	}
 
-	public void setOrdPrice(BigDecimal ordPrice) {
-		this.ordPrice = ordPrice;
+	public void setUnitPrice(BigDecimal unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public BigDecimal getUnitPriceAmount() {
+		return unitPriceAmount;
+	}
+
+	public void setUnitPriceAmount(BigDecimal unitPriceAmount) {
+		this.unitPriceAmount = unitPriceAmount;
 	}
 
 	public Order getOrder() {
@@ -96,15 +110,15 @@ public class OrderDetail {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderDetail [orderDetailId=" + orderDetailId + ", productNumber=" + productNumber + ", quantity="
+				+ quantity + ", unitPrice=" + unitPrice + ", unitPriceAmount=" + unitPriceAmount + ", orderNumber=" + order.getOrderNumer()
+				+ "]";
+	}
+
 	
-
-
-
-
 	
-
-
-
-
-
+	
 }
