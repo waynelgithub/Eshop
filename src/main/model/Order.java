@@ -38,20 +38,22 @@ public class Order {
 
 	
 	enum PaymentStatus{
-        Unpaid,
-        Paid
+        UNPAID,
+        PAID
 	}
 	
     public enum OrderStatus{
-        Open,
-        Filled, 
-        Cancelled
+        OPEN,
+        FILLED, 
+        CANCELED
     }
     
     @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status")
     private PaymentStatus paymentStatus;
     
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     private OrderStatus orderStatus;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Home page</title>
+<title>結帳頁</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
@@ -48,7 +48,7 @@
 				</div>
 			</form>			
 			<div>
-				<a class="btn btn-success" th:href="@{/show-orders}">檢視訂單</a>
+				<a class="btn btn-success" th:href="@{/save-order/} + ${shoppingCart.id}">結帳完成，檢視訂單</a>
 			</div>
 	</div>
 </body>
