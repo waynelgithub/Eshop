@@ -114,9 +114,9 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderNumer=" + orderNumer + ", customerNumer=" + customerNumer + ", orderAmount=" + orderAmount
+		return "\nOrder [orderNumer=" + orderNumer + ", customerNumer=" + customerNumer + ", orderAmount=" + orderAmount
 				+ ", orderCreatedDate=" + orderCreatedDate + ", orderModifedDate=" + orderModifedDate
-				+ ", orderDetails=" + orderDetails + "]";
+				+ ", orderDetails=" + orderDetails + "]\n";
 	}
 
 

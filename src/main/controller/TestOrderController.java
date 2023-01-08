@@ -54,16 +54,16 @@ public class TestOrderController {
 				
 		order.setOrderDetails(orderDetails);
 		
-		System.out.println("order:/n"+order);
+		System.out.println(order);
 		
 				
 		orderService.saveOrUpdate(order);
-		return "redirect:show-orders";
+		return "redirect:show-my-orders";
 		
 	}
 	
-	//測試是否抓order 連帶 orderDetail 都有抓，要用debug mode
-	@GetMapping("/test-show-orders")
+	//測試是否抓 order 連帶 orderDetail 都有抓，要用debug mode
+	@GetMapping("/test-show-all-orders")
 	public String getOrders(Model model) {
 		List<Order> orders = orderService.getAll();
 		model.addAttribute("orders", orders);

@@ -1,8 +1,6 @@
 package main.model;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,17 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "sales_order_detail")
@@ -113,7 +100,7 @@ public class OrderDetail {
 
 	@Override
 	public String toString() {
-		return "OrderDetail [orderDetailId=" + orderDetailId + ", productNumber=" + productNumber + ", quantity="
+		return "\nOrderDetail [orderDetailId=" + orderDetailId + ", productNumber=" + productNumber + ", quantity="
 				+ quantity + ", unitPrice=" + unitPrice + ", unitPriceAmount=" + unitPriceAmount + ", orderNumber=" + order.getOrderNumer()
 				+ "]";
 	}

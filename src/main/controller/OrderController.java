@@ -1,6 +1,7 @@
 package main.controller;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class OrderController {
 			return "order-form";
 		}
 		orderService.saveOrUpdate(order);
-		return "redirect:show-orders";
+		return "redirect:/show-my-orders";
 	}
 	
 	@GetMapping("/save-order/{shoppingCartId}")
@@ -53,7 +54,7 @@ public class OrderController {
 		ShoppingCart shoppingCart = shoppingCartService.getByIdWithShoppingCartDetails(shoppingCartId);
 		List<ShoppingCartDetails> shoppingCartDetails = shoppingCart.getShoppingCartDetails();
 		
-		//轉寫到 order & orderDetail		
+		//轉寫資料到 order & orderDetail		
 		Order order = new Order();
 		order.setCustomerNumer(shoppingCart.getCustomer_num());
 		order.setOrderCreatedDate(shoppingCart.getDate());
@@ -72,20 +73,20 @@ public class OrderController {
 		
 		order.setOrderDetails(orderDetails);
 		
-			//檢視order內容
-			System.out.println(order);
-		
-		//存 order & orderDetail to DB
+		//save order & orderDetail to DB
 		orderService.saveOrUpdate(order);
 	
+		//刪除 shoppingCart DB 資料
+		shoppingCartService.delete(shoppingCartId);	
 		
-		//轉訂單總列表畫面
-		return "redirect:/show-orders";
+		//轉個人訂單列表畫面
+		return "redirect:/show-my-orders";
 	}
 	
-	@GetMapping("/show-orders")
-	public String getOrders(Model model) {
-		List<Order> orders = orderService.getAll();
+	@GetMapping("/show-my-orders")
+	public String getOrders(Model model, Principal principal) {
+		String customerNumber = principal.getName();
+		List<Order> orders = orderService.getOrdersByCustomerId(customerNumber);
 		model.addAttribute("orders", orders);
 		return "orders";
 	}
@@ -96,7 +97,7 @@ public class OrderController {
 		if(order != null) {
 			orderService.delete(id);
 		}
-		return "redirect:/show-orders";
+		return "redirect:/show-my-orders";
 	}
 	
 	@GetMapping("/edit-order/{id}")
@@ -106,7 +107,7 @@ public class OrderController {
 			model.addAttribute("order", order);
 			return "order-form";
 		}
-		return "redirect:/show-orders";
+		return "redirect:/show-my-orders";
 	}
 	
 }
