@@ -23,6 +23,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public List<OrderDetail> getAll() {
 		return orderDetailRepository.findAll();
 	}
+	
+	@Override
+	public List<OrderDetail> getAllByOrderNumber(long orderNumber) {
+		return orderDetailRepository.getAllByOrder_OrderNumber(orderNumber);
+	}
 
 	@Override
 	public OrderDetail getById(long id) {
@@ -39,6 +44,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public void delete(long id) {
 		orderDetailRepository.deleteById(id);		
 	}
+
+
 
 
 	

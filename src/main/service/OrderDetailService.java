@@ -8,6 +8,8 @@ public interface OrderDetailService {
 
 	public List<OrderDetail> getAll();
 	
+	public List<OrderDetail> getAllByOrderNumber(long orderNumber);
+	
 	public OrderDetail getById(long id);
 	
 	public void saveOrUpdate(OrderDetail orderDetail);

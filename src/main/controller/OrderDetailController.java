@@ -1,5 +1,6 @@
 package main.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -50,12 +51,22 @@ public class OrderDetailController {
 			return "order-detail-form";
 		}
 		orderDetailService.saveOrUpdate(orderDetail);
-		return "redirect:show-order-details";
+		return "redirect:/show-my-order-details";
 	}
 	
 	@GetMapping("/show-order-details")
 	public String getOrderDetails(Model model) {
 		List<OrderDetail> orderDetails=orderDetailService.getAll();
+		model.addAttribute("orderDetails", orderDetails);
+		return "order-details";
+	}
+	
+	@GetMapping("/show-my-order-details/{orderNumber}")
+	public String getMyOrderDetails(Model model, Principal principal, @PathVariable long orderNumber) {
+		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
+		// verify data in console
+		System.out.println(orderDetails);
+		
 		model.addAttribute("orderDetails", orderDetails);
 		return "order-details";
 	}
@@ -66,7 +77,7 @@ public class OrderDetailController {
 		if(orderDetail != null) {
 			orderDetailService.delete(id);
 		}
-		return "redirect:/show-order-details";
+		return "redirect:/show-my-order-details";
 	}
 	
 	@GetMapping("/edit-order-detail/{id}")
@@ -76,7 +87,7 @@ public class OrderDetailController {
 			model.addAttribute("orderDetail", orderDetail);
 			return "order-detail-form";
 		}
-		return "redirect:/show-order-details";
+		return "redirect:/show-my-order-details";
 	}
 	
 }

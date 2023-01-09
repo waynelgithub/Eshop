@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>訂單列表頁</title>
+<title>訂單列表</title>
 <script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -24,21 +24,18 @@
 						<th scope="col">訂單日期</th>
 						<th scope="col">客戶編號</th>
 						<th scope="col">訂單金額</th>
-<!-- 					<th scope="col">修改</th>
-						<th scope="col">刪除</th>
- -->				
+						<th scope="col">明細</th>
+				
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="order : ${orders}">
 						<td th:text="${orderStat.count}"></td>
-						<td th:text="${order.orderNumer}"></td>
+						<td th:text="${order.orderNumber}"></td>
 						<td th:text="${#dates.format(order.orderCreatedDate, 'yyyy/MM/dd')}"></td>
 						<td th:text="${order.customerNumer}"></td>
 						<td th:text="${order.orderAmount}"></td>
-<!--						<td><a class="btn btn-primary" th:href="@{/edit-order/} + ${order.orderNumer}">修改</a></td>
-						<td><a class="btn btn-danger" th:href="@{/delete-order/} + ${order.orderNumer}">刪除</a></td>	
- -->						
+						<td><a class="btn btn-primary" th:href="@{/show-my-order-details/} + ${order.orderNumber}">明細</a></td>						
 					</tr>
 				</tbody>
 			</table>
@@ -48,7 +45,7 @@
 			<h3>尚無訂單</h3>
 		</div>
 
-		<div class="row">
+		<div >
 			<a th:href="@{/}" class="btn btn-warning">首頁</a>
 		</div>
 	</div>

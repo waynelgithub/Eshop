@@ -25,7 +25,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_number")
-	private long orderNumer;
+	private long orderNumber;
 
 	@Column(name = "customer_number")
 	private String customerNumer;
@@ -37,7 +37,7 @@ public class Order {
 	private List<OrderDetail> orderDetails;
 
 	
-	enum PaymentStatus{
+	public enum PaymentStatus{
         UNPAID,
         PAID
 	}
@@ -64,12 +64,30 @@ public class Order {
 	@Column(name = "order_modifed_date")
 	private Date orderModifedDate;
 
-	public long getOrderNumer() {
-		return orderNumer;
+
+
+	public long getOrderNumber() {
+		return orderNumber;
 	}
 
-	public void setOrderNumer(long orderNumer) {
-		this.orderNumer = orderNumer;
+	public void setOrderNumber(long orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+	public PaymentStatus getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 
 	public String getCustomerNumer() {
@@ -114,9 +132,15 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "\nOrder [orderNumer=" + orderNumer + ", customerNumer=" + customerNumer + ", orderAmount=" + orderAmount
-				+ ", orderCreatedDate=" + orderCreatedDate + ", orderModifedDate=" + orderModifedDate
-				+ ", orderDetails=" + orderDetails + "]\n";
+		return "\n"
+				+ "Order [orderNumber=" + orderNumber 
+				+ ", customerNumer=" + customerNumer 
+				+ ", orderAmount=" + orderAmount
+				+ ", orderCreatedDate=" + orderCreatedDate 
+				+ ", orderModifedDate=" + orderModifedDate
+				+"\n"
+				+ ", orderDetails=" + orderDetails + "]"
+				+ "\n";
 	}
 
 

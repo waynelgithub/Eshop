@@ -33,7 +33,7 @@ public class TestOrderController {
 		order.setCustomerNumer("2222");
 		order.setOrderAmount(BigDecimal.valueOf(4141));
 		order.setOrderCreatedDate(new Date());
-		order.setOrderNumer(363636);
+		order.setOrderNumber(363636);
 		
 		List<OrderDetail> orderDetails = new ArrayList<>();
 		

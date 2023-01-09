@@ -24,16 +24,22 @@
 						<th scope="col">產品編號</th>
 						<th scope="col">產品銷售數量</th>
 						<th scope="col">銷售價格</th>
+						<th scope="col">銷售金額</th>
+						<th scope="col">退貨狀態</th>
+						<th scope="col">退貨</th>
 				
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="orderDetail : ${orderDetails}">
 						<td th:text="${orderDetailStat.count}"></td>
-						<td th:text="${orderDetail.ordNum}"></td>
-						<td th:text="${orderDetail.prodNum}"></td>
-						<td th:text="${orderDetail.ordQty}"></td>
-						<td th:text="${orderDetail.ordQty}"></td>												
+						<td th:text="${orderDetail.order.orderNumber}"></td>
+						<td th:text="${orderDetail.productNumber}"></td>
+						<td th:text="${orderDetail.quantity}"></td>
+						<td th:text="${orderDetail.unitPrice}"></td>
+						<td th:text="${orderDetail.unitPriceAmount}"></td>
+						<td th:text="${orderDetail.salesReturnStatus}"></td>
+						<td><a class="btn btn-danger">退貨</a></td>												
 					</tr>
 				</tbody>
 			</table>
@@ -43,8 +49,9 @@
 			<h3>沒有訂單明細</h3>
 		</div>
 
-		<div class="row">
-			<a th:href="@{/order-detail-form}" class="btn btn-warning">返回</a>
+		<div>
+			
+			<button onclick="history.back()" class="btn btn-warning">前一頁</button>
 		</div>
 	</div>
 </body>

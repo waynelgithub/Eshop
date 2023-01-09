@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.Order;
 import main.model.OrderDetail;
+import main.model.SalesReturnStatus;
 import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
 import main.service.OrderService;
@@ -66,12 +67,16 @@ public class OrderController {
 							o.getQuantity(),
 							o.getProductPrice(),
 							o.getProductPrice().multiply(BigDecimal.valueOf(o.getQuantity())),
-							order
+							order,
+							SalesReturnStatus.RETURNABLE
 							)
 					)
 				.collect(Collectors.toList());
 		
 		order.setOrderDetails(orderDetails);
+		
+			//verify data
+			System.out.println(order);
 		
 		//save order & orderDetail to DB
 		orderService.saveOrUpdate(order);
@@ -84,7 +89,7 @@ public class OrderController {
 	}
 	
 	@GetMapping("/show-my-orders")
-	public String getOrders(Model model, Principal principal) {
+	public String getMyOrders(Model model, Principal principal) {
 		String customerNumber = principal.getName();
 		List<Order> orders = orderService.getOrdersByCustomerId(customerNumber);
 		model.addAttribute("orders", orders);
