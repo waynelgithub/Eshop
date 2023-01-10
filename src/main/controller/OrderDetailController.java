@@ -54,6 +54,7 @@ public class OrderDetailController {
 		return "redirect:/show-my-order-details";
 	}
 	
+	// for admin to show all users' order details
 	@GetMapping("/show-order-details")
 	public String getOrderDetails(Model model) {
 		List<OrderDetail> orderDetails=orderDetailService.getAll();

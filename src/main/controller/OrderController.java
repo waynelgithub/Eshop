@@ -2,6 +2,7 @@ package main.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.Order;
 import main.model.OrderDetail;
+import main.model.OrderStatus;
+import main.model.PaymentStatus;
+import main.model.RefundStatus;
 import main.model.SalesReturnStatus;
 import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
@@ -57,9 +61,13 @@ public class OrderController {
 		
 		//轉寫資料到 order & orderDetail		
 		Order order = new Order();
+		Date date = new Date(); //訂單成立時的時間
 		order.setCustomerNumer(shoppingCart.getCustomer_num());
-		order.setOrderCreatedDate(shoppingCart.getDate());
+		order.setOrderCreatedDate(date);
+		order.setOrderModifedDate(date);
 		order.setOrderAmount(shoppingCart.getAmount());
+		order.setOrderStatus(OrderStatus.OPEN);
+		order.setPaymentStatus(PaymentStatus.PAID);
 		
 		List<OrderDetail> orderDetails = shoppingCartDetails.stream()
 				.map(o -> new OrderDetail(
@@ -68,14 +76,17 @@ public class OrderController {
 							o.getProductPrice(),
 							o.getProductPrice().multiply(BigDecimal.valueOf(o.getQuantity())),
 							order,
-							SalesReturnStatus.RETURNABLE
+							SalesReturnStatus.RETURNABLE,
+							RefundStatus.REFUNDABLE,
+							order.getOrderCreatedDate(),
+							order.getOrderCreatedDate()
 							)
 					)
 				.collect(Collectors.toList());
 		
 		order.setOrderDetails(orderDetails);
 		
-			//verify data
+			//verify data in console
 			System.out.println(order);
 		
 		//save order & orderDetail to DB
@@ -92,6 +103,14 @@ public class OrderController {
 	public String getMyOrders(Model model, Principal principal) {
 		String customerNumber = principal.getName();
 		List<Order> orders = orderService.getOrdersByCustomerId(customerNumber);
+		model.addAttribute("orders", orders);
+		return "orders";
+	}
+
+	// for admin
+	@GetMapping("/show-all-orders")
+	public String getAllOrders(Model model, Principal principal) {
+		List<Order> orders = orderService.getAll();
 		model.addAttribute("orders", orders);
 		return "orders";
 	}

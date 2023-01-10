@@ -35,18 +35,6 @@ public class Order {
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<OrderDetail> orderDetails;
-
-	
-	public enum PaymentStatus{
-        UNPAID,
-        PAID
-	}
-	
-    public enum OrderStatus{
-        OPEN,
-        FILLED, 
-        CANCELED
-    }
     
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status")
