@@ -77,6 +77,11 @@ public class OrderDetail {
 		this.createdDate = createdDate;
 		this.modifedDate = modifedDate;
 	}
+	
+	//給前端 thymeleaf ，取得退貨代碼對應該顯示的訊息
+	public String getSalesReturnStatusMessage() {
+		return salesReturnStatus.getMessageCode();
+	}
 
 	public OrderDetail() {
 		super();
