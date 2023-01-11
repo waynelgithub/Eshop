@@ -38,7 +38,7 @@
 						<td th:text="${orderDetail.quantity}"></td>
 						<td th:text="${orderDetail.unitPrice}"></td>
 						<td th:text="${orderDetail.unitPriceAmount}"></td>
-						<td th:text="${orderDetail.salesReturnStatus}"></td>
+						<td th:text="#{${orderDetail.SalesReturnStatusMessage}}"></td>
 						<td><a class="btn btn-danger">退貨</a></td>												
 					</tr>
 				</tbody>
