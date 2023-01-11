@@ -45,10 +45,6 @@ public class OrderDetail {
 	@Column(name = "sales_return_status")
 	private SalesReturnStatus salesReturnStatus;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "refund_status")
-	private RefundStatus refundStatus;
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "created_date")
 	private Date createdDate;
@@ -63,7 +59,6 @@ public class OrderDetail {
 			BigDecimal unitPriceAmount,
 			Order order, 
 			SalesReturnStatus salesReturnStatus,
-			RefundStatus refundStatus, 
 			Date createdDate, 
 			Date modifedDate) {
 		super();
@@ -73,7 +68,6 @@ public class OrderDetail {
 		this.unitPriceAmount = unitPriceAmount;
 		this.order = order;
 		this.salesReturnStatus = salesReturnStatus;
-		this.refundStatus = refundStatus;
 		this.createdDate = createdDate;
 		this.modifedDate = modifedDate;
 	}
@@ -143,14 +137,6 @@ public class OrderDetail {
 		this.salesReturnStatus = salesReturnStatus;
 	}
 
-	public RefundStatus getRefundStatus() {
-		return refundStatus;
-	}
-
-	public void setRefundStatus(RefundStatus refundStatus) {
-		this.refundStatus = refundStatus;
-	}
-
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -177,7 +163,6 @@ public class OrderDetail {
 				+ ", unitPriceAmount=" + unitPriceAmount 
 				+ ", orderNumber=" + order.getOrderNumber()
 				+ ", salesReturnStatus=" + salesReturnStatus 
-				+ ", refundStatus=" + refundStatus
 				+ ", createdDate" + createdDate
 				+ ", modifedDate" + modifedDate
 				+ "]";

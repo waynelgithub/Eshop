@@ -18,15 +18,17 @@ How to use the dialog modal?
 	4.2 data-bs-modal-message-id="訊息的id"
 	4.3 data-bs-action-href="確定按鈕的超連結"
 
-5. 範例：
+5. 增加 switch case  '此訊息的id' 跟要顯示的標題及內容
+
+6. 範例：
 	<a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
 	th:data-bs-action-href="@{/delete-product/} + ${product.id}"
 	data-bs-modal-message-id="msg-delete-product">確定</a>
 
 	說明：
-	5.1. 打開modal
-	5.2. 呼叫 dialog-modal.js, 使用msg-delete-product 取得並填入 modal的標題及內容
-	5.3. 把th 產生的超連結填入確定按鈕
+	6.1. 打開modal
+	6.2. 呼叫 dialog-modal.js, 使用msg-delete-product 取得並填入 modal的標題及內容
+	6.3. 把th 產生的超連結填入確定按鈕
 	
 	結果：
 	標題：刪除
@@ -109,6 +111,11 @@ function getMessage(messageId){
 			case 'msg-delete-product':
 				messageTitle = '刪除';
 				messageBody = '你確定你要刪除嗎？';
+				break;
+				
+			case 'msg-return-request-placed':
+				messageTitle = '申請退貨';
+				messageBody = '你確定你要申請退貨嗎？';
 				break;
 				
 			default:

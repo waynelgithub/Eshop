@@ -1,9 +1,22 @@
 package main.model;
 
 public enum SalesReturnStatus {
-	RETURNABLE("return.status.msg.returnable"),
-	NON_RETURNABLE("return.status.msg.nonreturnable"),
-	RETURNED("return.status.msg.returned");
+	//是否可退貨
+	RETURNABLE("return.status.msg.returnable"),//可退貨
+	NON_RETURNABLE("return.status.msg.nonreturnable"), //不可退貨
+
+	//退貨流程
+	RETURN_REQUEST_PLACED("return.status.msg.request.placed"),//已申請退貨
+	RETURN_SHIPPING("return.status.msg.return.shipping"), //退貨運送中
+	RETURNED("return.status.msg.returned"),//已退貨完成
+	
+	//退款流程
+	REFUND_PROCESSING("return.status.msg.refund.processing"),//退款處理中
+	RETURNLESS_REFUND_PROCESSING("return.status.msg.returnless.refund.processing"),//無需退貨的退款處理中
+	REFUNDED("return.status.msg.refunded");//已退款
+
+
+	
 	
 	private String messageCode;
 	

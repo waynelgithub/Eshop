@@ -1,6 +1,7 @@
 package main.controller;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import main.model.Product;
+import main.model.SalesReturnStatus;
 import main.model.Order;
 import main.model.OrderDetail;
 import main.service.ProductService;
@@ -72,23 +74,36 @@ public class OrderDetailController {
 		return "order-details";
 	}
 	
-	@GetMapping("/delete-order-detail/{id}")
-	public String deleteOrderDetail(@PathVariable int id) {
-		OrderDetail orderDetail = orderDetailService.getById(id);
+	@GetMapping("/delete-order-detail/{orderDetailId}")
+	public String deleteOrderDetail(@PathVariable long orderDetailId) {
+		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
 		if(orderDetail != null) {
-			orderDetailService.delete(id);
+			orderDetailService.delete(orderDetailId);
 		}
 		return "redirect:/show-my-order-details";
 	}
 	
-	@GetMapping("/edit-order-detail/{id}")
-	public String editOrderDetail(@PathVariable int id, Model model) {
-		OrderDetail orderDetail = orderDetailService.getById(id);
+	@GetMapping("/edit-order-detail/{orderDetailId}")
+	public String editOrderDetail(@PathVariable long orderDetailId, Model model) {
+		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
 		if(orderDetail != null) {
 			model.addAttribute("orderDetail", orderDetail);
 			return "order-detail-form";
 		}
 		return "redirect:/show-my-order-details";
+	}
+	
+	@GetMapping("/place-return-request/{orderDetailId}")
+	public String placeReturnRequest(@PathVariable long orderDetailId, Model model) {
+		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
+		if(orderDetail != null) {
+			orderDetail.setModifedDate(new Date());
+			orderDetail.setSalesReturnStatus(SalesReturnStatus.RETURN_REQUEST_PLACED);
+			orderDetailService.saveOrUpdate(orderDetail);
+			return "redirect:/show-my-order-details/"+orderDetail.getOrder().getOrderNumber();
+		}
+		
+		return "";
 	}
 	
 }

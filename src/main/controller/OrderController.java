@@ -21,7 +21,6 @@ import main.model.Order;
 import main.model.OrderDetail;
 import main.model.OrderStatus;
 import main.model.PaymentStatus;
-import main.model.RefundStatus;
 import main.model.SalesReturnStatus;
 import main.model.ShoppingCart;
 import main.model.ShoppingCartDetails;
@@ -77,7 +76,6 @@ public class OrderController {
 							o.getProductPrice().multiply(BigDecimal.valueOf(o.getQuantity())),
 							order,
 							SalesReturnStatus.RETURNABLE,
-							RefundStatus.REFUNDABLE,
 							order.getOrderCreatedDate(),
 							order.getOrderCreatedDate()
 							)

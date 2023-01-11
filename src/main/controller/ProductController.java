@@ -47,8 +47,9 @@ public class ProductController {
 			errors.reject("upload.file.required");
 		}	
 
-		//
-		if(errors.hasErrors()|bindingResult.hasErrors()) {
+		//要讓 product 的文字欄位跟 multipart 的上傳檔案欄位都同時能回報驗證錯誤
+		//用 bitwise OR 確保左右兩邊的 hasErrors() 都被執行過
+		if(errors.hasErrors() | bindingResult.hasErrors()) {
 			return "product-form";
 		}
 		

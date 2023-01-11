@@ -4,10 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>訂單明細列表頁</title>
-<script th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<script th:src="@{/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script type=module th:src="@{/js/dialog-modal.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -39,7 +39,9 @@
 						<td th:text="${orderDetail.unitPrice}"></td>
 						<td th:text="${orderDetail.unitPriceAmount}"></td>
 						<td th:text="#{${orderDetail.SalesReturnStatusMessage}}"></td>
-						<td><a class="btn btn-danger">退貨</a></td>												
+                        <td><a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                th:data-bs-action-href="@{/place-return-request/} + ${orderDetail.orderDetailId}"
+                                data-bs-modal-message-id="msg-return-request-placed">退貨</a></td>						
 					</tr>
 				</tbody>
 			</table>
@@ -54,5 +56,6 @@
 			<button onclick="history.back()" class="btn btn-warning">前一頁</button>
 		</div>
 	</div>
+<my-dialog-modal></my-dialog-modal>
 </body>
 </html>
