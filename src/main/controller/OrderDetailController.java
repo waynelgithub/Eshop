@@ -94,7 +94,7 @@ public class OrderDetailController {
 	}
 	
 	@GetMapping("/place-return-request/{orderDetailId}")
-	public String placeReturnRequest(@PathVariable long orderDetailId, Model model) {
+	public String placeReturnRequest(@PathVariable long orderDetailId) {
 		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
 		if(orderDetail != null) {
 			orderDetail.setModifedDate(new Date());

@@ -4,10 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <title>訂單明細列表頁</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script type=module th:src="@{/js/dialog-modal.js}"></script>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type=module th:src="@{/js/dialog-modal.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -21,27 +21,33 @@
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">訂單編號</th>
+						<th scope="col">訂單明細編號</th>
 						<th scope="col">產品編號</th>
 						<th scope="col">產品銷售數量</th>
 						<th scope="col">銷售價格</th>
 						<th scope="col">銷售金額</th>
 						<th scope="col">退貨狀態</th>
 						<th scope="col">退貨</th>
-				
+
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="orderDetail : ${orderDetails}">
 						<td th:text="${orderDetailStat.count}"></td>
 						<td th:text="${orderDetail.order.orderNumber}"></td>
+						<td th:text="${orderDetail.orderDetailId}"></td>
 						<td th:text="${orderDetail.productNumber}"></td>
 						<td th:text="${orderDetail.quantity}"></td>
 						<td th:text="${orderDetail.unitPrice}"></td>
 						<td th:text="${orderDetail.unitPriceAmount}"></td>
-						<td th:text="#{${orderDetail.SalesReturnStatusMessage}}"></td>
-                        <td><a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                th:data-bs-action-href="@{/place-return-request/} + ${orderDetail.orderDetailId}"
-                                data-bs-modal-message-id="msg-return-request-placed">退貨</a></td>						
+						<td th:text="#{${orderDetail.salesReturnStatusMessage}}"></td>
+						<td><a
+							th:if="${orderDetail.salesReturnStatus.name()} == 'RETURNABLE'"
+							class="btn btn-danger" data-bs-toggle="modal"
+							data-bs-target="#staticBackdrop"
+							th:data-bs-action-href="@{/place-return-request/} + ${orderDetail.orderDetailId}"
+							data-bs-modal-message-id="msg-return-request-placed">退貨</a>
+							</td>
 					</tr>
 				</tbody>
 			</table>
@@ -52,10 +58,10 @@
 		</div>
 
 		<div>
-			
+
 			<button onclick="history.back()" class="btn btn-warning">前一頁</button>
 		</div>
 	</div>
-<my-dialog-modal></my-dialog-modal>
+	<my-dialog-modal></my-dialog-modal>
 </body>
 </html>
