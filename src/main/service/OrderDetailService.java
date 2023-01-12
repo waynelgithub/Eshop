@@ -6,6 +6,8 @@ import main.model.OrderDetail;
 
 public interface OrderDetailService {
 
+	public boolean existsByOrderDetailId(long orderDetailId);
+	
 	public List<OrderDetail> getAll();
 	
 	public List<OrderDetail> getAllByOrderNumber(long orderNumber);

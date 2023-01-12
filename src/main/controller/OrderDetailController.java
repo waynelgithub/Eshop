@@ -94,17 +94,37 @@ public class OrderDetailController {
 		return "redirect:/show-my-order-details";
 	}
 	
+	// customer place return request for his/her own order
 	@GetMapping("/place-return-request/{orderDetailId}")
-	public String placeReturnRequest(@PathVariable long orderDetailId) {
-		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
-		if(orderDetail != null) {
-			orderDetail.setModifedDate(new Date());
-			orderDetail.setSalesReturnStatus(SalesReturnStatus.RETURN_REQUEST_PLACED);
-			orderDetailService.saveOrUpdate(orderDetail);
-			return "redirect:/show-my-order-details/"+orderDetail.getOrder().getOrderNumber();
+	public String placeReturnRequest(@PathVariable long orderDetailId, Principal principal) {
+	  //check if orderDetailId exists
+		if(!orderDetailService.existsByOrderDetailId(orderDetailId)) {
+			System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't exist.\n");
+			return "redirect:/";
 		}
 		
-		return "";
+	  //verify customerNumber 
+		//get existing customerNumber
+		String existingCustomerNumber = principal.getName();
+		
+		//get customerNumber through user input
+		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
+		String customerNumberToVerify = orderDetail.getOrder().getCustomerNumer();
+		
+		//verify equality
+		if (!customerNumberToVerify.equals(existingCustomerNumber)){
+			//show message in console
+			System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + "\n");
+			return "redirect:/";
+		}
+		
+	  //create the return request
+		orderDetail.setModifedDate(new Date());
+		orderDetail.setSalesReturnStatus(SalesReturnStatus.RETURN_REQUEST_PLACED);
+		orderDetailService.saveOrUpdate(orderDetail);
+		return "redirect:/show-my-order-details/"+orderDetail.getOrder().getOrderNumber();
+		
+		
 	}
 	
 }

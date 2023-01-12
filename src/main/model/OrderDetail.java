@@ -84,17 +84,16 @@ public class OrderDetail {
 	public boolean isReturnable() {
 		
 		//取 createdDate +7 為過期日
-		LocalDateTime expiryDate = createdDate
-								.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-								//.plusMinutes(1)
+		LocalDate expiryDate = createdDate
+								.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
 								.plusDays(7)
 								;
 		
-		//取當前時間
-		LocalDateTime now = LocalDateTime.now();
+		//取當前日期
+		LocalDate today = LocalDate.now();
 		
-		//過期日超過當前時間為 false
-		return expiryDate.isAfter(now);
+		//過期日超過當前日為 false
+		return expiryDate.isAfter(today);
 	}
 
 	public OrderDetail() {

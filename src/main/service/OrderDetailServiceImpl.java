@@ -19,6 +19,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	@Autowired
 	private OrderDetailRepository orderDetailRepository;
 
+	
 	@Override
 	public List<OrderDetail> getAll() {
 		return orderDetailRepository.findAll();
@@ -43,6 +44,11 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	@Override
 	public void delete(long id) {
 		orderDetailRepository.deleteById(id);		
+	}
+
+	@Override
+	public boolean existsByOrderDetailId(long orderDetailId) {
+		return orderDetailRepository.existsById(orderDetailId);
 	}
 
 
