@@ -26,7 +26,6 @@
 						<th scope="col">產品銷售數量</th>
 						<th scope="col">銷售價格</th>
 						<th scope="col">銷售金額</th>
-						<th scope="col">退貨狀態</th>
 						<th scope="col">退貨</th>
 
 					</tr>
@@ -40,13 +39,16 @@
 						<td th:text="${orderDetail.quantity}"></td>
 						<td th:text="${orderDetail.unitPrice}"></td>
 						<td th:text="${orderDetail.unitPriceAmount}"></td>
-						<td th:text="#{${orderDetail.salesReturnStatusMessage}}"></td>
 						<td><a
-							th:if="${orderDetail.salesReturnStatus.name()} == 'RETURNABLE'"
+							th:if="${orderDetail.isReturnable() AND orderDetail.salesReturnStatus.name() == 'NOT_RETURN'}"
 							class="btn btn-danger" data-bs-toggle="modal"
 							data-bs-target="#staticBackdrop"
 							th:data-bs-action-href="@{/place-return-request/} + ${orderDetail.orderDetailId}"
 							data-bs-modal-message-id="msg-return-request-placed">退貨</a>
+							
+							<span
+								th:if="${orderDetail.salesReturnStatus.name() != 'NOT_RETURN'}" 
+								th:text="#{${orderDetail.salesReturnStatusMessage}}">退貨狀態</span>
 							</td>
 					</tr>
 				</tbody>

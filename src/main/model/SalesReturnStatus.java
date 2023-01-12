@@ -1,8 +1,11 @@
 package main.model;
 
 public enum SalesReturnStatus {
+	//初始狀態
+	NOT_RETURN("return.status.msg.not.return"),//未退貨
+	
 	//是否可退貨
-	RETURNABLE("return.status.msg.returnable"),//可退貨
+	//RETURNABLE("return.status.msg.returnable"),//可退貨
 	NON_RETURNABLE("return.status.msg.nonreturnable"), //不可退貨
 
 	//退貨流程
@@ -24,7 +27,7 @@ public enum SalesReturnStatus {
 		this.messageCode = messageCode;
 	}
 	
-	//給前端 thymeleaf ，取得退貨代碼對應該顯示的訊息
+	//給前端 thymeleaf ，取得退貨進度代碼對應該顯示的訊息
 	public String getMessageCode() {		
 		return this.messageCode;
 	}

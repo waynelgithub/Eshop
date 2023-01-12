@@ -33,7 +33,7 @@ public class Order {
 	@Column(name = "order_amount")
 	private BigDecimal orderAmount;
 
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<OrderDetail> orderDetails;
     
     @Enumerated(EnumType.STRING)

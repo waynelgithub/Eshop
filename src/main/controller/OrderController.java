@@ -75,7 +75,7 @@ public class OrderController {
 							o.getProductPrice(),
 							o.getProductPrice().multiply(BigDecimal.valueOf(o.getQuantity())),
 							order,
-							SalesReturnStatus.RETURNABLE,
+							SalesReturnStatus.NOT_RETURN,
 							order.getOrderCreatedDate(),
 							order.getOrderCreatedDate()
 							)

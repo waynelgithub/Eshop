@@ -1,6 +1,9 @@
 package main.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -72,9 +75,26 @@ public class OrderDetail {
 		this.modifedDate = modifedDate;
 	}
 	
-	//給前端 thymeleaf ，取得退貨代碼對應該顯示的訊息
+	//給前端 thymeleaf ，取得退貨進度代碼對應該顯示的訊息
 	public String getSalesReturnStatusMessage() {
 		return salesReturnStatus.getMessageCode();
+	}
+	
+	//取得退貨條件
+	public boolean isReturnable() {
+		
+		//取 createdDate +7 為過期日
+		LocalDateTime expiryDate = createdDate
+								.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+								//.plusMinutes(1)
+								.plusDays(7)
+								;
+		
+		//取當前時間
+		LocalDateTime now = LocalDateTime.now();
+		
+		//過期日超過當前時間為 false
+		return expiryDate.isAfter(now);
 	}
 
 	public OrderDetail() {

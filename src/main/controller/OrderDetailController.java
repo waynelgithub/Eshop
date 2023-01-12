@@ -65,7 +65,8 @@ public class OrderDetailController {
 	}
 	
 	@GetMapping("/show-my-order-details/{orderNumber}")
-	public String getMyOrderDetails(Model model, Principal principal, @PathVariable long orderNumber) {
+	public String getMyOrderDetails(Model model, Principal principal, @PathVariable long orderNumber) {	
+		
 		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
 		// verify data in console
 		System.out.println(orderDetails);
