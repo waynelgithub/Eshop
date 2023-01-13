@@ -10,6 +10,6 @@ import main.model.Order;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-	List<Order> findAllByCustomerNumer(String customerNumber);
+	List<Order> findAllByCustomerNumerOrderByOrderNumberDesc(String customerNumber);
 
 }
