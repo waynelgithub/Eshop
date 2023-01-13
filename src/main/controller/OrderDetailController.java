@@ -4,11 +4,14 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +25,7 @@ import main.service.OrderService;
 import main.service.ProductService;
 
 @Controller
+@Validated
 public class OrderDetailController {
 
 	@Autowired
@@ -94,7 +98,9 @@ public class OrderDetailController {
 	
 	// customer place return request for his/her own order
 	@GetMapping("/place-return-request/{orderDetailId}")
-	public String placeReturnRequest(@PathVariable long orderDetailId, Principal principal) {
+	public String placeReturnRequest(
+			@PathVariable
+			@PositiveOrZero(message = "must be a positive or zero number") long orderDetailId, Principal principal) {
 
 		return orderDetailService.placeReturnRequest(orderDetailId, principal);
 		
