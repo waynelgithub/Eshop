@@ -1,7 +1,6 @@
 package main.controller;
 
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,13 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import main.model.Product;
-import main.model.SalesReturnStatus;
 import main.model.Order;
 import main.model.OrderDetail;
-import main.service.ProductService;
+import main.model.Product;
 import main.service.OrderDetailService;
 import main.service.OrderService;
+import main.service.ProductService;
 
 @Controller
 public class OrderDetailController {
@@ -97,33 +95,8 @@ public class OrderDetailController {
 	// customer place return request for his/her own order
 	@GetMapping("/place-return-request/{orderDetailId}")
 	public String placeReturnRequest(@PathVariable long orderDetailId, Principal principal) {
-	  //check if orderDetailId exists
-		if(!orderDetailService.existsByOrderDetailId(orderDetailId)) {
-			System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't exist.\n");
-			return "redirect:/";
-		}
-		
-	  //verify customerNumber 
-		//get existing customerNumber
-		String existingCustomerNumber = principal.getName();
-		
-		//get customerNumber through user input
-		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
-		String customerNumberToVerify = orderDetail.getOrder().getCustomerNumer();
-		
-		//verify equality
-		if (!customerNumberToVerify.equals(existingCustomerNumber)){
-			//show message in console
-			System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + "\n");
-			return "redirect:/";
-		}
-		
-	  //create the return request
-		orderDetail.setModifedDate(new Date());
-		orderDetail.setSalesReturnStatus(SalesReturnStatus.RETURN_REQUEST_PLACED);
-		orderDetailService.saveOrUpdate(orderDetail);
-		return "redirect:/show-my-order-details/"+orderDetail.getOrder().getOrderNumber();
-		
+
+		return orderDetailService.placeReturnRequest(orderDetailId, principal);
 		
 	}
 	
