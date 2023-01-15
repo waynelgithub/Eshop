@@ -80,11 +80,31 @@ public class OrderDetail {
 		return salesReturnStatus.getMessageCode();
 	}
 	
-	//取得退貨條件
+	/**
+	 * 取得是否可退貨的狀態
+	 * @return true 代表可以退貨
+	 */
 	public boolean isReturnable() {
 		
+		// can't return non-returnable products
+		// can't return a product that is returning
+		if (!this.salesReturnStatus.equals(SalesReturnStatus.NOT_RETURN))
+			return false;
+		
+		//return window: within 7 days from the day upon which they receive the products
+		if (!isReturnWindowWithIn7days())
+			return false;
+		
+		return true;
+	}
+	
+	/**
+	 * 訂單明細日期是否還在7天退貨期限內
+	 * @return true 
+	 */
+	public boolean isReturnWindowWithIn7days(){
 		//取 createdDate +7 為過期日
-		LocalDate expiryDate = createdDate
+		LocalDate returnDueDate = createdDate
 								.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
 								.plusDays(7)
 								;
@@ -93,7 +113,8 @@ public class OrderDetail {
 		LocalDate today = LocalDate.now();
 		
 		//過期日超過當前日為 false
-		return expiryDate.isAfter(today);
+		return returnDueDate.isAfter(today);
+		
 	}
 
 	public OrderDetail() {

@@ -1,12 +1,11 @@
 package main.model;
 
 public enum SalesReturnStatus {
+	//是否可退貨
+	NON_RETURNABLE("return.status.msg.nonreturnable"), //不可退貨的商品
+	
 	//初始狀態
 	NOT_RETURN("return.status.msg.not.return"),//未退貨
-	
-	//是否可退貨
-	//RETURNABLE("return.status.msg.returnable"),//可退貨
-	NON_RETURNABLE("return.status.msg.nonreturnable"), //不可退貨
 
 	//退貨流程
 	RETURN_REQUEST_PLACED("return.status.msg.request.placed"),//已申請退貨

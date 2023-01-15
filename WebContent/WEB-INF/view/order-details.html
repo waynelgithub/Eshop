@@ -40,7 +40,7 @@
 						<td th:text="${orderDetail.unitPrice}"></td>
 						<td th:text="${orderDetail.unitPriceAmount}"></td>
 						<td><a
-							th:if="${orderDetail.isReturnable() AND orderDetail.salesReturnStatus.name() == 'NOT_RETURN'}"
+							th:if="${orderDetail.isReturnable()}"
 							class="btn btn-danger" data-bs-toggle="modal"
 							data-bs-target="#staticBackdrop"
 							th:data-bs-action-href="@{/place-return-request/} + ${orderDetail.orderDetailId}"
