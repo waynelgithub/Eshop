@@ -55,7 +55,7 @@ public class OrderDetailController {
 	}
 	
 	// for admin to show all users' order details
-	@GetMapping("/show-order-details")
+	@GetMapping("/show-all-order-details")
 	public String getOrderDetails(Model model) {
 		List<OrderDetail> orderDetails=orderDetailService.getAll();
 		model.addAttribute("orderDetails", orderDetails);
@@ -64,7 +64,11 @@ public class OrderDetailController {
 	
 	@GetMapping("/show-my-order-details/{orderNumber}")
 	public String getMyOrderDetails(Model model, Principal principal, @PathVariable long orderNumber) {	
+		// verify customer number first
+		if (!orderService.verifyCustomerNumberByOrderNumber(orderNumber, principal)) 
+			return "redirect:/";
 		
+		//prepare orderDetails to show
 		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
 		// verify data in console
 		System.out.println(orderDetails);
