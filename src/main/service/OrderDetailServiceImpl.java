@@ -55,28 +55,32 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public String placeReturnRequest(long orderDetailId, Principal principal) {
-		  //check if orderDetailId exists
+	public boolean placeReturnRequest(long orderDetailId, Principal principal) {
+		 //check if orderDetailId exists
 			if(!orderDetailService.existsByOrderDetailId(orderDetailId)) {
 				//show message in console
 				System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't exist.\n");
-				return "redirect:/";
+				return false;
 			}
 			
-		  //verify customerNumber by orderDetailId
+		 //verify customerNumber by orderDetailId
 			if(!orderDetailService.verifyCustomerNumberByOrderDetailId(orderDetailId, principal)) {
 				//show message in console
 				System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't belong to him.\n");
-				return "redirect:/";
+				return false;
 			}
 			
-		  //create the sales return request
+		 //avoid repeatedly place sales return
 			OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
+			if (orderDetail.getSalesReturnStatus().equals(SalesReturnStatus.RETURN_REQUEST_PLACED))
+				return false;
+
+		 //create the sales return request		
 			orderDetail.setModifedDate(new Date());
 			orderDetail.setSalesReturnStatus(SalesReturnStatus.RETURN_REQUEST_PLACED);
 			orderDetailService.saveOrUpdate(orderDetail);
 			
-			return "redirect:/show-my-order-details/"+orderDetail.getOrder().getOrderNumber();
+			return true;
 	}
 
 	@Override

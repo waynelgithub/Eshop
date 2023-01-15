@@ -92,11 +92,20 @@ public class OrderDetailController {
 		return "redirect:/show-my-order-details";
 	}
 	
-	// customer place return request for his/her own order
+	/**	
+	 * Customer place return request for his/her own order
+	 * @param orderDetailId 訂單明細編號
+	 * @param principal current Principal object
+	 * @return redirect to URL: show-my-order-details
+	 */
 	@GetMapping("/place-return-request/{orderDetailId}")
 	public String placeReturnRequest(@PathVariable long orderDetailId, Principal principal) {
-
-		return orderDetailService.placeReturnRequest(orderDetailId, principal);
+		if (!orderDetailService.placeReturnRequest(orderDetailId, principal)) 
+			return "redirect:/";
+		
+		long orderNumber = orderDetailService.getById(orderDetailId).getOrder().getOrderNumber();
+		
+		return "redirect:/show-my-order-details/" + orderNumber;
 		
 	}
 	

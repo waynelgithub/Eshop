@@ -18,7 +18,7 @@ public interface OrderDetailService {
 	public void delete(long id);
 	
 	// customer place return request for his/her own order
-	public String placeReturnRequest(long orderDetailId, Principal principal);
+	public boolean placeReturnRequest(long orderDetailId, Principal principal);
 	
 	public boolean existsByOrderDetailId(long orderDetailId);
 	
