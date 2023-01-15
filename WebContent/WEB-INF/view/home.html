@@ -54,8 +54,8 @@
 								<a th:href="@{/showProduct}" class="p-1 text-decoration-none nav-link">檢視產品列表</a>	
 							</li> -->
 					<li class="nav-item">
-						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/add-order}"
-							class="p-1 text-decoration-none nav-link">新增訂單資料</a>
+						<a sec:authorize="hasRole('EMPLOYEE')" th:href="@{/show-all-orders}"
+							class="p-1 text-decoration-none nav-link">檢視所有訂單</a>
 					</li>
 					<li class="nav-item">
 						<a sec:authorize="hasRole('CLIENT')" th:href="@{/show-my-orders}"

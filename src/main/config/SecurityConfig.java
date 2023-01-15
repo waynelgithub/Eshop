@@ -51,25 +51,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//temporarily allow post requests to pass security check
 		http.csrf().disable();
 		
+		//未列出的 path 是權限全開
 		http.authorizeRequests()
-			.antMatchers("/*", "/login", "/save-product", "/product-image-upload-with-product-id")
-				.permitAll()
-			.antMatchers("/add-product")
-				.hasAnyRole("ADMIN", "EMPLOYEE")
-			.and()
-				.formLogin()
-				.loginPage("/login")
-				.loginProcessingUrl("/checkUserAccount")
-				.defaultSuccessUrl("/")
-				.permitAll()
-			.and()
-				.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/")
-				.invalidateHttpSession(true)
-				.permitAll()
-			.and()
-				.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+				.antMatchers("/", "/login", "/save-product", "/product-image-upload-with-product-id")
+					.permitAll()
+				.antMatchers("/add-product", "/show-all-orders")
+					.hasAnyRole("ADMIN", "EMPLOYEE")
+				.antMatchers("/show-my-orders")
+					.hasAnyRole("CLIENT", "ADMIN", "EMPLOYEE")
+				.and()
+					.formLogin()
+					.loginPage("/login")
+					.loginProcessingUrl("/checkUserAccount")
+					.defaultSuccessUrl("/")
+					.permitAll()
+				.and()
+					.logout()
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+					.logoutSuccessUrl("/")
+					.invalidateHttpSession(true)
+					.permitAll()
+				.and()
+					.exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+				;
 		
 	}
 	
