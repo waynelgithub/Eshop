@@ -2,6 +2,7 @@ package main.service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import main.model.OrderDetail;
 
@@ -11,7 +12,7 @@ public interface OrderDetailService {
 	
 	public List<OrderDetail> getAllByOrderNumber(long orderNumber);
 	
-	public OrderDetail getById(long id);
+	public Optional<OrderDetail> findById(long id);
 	
 	public void saveOrUpdate(OrderDetail orderDetail);
 	

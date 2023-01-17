@@ -2,12 +2,14 @@ package main.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,6 +34,7 @@ public class OrderDetailController {
 	
 	@Autowired
 	private ProductService productService;
+	
 	
 	
 	@GetMapping("/add-order-detail")
@@ -62,7 +65,7 @@ public class OrderDetailController {
 		return "order-details";
 	}
 	
-	@GetMapping("/show-my-order-details/{orderNumber}")
+	@GetMapping(value = {"/show-my-order-details/{orderNumber}", "/show-customer-order-details/{orderNumber}"})
 	public String getMyOrderDetails(Model model, Principal principal, @PathVariable long orderNumber) {	
 		// verify customer number first
 		if (!orderService.verifyCustomerNumberByOrderNumber(orderNumber, principal)) 
@@ -77,23 +80,56 @@ public class OrderDetailController {
 		return "order-details";
 	}
 	
+	/** 
+	 * for admin to delete orderDetail, not yet to update the order which contains it
+	 *  
+	 * @param orderDetailId
+	 * @return a string as a view to show a list of orderDetails
+	 */
 	@GetMapping("/delete-order-detail/{orderDetailId}")
 	public String deleteOrderDetail(@PathVariable long orderDetailId) {
-		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
-		if(orderDetail != null) {
-			orderDetailService.delete(orderDetailId);
-		}
-		return "redirect:/show-my-order-details";
+		//get the existing record from data source in order to delete it.
+		//
+		Order order = new Order();
+		
+		orderDetailService.findById(orderDetailId).ifPresent(
+				orderDetail -> {
+					order.setOrderNumber(orderDetailService.findById(orderDetailId).get().getOrder().getOrderNumber());
+					orderDetailService.delete(orderDetail.getOrderDetailId());//如果先刪掉 orderDetail ，就取不到 order 了
+		
+		});
+		
+		Assert.notNull(order.getOrderNumber(), "orderNumber must not be null");
+		
+		return "redirect:/show-customer-order-details/" + order.getOrderNumber();
 	}
 	
+	/**
+	 * for admin to edit an OrderDetail. view is not ready.
+	 * <p>Get an Optional<Orderdetail>,
+	 * <br>if existed, add to Model and send it to View for editing the content of OrderDetail.
+	 * <br>if not, redirect to home page. 
+	 * @param orderDetailId
+	 * @param model
+	 * @return a string as view
+	 */
 	@GetMapping("/edit-order-detail/{orderDetailId}")
 	public String editOrderDetail(@PathVariable long orderDetailId, Model model) {
-		OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
-		if(orderDetail != null) {
-			model.addAttribute("orderDetail", orderDetail);
-			return "order-detail-form";
-		}
-		return "redirect:/show-my-order-details";
+
+		Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(orderDetailId);		
+
+		String returnUrl = 
+				orderDetailOptional
+					.map( // if value is present
+							orderDetail -> {
+								model.addAttribute("orderDetail", orderDetail); 
+								return "order-detail-form";})
+					.or(
+							() -> Optional.of("redirect:/"))
+					.get()
+					;
+		
+		return returnUrl;
 	}
 	
 	/**	
@@ -106,8 +142,10 @@ public class OrderDetailController {
 	public String placeReturnRequest(@PathVariable long orderDetailId, Principal principal) {
 		if (!orderDetailService.placeReturnRequest(orderDetailId, principal)) 
 			return "redirect:/";
+
+		Assert.notNull(orderDetailId, "orderDetailId must not be null");
 		
-		long orderNumber = orderDetailService.getById(orderDetailId).getOrder().getOrderNumber();
+		long orderNumber = orderDetailService.findById(orderDetailId).get().getOrder().getOrderNumber();
 		
 		return "redirect:/show-my-order-details/" + orderNumber;
 		

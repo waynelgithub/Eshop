@@ -3,10 +3,12 @@ package main.service;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import main.model.OrderDetail;
 import main.model.SalesReturnStatus;
@@ -34,9 +36,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public OrderDetail getById(long id) {
-		//return productRepository.getOne(id);
-		return orderDetailRepository.findById(id).get();
+	public Optional<OrderDetail> findById(long id) {
+		//return orderDetailRepository.getOne(id);
+		return orderDetailRepository.findById(id);
 	}
 
 	@Override
@@ -63,6 +65,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 				return false;
 			}
 			
+			Assert.notNull(orderDetailId, "orderDetailId must not be null or invalid.");
+			
 		 //verify customerNumber by orderDetailId
 			if(!orderDetailService.verifyCustomerNumberByOrderDetailId(orderDetailId, principal)) {
 				//show message in console
@@ -71,7 +75,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			}
 			
 		 //avoid repeatedly place sales return
-			OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
+			OrderDetail orderDetail = orderDetailService.findById(orderDetailId).get();
 			if (orderDetail.getSalesReturnStatus().equals(SalesReturnStatus.RETURN_REQUEST_PLACED))
 				return false;
 
@@ -90,12 +94,15 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		if(!orderDetailService.existsByOrderDetailId(orderDetailId)) {
 			return false;
 		}
+		
+		Assert.notNull(orderDetailId, "orderDetailId must not be null or invalid.");
+		
 		//verify customerNumber 
 			//get existing customerNumber
 			String existingCustomerNumber = principal.getName();
 			
 			//get customerNumber through user input
-			OrderDetail orderDetail = orderDetailService.getById(orderDetailId);
+			OrderDetail orderDetail = orderDetailService.findById(orderDetailId).get();
 			String customerNumberToVerify = orderDetail.getOrder().getCustomerNumer();
 			
 			//verify equality
