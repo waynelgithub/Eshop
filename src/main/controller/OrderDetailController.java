@@ -67,9 +67,25 @@ public class OrderDetailController {
 	
 	@GetMapping(value = {"/show-my-order-details/{orderNumber}", "/show-customer-order-details/{orderNumber}"})
 	public String getMyOrderDetails(Model model, Principal principal, @PathVariable long orderNumber) {	
-		// verify customer number first
-		if (!orderService.verifyCustomerNumberByOrderNumber(orderNumber, principal)) 
+
+		//null check for orderNumber
+		Optional<Order> orderOptional = orderService.findById(orderNumber);
+		if(orderOptional.isEmpty()) {
+			//show message in console
+			System.out.println("\nSomeone tried to access the orderNumber: " + orderNumber + " that doesn't exist.\n");
 			return "redirect:/";
+		}
+		
+		Order order = orderOptional.get();
+		
+		assert order != null;
+		
+		// verify customerNumber
+		if (!orderService.verifyCustomerNumberByOrder(order, principal)) {
+			//show message in console
+			System.out.println("\nSomeone tried to access the orderNumber: " + order.getOrderNumber() + " that doesn't belong to him.\n");	
+			return "redirect:/";
+		}
 		
 		//prepare orderDetails to show
 		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
@@ -92,14 +108,15 @@ public class OrderDetailController {
 		//
 		Order order = new Order();
 		
-		orderDetailService.findById(orderDetailId).ifPresent(
+		Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(orderDetailId);
+		orderDetailOptional.ifPresent(
 				orderDetail -> {
-					order.setOrderNumber(orderDetailService.findById(orderDetailId).get().getOrder().getOrderNumber());
+					order.setOrderNumber(orderDetail.getOrder().getOrderNumber());
 					orderDetailService.delete(orderDetail.getOrderDetailId());//如果先刪掉 orderDetail ，就取不到 order 了
 		
-		});
+					});
 		
-		Assert.notNull(order.getOrderNumber(), "orderNumber must not be null");
+		Assert.notNull(order.getOrderNumber(), "orderNumber must not be null");//但是還可能會是 0
 		
 		return "redirect:/show-customer-order-details/" + order.getOrderNumber();
 	}
@@ -136,17 +153,52 @@ public class OrderDetailController {
 	 * Customer place return request for his/her own order
 	 * @param orderDetailId 訂單明細編號
 	 * @param principal current Principal object
-	 * @return redirect to URL: show-my-order-details
+	 * @return redirect to URL to show the order details
 	 */
 	@GetMapping("/place-return-request/{orderDetailId}")
 	public String placeReturnRequest(@PathVariable long orderDetailId, Principal principal) {
-		if (!orderDetailService.placeReturnRequest(orderDetailId, principal)) 
-			return "redirect:/";
+	
+	 //check if orderDetailId exists and prepare the orderDetail object
+		Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(orderDetailId);
 
-		Assert.notNull(orderDetailId, "orderDetailId must not be null");
+		if (orderDetailOptional.isEmpty()) {
+			//show message in console
+			System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't exist.\n");
+			return "redirect:/";		
+		}
 		
-		long orderNumber = orderDetailService.findById(orderDetailId).get().getOrder().getOrderNumber();
+		OrderDetail orderDetail = orderDetailOptional.get();
+		System.out.println("\nGot the orderDetail!\n");
 		
+		Assert.notNull(orderDetail, "orderDetail must not be null.");
+		
+		long orderNumber = orderDetail.getOrder().getOrderNumber();
+
+	 //verify customerNumber by orderDetail
+		if(!orderDetailService.verifyCustomerNumberByOrderDetail(orderDetail, principal)) {
+			//show message in console
+			System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't belong to him.\n");
+			return "redirect:/";
+		}
+		
+	 //reject return request for item marked as NON_RETURNABLE
+		//isNonReturnable()
+		if(orderDetailService.isNonReturnable(orderDetail)) {
+			System.out.println("\nNon-Returnable item. orderDetailId: " + orderDetailId + "\n");
+			return "redirect:/show-my-order-details/" + orderNumber;
+		}
+		
+	 //avoid repeatedly place sales return
+		if (orderDetailService.isRepeatedSalesReturnRequest(orderDetail)) {
+			System.out.println("\nRepeated sales return request of orderDetailId: " + orderDetailId + "\n");
+			return "redirect:/show-my-order-details/" + orderNumber;
+		}
+	
+	 //change sales return status
+		orderDetailService.placeReturnRequest(orderDetail); 	
+		
+		System.out.println("\nFinished return request!\n");
+	
 		return "redirect:/show-my-order-details/" + orderNumber;
 		
 	}

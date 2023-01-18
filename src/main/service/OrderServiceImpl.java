@@ -2,6 +2,7 @@ package main.service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,28 +49,26 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean verifyCustomerNumberByOrderNumber(long orderNumber, Principal principal) {
-		//null check for orderNumber
-		if(!orderRepository.existsById(orderNumber)) {
-			//show message in console
-			System.out.println("\nSomeone tried to access the orderNumber: " + orderNumber + " that doesn't exist.\n");
-			return false;
-		}
-		//verify customerNumber 
-			//get existing customerNumber
-			String existingCustomerNumber = principal.getName();
-			
-			//get customerNumber through user input
-			Order order = orderService.getById(orderNumber);
-			String customerNumberToVerify = order.getCustomerNumer();
-			
-			//verify equality
-			if (!customerNumberToVerify.equals(existingCustomerNumber)){
-				//show message in console
-				System.out.println("\nSomeone tried to access the orderNumber: " + orderNumber + " that doesn't belong to him.\n");				
-				return false;
-			}
+	public boolean verifyCustomerNumberByOrder(Order order, Principal principal) {
+		
+		assert order != null;
+		
+		//get existing customerNumber
+		String existingCustomerNumber = principal.getName();
+		
+		//get customerNumber through user input
+		String customerNumberToVerify = order.getCustomerNumer();
+		
+		//verify equality
+		if (!customerNumberToVerify.equals(existingCustomerNumber))	return false;
+		
 		return true;
+	}
+
+	@Override
+	public Optional<Order> findById(long id) {
+
+		return orderRepository.findById(id);
 	}
 
 

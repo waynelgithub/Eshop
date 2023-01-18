@@ -32,77 +32,55 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	
 	@Override
 	public List<OrderDetail> getAllByOrderNumber(long orderNumber) {
+
 		return orderDetailRepository.getAllByOrder_OrderNumber(orderNumber);
 	}
 
 	@Override
 	public Optional<OrderDetail> findById(long id) {
-		//return orderDetailRepository.getOne(id);
+
 		return orderDetailRepository.findById(id);
 	}
 
 	@Override
-	public void saveOrUpdate(OrderDetail orderDetail) {
-		orderDetailRepository.save(orderDetail);		
+	public OrderDetail saveOrUpdate(OrderDetail orderDetail) {
+		System.out.println("\nStart to place return request!\n");
+		return orderDetailRepository.save(orderDetail);		
 	}
 
 	@Override
 	public void delete(long id) {
+
 		orderDetailRepository.deleteById(id);		
 	}
 
 	@Override
 	public boolean existsByOrderDetailId(long orderDetailId) {
+
 		return orderDetailRepository.existsById(orderDetailId);
 	}
 
 	@Override
-	public boolean placeReturnRequest(long orderDetailId, Principal principal) {
-		 //check if orderDetailId exists
-			if(!orderDetailService.existsByOrderDetailId(orderDetailId)) {
-				//show message in console
-				System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't exist.\n");
-				return false;
-			}
-			
-			Assert.notNull(orderDetailId, "orderDetailId must not be null or invalid.");
-			
-		 //verify customerNumber by orderDetailId
-			if(!orderDetailService.verifyCustomerNumberByOrderDetailId(orderDetailId, principal)) {
-				//show message in console
-				System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't belong to him.\n");
-				return false;
-			}
-			
-		 //avoid repeatedly place sales return
-			OrderDetail orderDetail = orderDetailService.findById(orderDetailId).get();
-			if (orderDetail.getSalesReturnStatus().equals(SalesReturnStatus.RETURN_REQUEST_PLACED))
-				return false;
+	public void placeReturnRequest(OrderDetail orderDetail) {
 
-		 //create the sales return request		
+			Assert.notNull(orderDetail, "orderDetail must not be null.");
+
+		 //create the sales return request			
 			orderDetail.setModifedDate(new Date());
 			orderDetail.setSalesReturnStatus(SalesReturnStatus.RETURN_REQUEST_PLACED);
 			orderDetailService.saveOrUpdate(orderDetail);
-			
-			return true;
 	}
 
 	@Override
-	public boolean verifyCustomerNumberByOrderDetailId(long orderDetailId, Principal principal) {
+	public boolean verifyCustomerNumberByOrderDetail(OrderDetail orderDetail, Principal principal) {
 
-		//null check for orderDetailId
-		if(!orderDetailService.existsByOrderDetailId(orderDetailId)) {
-			return false;
-		}
-		
-		Assert.notNull(orderDetailId, "orderDetailId must not be null or invalid.");
+		Assert.notNull(orderDetail, "orderDetail must not be null.");
 		
 		//verify customerNumber 
 			//get existing customerNumber
 			String existingCustomerNumber = principal.getName();
 			
 			//get customerNumber through user input
-			OrderDetail orderDetail = orderDetailService.findById(orderDetailId).get();
 			String customerNumberToVerify = orderDetail.getOrder().getCustomerNumer();
 			
 			//verify equality
@@ -110,6 +88,22 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 				return false;
 			}
 		return true;
+	}
+	
+	@Override
+	public boolean isRepeatedSalesReturnRequest(OrderDetail orderDetail) {
+		
+		Assert.notNull(orderDetail, "orderDetail must not be null.");
+		
+		return (orderDetail.getSalesReturnStatus().equals(SalesReturnStatus.RETURN_REQUEST_PLACED));
+	}
+
+	@Override
+	public boolean isNonReturnable(OrderDetail orderDetail) {
+		
+		Assert.notNull(orderDetail, "orderDetail must not be null.");
+			
+		return (orderDetail.getSalesReturnStatus().equals(SalesReturnStatus.NON_RETURNABLE));
 	}
 
 

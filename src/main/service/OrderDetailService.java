@@ -14,15 +14,18 @@ public interface OrderDetailService {
 	
 	public Optional<OrderDetail> findById(long id);
 	
-	public void saveOrUpdate(OrderDetail orderDetail);
+	public OrderDetail saveOrUpdate(OrderDetail orderDetail);
 	
 	public void delete(long id);
 	
-	// customer place return request for his/her own order
-	public boolean placeReturnRequest(long orderDetailId, Principal principal);
-	
 	public boolean existsByOrderDetailId(long orderDetailId);
 	
-	public boolean verifyCustomerNumberByOrderDetailId(long orderDetailId, Principal principal);
+	public boolean verifyCustomerNumberByOrderDetail(OrderDetail orderDetail, Principal principal);
+	
+	public boolean isNonReturnable(OrderDetail orderDetail);
+	
+	public boolean isRepeatedSalesReturnRequest(OrderDetail orderDetail);
+	
+	public void placeReturnRequest(OrderDetail orderDetail);
 	
 }
