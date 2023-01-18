@@ -70,6 +70,8 @@ public class OrderDetailController {
 
 		//null check for orderNumber
 		Optional<Order> orderOptional = orderService.findById(orderNumber);
+		System.out.println("\n Got order Optional!\n");
+		
 		if(orderOptional.isEmpty()) {
 			//show message in console
 			System.out.println("\nSomeone tried to access the orderNumber: " + orderNumber + " that doesn't exist.\n");
@@ -86,9 +88,11 @@ public class OrderDetailController {
 			System.out.println("\nSomeone tried to access the orderNumber: " + order.getOrderNumber() + " that doesn't belong to him.\n");	
 			return "redirect:/";
 		}
+		System.out.println("\nVerified order's customerNumber!\n");
 		
 		//prepare orderDetails to show
 		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
+		System.out.println("\nGot order detail list!\n");
 		// verify data in console
 		System.out.println(orderDetails);
 		
@@ -160,6 +164,7 @@ public class OrderDetailController {
 	
 	 //check if orderDetailId exists and prepare the orderDetail object
 		Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(orderDetailId);
+		System.out.println("\nCheck if orderDetailId exists and prepare the orderDetail Optional\n");
 
 		if (orderDetailOptional.isEmpty()) {
 			//show message in console
@@ -180,6 +185,7 @@ public class OrderDetailController {
 			System.out.println("\nSomeone tried to change the status of orderDetailId: " + orderDetailId + " that doesn't belong to him.\n");
 			return "redirect:/";
 		}
+		System.out.println("\nVerified customerNumber!\n");
 		
 	 //reject return request for item marked as NON_RETURNABLE
 		//isNonReturnable()
@@ -187,14 +193,18 @@ public class OrderDetailController {
 			System.out.println("\nNon-Returnable item. orderDetailId: " + orderDetailId + "\n");
 			return "redirect:/show-my-order-details/" + orderNumber;
 		}
+		System.out.println("\nVerified Non-returnable item\n");
 		
 	 //avoid repeatedly place sales return
 		if (orderDetailService.isRepeatedSalesReturnRequest(orderDetail)) {
 			System.out.println("\nRepeated sales return request of orderDetailId: " + orderDetailId + "\n");
 			return "redirect:/show-my-order-details/" + orderNumber;
 		}
+		System.out.println("\nVerified repeatedly placing sales return\n");
 	
 	 //change sales return status
+		System.out.println("\nStart to place return request!\n");
+		
 		orderDetailService.placeReturnRequest(orderDetail); 	
 		
 		System.out.println("\nFinished return request!\n");

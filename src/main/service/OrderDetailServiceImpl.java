@@ -44,7 +44,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	@Override
 	public OrderDetail saveOrUpdate(OrderDetail orderDetail) {
-		System.out.println("\nStart to place return request!\n");
+
 		return orderDetailRepository.save(orderDetail);		
 	}
 
