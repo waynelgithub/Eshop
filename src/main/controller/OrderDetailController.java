@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import main.model.Order;
 import main.model.OrderDetail;
 import main.model.Product;
+import main.model.Role;
 import main.service.OrderDetailService;
 import main.service.OrderService;
 import main.service.ProductService;
+import main.service.RoleService;
 
 @Controller
 public class OrderDetailController {
@@ -35,6 +37,8 @@ public class OrderDetailController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private RoleService roleService;
 	
 	
 	@GetMapping("/add-order-detail")
@@ -54,7 +58,7 @@ public class OrderDetailController {
 			return "order-detail-form";
 		}
 		orderDetailService.saveOrUpdate(orderDetail);
-		return "redirect:/show-my-order-details";
+		return "redirect:/show-order-details";
 	}
 	
 	// for admin to show all users' order details
@@ -65,7 +69,7 @@ public class OrderDetailController {
 		return "order-details";
 	}
 	
-	@GetMapping(value = {"/show-my-order-details/{orderNumber}", "/show-customer-order-details/{orderNumber}"})
+	@GetMapping(value = {"/show-order-details/{orderNumber}"})
 	public String getMyOrderDetails(Model model, Principal principal, @PathVariable long orderNumber) {	
 
 		//null check for orderNumber
@@ -82,13 +86,14 @@ public class OrderDetailController {
 		
 		assert order != null;
 		
-		// verify customerNumber
-		if (!orderService.verifyCustomerNumberByOrder(order, principal)) {
+		// verified customerNumber or EMPLOYEE or ADMIN can access data
+		String currentUserRole = roleService.findRoleByLogin(principal.getName()).getRole();
+		if (!orderService.verifyCustomerNumberByOrder(order, principal) & !currentUserRole.equals("ROLE_EMPLOYEE")  & !currentUserRole.equals("ROLE_ADMIN")   ) {
 			//show message in console
 			System.out.println("\nSomeone tried to access the orderNumber: " + order.getOrderNumber() + " that doesn't belong to him.\n");	
 			return "redirect:/";
 		}
-		System.out.println("\nVerified order's customerNumber!\n");
+		System.out.println("\nVerified order's customerNumber and user privilege\n");
 		
 		//prepare orderDetails to show
 		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
@@ -122,7 +127,7 @@ public class OrderDetailController {
 		
 		Assert.notNull(order.getOrderNumber(), "orderNumber must not be null");//但是還可能會是 0
 		
-		return "redirect:/show-customer-order-details/" + order.getOrderNumber();
+		return "redirect:/show-order-details/" + order.getOrderNumber();
 	}
 	
 	/**
@@ -191,14 +196,14 @@ public class OrderDetailController {
 		//isNonReturnable()
 		if(orderDetailService.isNonReturnable(orderDetail)) {
 			System.out.println("\nNon-Returnable item. orderDetailId: " + orderDetailId + "\n");
-			return "redirect:/show-my-order-details/" + orderNumber;
+			return "redirect:/show-order-details/" + orderNumber;
 		}
 		System.out.println("\nVerified Non-returnable item\n");
 		
 	 //avoid repeatedly place sales return
 		if (orderDetailService.isRepeatedSalesReturnRequest(orderDetail)) {
 			System.out.println("\nRepeated sales return request of orderDetailId: " + orderDetailId + "\n");
-			return "redirect:/show-my-order-details/" + orderNumber;
+			return "redirect:/show-order-details/" + orderNumber;
 		}
 		System.out.println("\nVerified repeatedly placing sales return\n");
 	
@@ -209,7 +214,7 @@ public class OrderDetailController {
 		
 		System.out.println("\nFinished return request!\n");
 	
-		return "redirect:/show-my-order-details/" + orderNumber;
+		return "redirect:/show-order-details/" + orderNumber;
 		
 	}
 	
