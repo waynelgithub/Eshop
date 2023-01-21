@@ -35,7 +35,7 @@
 						<td th:text="${#dates.format(order.orderCreatedDate, 'yyyy/MM/dd')}"></td>
 						<td th:text="${order.customerNumer}"></td>
 						<td th:text="${order.orderAmount}"></td>
-						<td><a class="btn btn-primary" th:href="@{/show-my-order-details/} + ${order.orderNumber}">明細</a></td>						
+						<td><a class="btn btn-primary" th:href="@{/show-order-details/} + ${order.orderNumber}">明細</a></td>						
 					</tr>
 				</tbody>
 			</table>

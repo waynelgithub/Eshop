@@ -18,9 +18,6 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private OrderRepository orderRepository;
-	
-	@Autowired
-	private OrderService orderService;
 
 	@Override
 	public List<Order> getAll() {
