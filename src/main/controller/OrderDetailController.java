@@ -48,29 +48,29 @@ public class OrderDetailController {
 	private RoleService roleService;
 	
 	
-	@GetMapping("/add-order-detail")
-	public String showOrderDetailForm(Model model) {
-		List<Order> orders = orderService.getAll();
-		model.addAttribute("orders", orders);
-		List<Product> products = productService.getAll();
-		model.addAttribute("products", products);		
-		
-		model.addAttribute("orderDetail", new OrderDetail());
-		return "order-detail-form";
-	}
+//	@GetMapping("/add-order-detail")
+//	public String showOrderDetailForm(Model model) {
+//		List<Order> orders = orderService.getAll();
+//		model.addAttribute("orders", orders);
+//		List<Product> products = productService.getAll();
+//		model.addAttribute("products", products);		
+//		
+//		model.addAttribute("orderDetail", new OrderDetail());
+//		return "order-detail-form";
+//	}
 	
-	@PostMapping("/save-order-detail")
-	public String saveOrderDetailData(@Valid @ModelAttribute OrderDetail orderDetail, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
-			return "order-detail-form";
-		}
-		orderDetailService.saveOrUpdate(orderDetail);
-		return "redirect:/show-order-details";
-	}
+//	@PostMapping("/save-order-detail")
+//	public String saveOrderDetailData(@Valid @ModelAttribute OrderDetail orderDetail, BindingResult bindingResult) {
+//		if(bindingResult.hasErrors()) {
+//			return "order-detail-form";
+//		}
+//		orderDetailService.saveOrUpdate(orderDetail);
+//		return "redirect:/show-order-details";
+//	}
 	
 	// for admin to show all users' order details
 	@GetMapping("/show-all-order-details")
-	public String getOrderDetails(Model model) {
+	public String getAllOrderDetails(Model model) {
 		List<OrderDetail> orderDetails=orderDetailService.getAll();
 		model.addAttribute("orderDetails", orderDetails);
 		return "order-details";
@@ -160,58 +160,58 @@ public class OrderDetailController {
 	}
 	
 	
-	/** 
-	 * for admin to delete orderDetail, not yet to update the order which contains it
-	 *  
-	 * @param orderDetailId
-	 * @return a string as a view to show a list of orderDetails
-	 */
-	@GetMapping("/delete-order-detail/{orderDetailId}")
-	public String deleteOrderDetail(@PathVariable long orderDetailId) {
-		//get the existing record from data source in order to delete it.
-		//
-		Order order = new Order();
-		
-		Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(orderDetailId);
-		orderDetailOptional.ifPresent(
-				orderDetail -> {
-					order.setOrderNumber(orderDetail.getOrder().getOrderNumber());
-					orderDetailService.delete(orderDetail.getOrderDetailId());//如果先刪掉 orderDetail ，就取不到 order 了
-		
-					});
-		
-		Assert.notNull(order.getOrderNumber(), "orderNumber must not be null");//但是還可能會是 0
-		
-		return "redirect:/show-order-details/" + order.getOrderNumber();
-	}
+//	/** 
+//	 * for admin to delete orderDetail, not yet to update the order which contains it
+//	 *  
+//	 * @param orderDetailId
+//	 * @return a string as a view to show a list of orderDetails
+//	 */
+//	@GetMapping("/delete-order-detail/{orderDetailId}")
+//	public String deleteOrderDetail(@PathVariable long orderDetailId) {
+//		//get the existing record from data source in order to delete it.
+//		//
+//		Order order = new Order();//為了要在刪掉 orderDetail後，還能用 order.getOrderNumber 來呈現 view
+//		
+//		Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(orderDetailId);
+//		orderDetailOptional.ifPresent(
+//				orderDetail -> {
+//					order.setOrderNumber(orderDetail.getOrder().getOrderNumber());
+//					orderDetailService.delete(orderDetail.getOrderDetailId());//如果先刪掉 orderDetail ，就取不到 order 了
+//		
+//					});
+//		
+//		Assert.notNull(order.getOrderNumber(), "orderNumber must not be null");//但是還可能會是 0
+//		
+//		return "redirect:/show-order-details/" + order.getOrderNumber();
+//	}
 	
-	/**
-	 * for admin to edit an OrderDetail. view is not ready.
-	 * <p>Get an Optional<Orderdetail>,
-	 * <br>if existed, add to Model and send it to View for editing the content of OrderDetail.
-	 * <br>if not, redirect to home page. 
-	 * @param orderDetailId
-	 * @param model
-	 * @return a string as view
-	 */
-	@GetMapping("/edit-order-detail/{orderDetailId}")
-	public String editOrderDetail(@PathVariable long orderDetailId, Model model) {
-
-		Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(orderDetailId);		
-
-		String returnUrl = 
-				orderDetailOptional
-					.map( // if value is present
-							orderDetail -> {
-								model.addAttribute("orderDetail", orderDetail); 
-								return "order-detail-form";})
-					.or(
-							() -> Optional.of("redirect:/"))
-					.get()
-					;
-		
-		return returnUrl;
-	}
+//	/**
+//	 * for admin to edit an OrderDetail. view is not ready.
+//	 * <p>Get an Optional<Orderdetail>,
+//	 * <br>if existed, add to Model and send it to View for editing the content of OrderDetail.
+//	 * <br>if not, redirect to home page. 
+//	 * @param orderDetailId
+//	 * @param model
+//	 * @return a string as view
+//	 */
+//	@GetMapping("/edit-order-detail/{orderDetailId}")
+//	public String editOrderDetail(@PathVariable long orderDetailId, Model model) {
+//
+//		Optional<OrderDetail> orderDetailOptional = orderDetailService.findById(orderDetailId);		
+//
+//		String returnUrl = 
+//				orderDetailOptional
+//					.map( // if value is present
+//							orderDetail -> {
+//								model.addAttribute("orderDetail", orderDetail); 
+//								return "order-detail-form";})
+//					.or(
+//							() -> Optional.of("redirect:/"))
+//					.get()
+//					;
+//		
+//		return returnUrl;
+//	}
 	
 	/**	
 	 * Customer place return request for his/her own order
