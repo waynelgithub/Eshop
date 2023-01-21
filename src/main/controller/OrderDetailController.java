@@ -1,12 +1,18 @@
 package main.controller;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.jaas.AuthorityGranter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import main.helper.UserHelper;
 import main.model.Order;
 import main.model.OrderDetail;
 import main.model.Product;
@@ -66,7 +73,7 @@ public class OrderDetailController {
 	}
 	
 	@GetMapping(value = {"/show-my-order-details/{orderNumber}", "/show-customer-order-details/{orderNumber}"})
-	public String getMyOrderDetails(Model model, Principal principal, @PathVariable long orderNumber) {	
+	public String getMyOrderDetails(Model model, Principal principal, Authentication authentication, HttpServletRequest request, @PathVariable long orderNumber) {	
 
 		//null check for orderNumber
 		Optional<Order> orderOptional = orderService.findById(orderNumber);
@@ -82,13 +89,46 @@ public class OrderDetailController {
 		
 		assert order != null;
 		
-		// verify customerNumber
-		if (!orderService.verifyCustomerNumberByOrder(order, principal)) {
+		// verify user privilege
+		//1.1 inject an Authentication
+		//Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		//authorities.forEach(au -> System.out.println("\n" + au.getAuthority()));// ex: ROLE_EMPLOYEE
+		//boolean isAdmin = authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
+		//boolean isEmployee = authorities.stream().anyMatch(a -> a.getAuthority().equals("EMPLOYEE"));
+		
+		//1.2 get an Authentication through SecurityContextHolder
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+		//authorities.forEach(au -> System.out.println("\n" + au.getAuthority()));// ex: ROLE_EMPLOYEE
+		//boolean isAdmin = authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
+		//boolean isEmployee = authorities.stream().anyMatch(a -> a.getAuthority().equals("EMPLOYEE"));
+		
+		//1.3 in Spring MVC, inject an HttpServletRequest
+		boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
+		boolean isEmployee = request.isUserInRole("ROLE_EMPLOYEE");
+
+		System.out.println("");
+		System.out.println("isAdmin: " + isAdmin);
+		System.out.println("isEmployee: " + isEmployee);
+		System.out.println("");
+		
+		//2.1 verify customerNumber and user privileges
+//		if (!orderService.verifyCustomerNumberByOrder(order, principal) && !isAdmin && !isEmployee ) {
+//			//show message in console
+//			System.out.println("\nSomeone tried to access the orderNumber: " + order.getOrderNumber() + " that doesn't belong to him.\n");	
+//			return "redirect:/";
+//		}
+		//2.2 verify customerNumber and user privileges. 檢查大量 role
+		//2.2.1 取得此功能，且不需 customerNumber(也就不需 ROLE_CLIENT)，即可查看的 roles
+		List<String> roleStrings = List.of("ROLE_ADMIN","ROLE_EMPLOYEE");
+		
+		if(!orderService.verifyCustomerNumberByOrder(order, principal) && !UserHelper.hasAnyManagementRoleByHttpServletRequest(roleStrings, request)) {
 			//show message in console
 			System.out.println("\nSomeone tried to access the orderNumber: " + order.getOrderNumber() + " that doesn't belong to him.\n");	
-			return "redirect:/";
-		}
-		System.out.println("\nVerified order's customerNumber!\n");
+			return "redirect:/";			
+		}	
+		
+		System.out.println("\n" +"Verified order's customerNumber and user privileges" + "\n");
 		
 		//prepare orderDetails to show
 		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
@@ -99,6 +139,7 @@ public class OrderDetailController {
 		model.addAttribute("orderDetails", orderDetails);
 		return "order-details";
 	}
+	
 	
 	/** 
 	 * for admin to delete orderDetail, not yet to update the order which contains it
