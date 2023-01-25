@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -55,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/", "/login", "/save-product", "/product-image-upload-with-product-id")
 					.permitAll()
-				.antMatchers("/add-product", "/show-all-orders")
+				.antMatchers("/add-product", "/show-all-orders", "/show-all-order-details")
 					.hasAnyRole("ADMIN", "EMPLOYEE")
 				.antMatchers("/show-my-orders","/show-order-details/*")
 					.hasAnyRole("CLIENT", "ADMIN", "EMPLOYEE")

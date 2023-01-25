@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.jaas.AuthorityGranter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -97,6 +98,7 @@ public class OrderDetailController {
 		Order order = orderOptional.get();
 		
 		assert order != null;
+		//assert request.getUserPrincipal() != null;
 		
 		// verify user privileges
 		
@@ -158,7 +160,53 @@ public class OrderDetailController {
 		model.addAttribute("orderDetails", orderDetails);
 		return "order-details";
 	}
-	
+
+	//method for test SPEL purpose only
+	@PreAuthorize(//"hasAnyRole('EMPLOYEE', 'ADMIN')" +
+					" (hasRole('CLIENT') && #principal.getName().equals( @orderServiceImpl.findById(#orderNumber).get().getCustomerNumer() ))" +
+//同上式//			" (hasRole('CLIENT') && #principal.name.equals( @orderServiceImpl.findById(#orderNumber).get().customerNumer ))" +
+			//"|| @orderServiceImpl.findById(#orderNumber).get().getOrderStatus().equals(T(main.model.OrderStatus).OPEN)" +
+			"|| new main.helper.UserHelperTestSPEL().hasAnyManagementRoleByHttpServletRequest( T(java.util.List).of('ROLE_ADMIN','ROLE_EMPLOYEE'), #request)"
+			)
+	@GetMapping(value = {"/show-order-details2/{orderNumber}"})
+	public String getMyOrderDetails2(Model model, 
+									@PathVariable long orderNumber,
+									Principal principal,
+									HttpServletRequest request) {	
+
+		//null check for orderNumber
+		Optional<Order> orderOptional = orderService.findById(orderNumber);
+		System.out.println("\n Got order Optional!\n");
+		
+		if(orderOptional.isEmpty()) {
+			//show message in console
+			System.out.println("\nSomeone tried to access the orderNumber: " + orderNumber + " that doesn't exist.\n");
+			return "redirect:/";
+		}
+
+		Order order = orderOptional.get();
+		
+		assert order != null;
+		
+		
+		//1.3 in Spring MVC, inject an HttpServletRequest
+		boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
+		boolean isEmployee = request.isUserInRole("ROLE_EMPLOYEE");
+
+		System.out.println("");
+		System.out.println("isAdmin: " + isAdmin);
+		System.out.println("isEmployee: " + isEmployee);
+		System.out.println("");
+				
+		//prepare orderDetails to show
+		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
+		System.out.println("\nGot order detail list!\n");
+		// verify data in console
+		System.out.println(orderDetails);
+		
+		model.addAttribute("orderDetails", orderDetails);
+		return "order-details";
+	}
 	
 //	/** 
 //	 * for admin to delete orderDetail, not yet to update the order which contains it
@@ -180,7 +228,7 @@ public class OrderDetailController {
 //		
 //					});
 //		
-//		Assert.notNull(order.getOrderNumber(), "orderNumber must not be null");//但是還可能會是 0
+//		//Assert.notNull(order.getOrderNumber(), "orderNumber must not be null");//錯誤比對，還可能會是 0 -> null 只比對 object
 //		
 //		return "redirect:/show-order-details/" + order.getOrderNumber();
 //	}
@@ -248,10 +296,10 @@ public class OrderDetailController {
 		System.out.println("\nVerified customerNumber!\n");
 		
 	 //reject return request for item marked as NON_RETURNABLE
-		//isNonReturnable()
 		if(orderDetailService.isNonReturnable(orderDetail)) {
 			System.out.println("\nNon-Returnable item. orderDetailId: " + orderDetailId + "\n");
 			return "redirect:/show-order-details/" + orderNumber;
+			//better to show a warning message
 		}
 		System.out.println("\nVerified Non-returnable item\n");
 		
@@ -259,10 +307,12 @@ public class OrderDetailController {
 		if (orderDetailService.isRepeatedSalesReturnRequest(orderDetail)) {
 			System.out.println("\nRepeated sales return request of orderDetailId: " + orderDetailId + "\n");
 			return "redirect:/show-order-details/" + orderNumber;
+			//better to show a warning message
 		}
 		System.out.println("\nVerified repeatedly placing sales return\n");
+	 //上面兩個檢查，似乎可以整合成一個，去檢查該 orderDetail 的 isReturnable()就可以
 	
-	 //change sales return status
+	 //change sales return status to place return request
 		System.out.println("\nStart to place return request!\n");
 		
 		orderDetailService.placeReturnRequest(orderDetail); 	

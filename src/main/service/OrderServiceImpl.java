@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import main.model.Order;
 import main.repository.OrderRepository;
 
-@Service
+@Service//("orderService") //若不設定 bean name, SPEL就要用 @orderServiceImpl 才能取用此 bean  
 @Transactional
 public class OrderServiceImpl implements OrderService {
 	

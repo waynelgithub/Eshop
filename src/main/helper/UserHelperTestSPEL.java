@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class UserHelper {
+public class UserHelperTestSPEL {
 	
 	
 	/**
@@ -14,10 +14,12 @@ public class UserHelper {
 	 * @return
 	 * true: has one of these roles;
 	 */
-	public static boolean hasAnyManagementRoleByHttpServletRequest(Collection<String> roleStrings, HttpServletRequest request) {
+	public boolean hasAnyManagementRoleByHttpServletRequest(Collection<String> roleStrings, HttpServletRequest request) {
 		// return false if the user has not been authenticated
+			//if (request.getUserPrincipal().equals(null)) return false;
+				//issue: if principal is null, then NPE occurs, can't invoke equals on null object!
 		if (request.getUserPrincipal() == null) return false;
-
+		
 		//1. for every role, check if the user has it
 //		boolean hasRole = false;
 //		for(String roleString : roleStrings) {			
