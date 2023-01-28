@@ -32,7 +32,15 @@ public class ProductImageController {
 		return "product-image-upload-demo";
 	}
 
-
+	/**
+	 * upload image as Base64 string,
+	 * set it as a product property,
+	 * save the product with product id
+	 * @param file the Multipart file been uploaded
+	 * @param productId to get the product
+	 * @return base64 image upload demo page
+	 * @throws Exception
+	 */
 	@PostMapping(value = "/product-image-upload-with-product-id")
 	public String saveImageWithProductId(@RequestParam MultipartFile file,@RequestParam long productId)
 			throws Exception {
@@ -62,6 +70,14 @@ public class ProductImageController {
 		return "product-image-upload-demo";
 	}
 	
+	/**
+	 * upload a single image,
+	 * encode it as Base64 string
+	 * save it to DB
+	 * @param file the Multipart file been uploaded
+	 * @return base64 image upload demo page
+	 * @throws Exception
+	 */
 	@PostMapping(value = "/product-image-upload")
 	public String saveImage(@RequestParam MultipartFile file)
 			throws Exception {
@@ -83,11 +99,17 @@ public class ProductImageController {
 		return "product-image-upload-demo";
 	}
 
-	
-	@GetMapping("/get-product-image/{id}")
-	public String getProductImageString(@PathVariable int id,Model model){
+	/**
+	 * get an image in Base64 string format from the database,
+	 * add it as a model attribute 
+	 * @param imageNum image_num in DB
+	 * @param model
+	 * @return base64 image upload demo page
+	 */
+	@GetMapping("/get-product-image/{imageNum}")
+	public String getProductImageString(@PathVariable int imageNum,Model model){
 		
-		ProductImage pi = productImageService.getById(id);
+		ProductImage pi = productImageService.getById(imageNum);
 		String encodedString = pi.getImageBase64String();
 
 		model.addAttribute("img", encodedString);

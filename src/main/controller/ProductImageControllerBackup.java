@@ -28,7 +28,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import main.model.ProductImage;
 import main.service.ProductImageService;
 
-
+/*
+ * saveProductImage() 為save image as byte array, 搭配 getProductImageToWeb()
+ * saveProductImageString() 為 save image as base64 string, 搭配 getProductImageString()
+ * saveImage()為 upload image, save as byte array
+ * getProductImage() 為 get image blob from db，用 IOUtils.copy 轉存圖檔
+ * 
+ * 
+ */
 
 //@Controller
 //public class ProductImageControllerBackup {
@@ -167,39 +174,5 @@ import main.service.ProductImageService;
 //	
 //	
 //	
-////	@PostMapping("/save-product")
-////	public String saveProductData(@Valid @ModelAttribute Product product, BindingResult bindingResult) {
-////		if(bindingResult.hasErrors()) {
-////			return "product-form";
-////		}
-////		productService.saveOrUpdate(product);
-////		return "redirect:show-products";
-////	}
-////	
-////	@GetMapping("/show-products")
-////	public String getProduct(Model model) {
-////		List<Product> products=productService.getAll();
-////		model.addAttribute("products", products);
-////		return "products";
-////	}
-////	
-////	@GetMapping("/delete-product/{id}")
-////	public String deleteProduct(@PathVariable int id) {
-////		Product product = productService.getById(id);
-////		if(product != null) {
-////			productService.delete(id);
-////		}
-////		return "redirect:/show-products";
-////	}
-////	
-////	@GetMapping("/edit-product/{id}")
-////	public String editProduct(@PathVariable int id, Model model) {
-////		Product product = productService.getById(id);
-////		if(product != null) {
-////			model.addAttribute("product", product);
-////			return "product-form";
-////		}
-////		return "redirect:/show-products";
-////	}
-//	
+	
 //}
