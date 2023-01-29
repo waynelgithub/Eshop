@@ -78,101 +78,14 @@ public class OrderDetailController {
 	}
 	
 
-	@GetMapping(value = {"/show-order-details2/{orderNumber}"})
-	public String getMyOrderDetails2(Model model, 
-									@PathVariable long orderNumber,
-									Principal principal, 
-//									Authentication authentication,
-									HttpServletRequest request) {	
-
-		//null check for orderNumber
-		Optional<Order> orderOptional = orderService.findById(orderNumber);
-		System.out.println("\n Got order Optional!\n");
-		
-		if(orderOptional.isEmpty()) {
-			//show message in console
-			System.out.println("\nSomeone tried to access the orderNumber: " + orderNumber + " that doesn't exist.\n");
-			return "redirect:/";
-		}
-
-		Order order = orderOptional.get();
-		
-		assert order != null;
-		//assert request.getUserPrincipal() != null;
-		
-		// verify user privileges
-		
-		//0.1 verified customerNumber or EMPLOYEE or ADMIN can access data
-		//String currentUserRole = roleService.findRoleByLogin(principal.getName()).getRole();
-		//if (!orderService.verifyCustomerNumberByOrder(order, principal) & !currentUserRole.equals("ROLE_EMPLOYEE")  & !currentUserRole.equals("ROLE_ADMIN")   ) {
-			//show message in console
-		//	System.out.println("\nSomeone tried to access the orderNumber: " + order.getOrderNumber() + " that doesn't belong to him.\n");	
-		//	return "redirect:/";
-		//}
-		//
-		
-		//1.1 inject an Authentication
-		//Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		//authorities.forEach(au -> System.out.println("\n" + au.getAuthority()));// ex: ROLE_EMPLOYEE
-		//boolean isAdmin = authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
-		//boolean isEmployee = authorities.stream().anyMatch(a -> a.getAuthority().equals("EMPLOYEE"));
-		
-		//1.2 get an Authentication through SecurityContextHolder
-		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		//Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
-		//authorities.forEach(au -> System.out.println("\n" + au.getAuthority()));// ex: ROLE_EMPLOYEE
-		//boolean isAdmin = authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
-		//boolean isEmployee = authorities.stream().anyMatch(a -> a.getAuthority().equals("EMPLOYEE"));
-		
-		//1.3 in Spring MVC, inject an HttpServletRequest
-		boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
-		boolean isEmployee = request.isUserInRole("ROLE_EMPLOYEE");
-
-		System.out.println("");
-		System.out.println("isAdmin: " + isAdmin);
-		System.out.println("isEmployee: " + isEmployee);
-		System.out.println("");
-		
-		//2.1 verify customerNumber and user privileges
-//		if (!orderService.verifyCustomerNumberByOrder(order, principal) && !isAdmin && !isEmployee ) {
-//			//show message in console
-//			System.out.println("\nSomeone tried to access the orderNumber: " + order.getOrderNumber() + " that doesn't belong to him.\n");	
-//			return "redirect:/";
-//		}
-		//2.2 verify customerNumber and user privileges. 檢查大量 role
-		//2.2.1 取得此功能，且不需 customerNumber(也就不需 ROLE_CLIENT)，即可查看的 roles
-		List<String> roleStrings = List.of("ROLE_ADMIN","ROLE_EMPLOYEE");
-		
-		if(!orderService.verifyCustomerNumberByOrder(order, principal) && !UserHelper.hasAnyManagementRoleByHttpServletRequest(roleStrings, request)) {
-			//show message in console
-			System.out.println("\nSomeone tried to access the orderNumber: " + order.getOrderNumber() + " that doesn't belong to him.\n");	
-			return "redirect:/";			
-		}	
-		
-		System.out.println("\n" +"Verified order's customerNumber and user privileges" + "\n");
-		
-		//prepare orderDetails to show
-		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
-		System.out.println("\nGot order detail list!\n");
-		// verify data in console
-		System.out.println(orderDetails);
-		
-		model.addAttribute("orderDetails", orderDetails);
-		return "order-details";
-	}
-
-	//method for test SPEL purpose only
-	@PreAuthorize(//"hasAnyRole('EMPLOYEE', 'ADMIN')" +
-					" (hasRole('CLIENT') && #principal.getName().equals( @orderServiceImpl.findById(#orderNumber).get().getCustomerNumer() ))" +
-//同上式//			" (hasRole('CLIENT') && #principal.name.equals( @orderServiceImpl.findById(#orderNumber).get().customerNumer ))" +
-			//"|| @orderServiceImpl.findById(#orderNumber).get().getOrderStatus().equals(T(main.model.OrderStatus).OPEN)" +
-			"|| new main.helper.UserHelperTestSPEL().hasAnyManagementRoleByHttpServletRequest( T(java.util.List).of('ROLE_ADMIN','ROLE_EMPLOYEE'), #request)"
+	@PreAuthorize(	"hasAnyRole('EMPLOYEE', 'ADMIN')" +
+					"||" + 
+					"(hasRole('CLIENT') && #principal.getName().equals( @orderServiceImpl.findById(#orderNumber).get().getCustomerNumer() ))"
 			)
 	@GetMapping(value = {"/show-order-details/{orderNumber}"})
 	public String getMyOrderDetails(Model model, 
 									@PathVariable long orderNumber,
-									Principal principal,
-									HttpServletRequest request) {	
+									Principal principal) {	
 
 		//null check for orderNumber
 		Optional<Order> orderOptional = orderService.findById(orderNumber);
@@ -187,17 +100,7 @@ public class OrderDetailController {
 		Order order = orderOptional.get();
 		
 		assert order != null;
-		
-		
-		//1.3 in Spring MVC, inject an HttpServletRequest
-		boolean isAdmin = request.isUserInRole("ROLE_ADMIN");
-		boolean isEmployee = request.isUserInRole("ROLE_EMPLOYEE");
-
-		System.out.println("");
-		System.out.println("isAdmin: " + isAdmin);
-		System.out.println("isEmployee: " + isEmployee);
-		System.out.println("");
-				
+					
 		//prepare orderDetails to show
 		List<OrderDetail> orderDetails=orderDetailService.getAllByOrderNumber(orderNumber);
 		System.out.println("\nGot order detail list!\n");
