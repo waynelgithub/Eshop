@@ -78,25 +78,21 @@ public class OrderDetailController {
 	}
 	
 
-	@PreAuthorize(	"hasAnyRole('EMPLOYEE', 'ADMIN')" +
-					"||" + 
-					"(hasRole('CLIENT') && #principal.getName().equals( @orderServiceImpl.findById(#orderNumber).get().getCustomerNumer() ))"
+	@PreAuthorize(	"@orderServiceImpl.findById(#orderNumber).isPresent() &&" + //null check for orderNumber
+					"(" + 
+						"hasAnyRole('EMPLOYEE', 'ADMIN')" +						//has role to manage
+						"||" + 
+							"(hasRole('CLIENT') && " +							//has CLIENT role and ...
+							"#principal.getName().equals( @orderServiceImpl.findById(#orderNumber).get().getCustomerNumer()) )" + //has this orderNumber 				
+					")"
 			)
 	@GetMapping(value = {"/show-order-details/{orderNumber}"})
 	public String getMyOrderDetails(Model model, 
 									@PathVariable long orderNumber,
 									Principal principal) {	
-
-		//null check for orderNumber
+		
 		Optional<Order> orderOptional = orderService.findById(orderNumber);
 		System.out.println("\n Got order Optional!\n");
-		
-		if(orderOptional.isEmpty()) {
-			//show message in console
-			System.out.println("\nSomeone tried to access the orderNumber: " + orderNumber + " that doesn't exist.\n");
-			return "redirect:/";
-		}
-
 		Order order = orderOptional.get();
 		
 		assert order != null;
