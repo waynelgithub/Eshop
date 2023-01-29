@@ -78,8 +78,8 @@ public class OrderDetailController {
 	}
 	
 
-	@GetMapping(value = {"/show-order-details/{orderNumber}"})
-	public String getMyOrderDetails(Model model, 
+	@GetMapping(value = {"/show-order-details2/{orderNumber}"})
+	public String getMyOrderDetails2(Model model, 
 									@PathVariable long orderNumber,
 									Principal principal, 
 //									Authentication authentication,
@@ -168,8 +168,8 @@ public class OrderDetailController {
 			//"|| @orderServiceImpl.findById(#orderNumber).get().getOrderStatus().equals(T(main.model.OrderStatus).OPEN)" +
 			"|| new main.helper.UserHelperTestSPEL().hasAnyManagementRoleByHttpServletRequest( T(java.util.List).of('ROLE_ADMIN','ROLE_EMPLOYEE'), #request)"
 			)
-	@GetMapping(value = {"/show-order-details2/{orderNumber}"})
-	public String getMyOrderDetails2(Model model, 
+	@GetMapping(value = {"/show-order-details/{orderNumber}"})
+	public String getMyOrderDetails(Model model, 
 									@PathVariable long orderNumber,
 									Principal principal,
 									HttpServletRequest request) {	
