@@ -20,18 +20,18 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@Configuration
-@EnableWebMvc
-@ComponentScan("main")
-@PropertySource("/WEB-INF/resources/database.properties")
-@EnableTransactionManagement
-@EnableJpaRepositories("main.repository")
+//@Configuration
+//@EnableWebMvc
+//@ComponentScan("main")
+//@PropertySource("/WEB-INF/resources/database.properties")
+//@EnableTransactionManagement
+//@EnableJpaRepositories("main.repository")
 public class DatabaseConfigBackup2 {
 
-	@Autowired
+	//@Autowired
 	private Environment environment;
 
-	@Bean
+	//@Bean
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(environment.getProperty("jdbc.driver"));
@@ -43,7 +43,7 @@ public class DatabaseConfigBackup2 {
 
 
 	
-	  @Bean
+	  //@Bean
 	  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
 	    HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -58,7 +58,7 @@ public class DatabaseConfigBackup2 {
 	    return factory;
 	  }
 	  
-	  @Bean
+	  //@Bean
 	  public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 
 	    JpaTransactionManager txManager = new JpaTransactionManager();
@@ -75,7 +75,7 @@ public class DatabaseConfigBackup2 {
 //			return localSessionFactoryBean;
 //		}
 
-	  @Bean
+	  //@Bean
 	  public Properties jpaProperties() {
 
 	  	Properties properties = new Properties();

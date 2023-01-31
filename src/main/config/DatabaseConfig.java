@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebMvc
 @ComponentScan("main")
-@PropertySource("/WEB-INF/resources/database.properties")
+@PropertySource("classpath:database.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories("main.repository")
 public class DatabaseConfig {
