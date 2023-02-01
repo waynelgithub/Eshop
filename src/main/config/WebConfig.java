@@ -2,11 +2,15 @@ package main.config;
 
 import java.nio.charset.StandardCharsets;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -72,19 +76,33 @@ public class WebConfig implements WebMvcConfigurer {
 		return bean;
 	}
 	
-
 	@Bean
-	public CommonsMultipartResolver multipartResolver(){
-	    CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-	    resolver.setMaxUploadSizePerFile(5 * 1024 * 1024);//5MB
-	    return resolver;
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSizePerFile(5 * 1024 * 1024);// 5MB
+		return resolver;
 	}
+
+	/**
+	 * Let Logger can be @Autowired inside the class. This Logger can't be static final.
+	 * <br>@Autowired																		
+	 * <br>private Logger logger;	 
+	 *    
+	 * @param injectionPoint
+	 * @return a Logger
+	 */
+	@Bean
+	@Scope("prototype")
+	public Logger logger(InjectionPoint injectionPoint) {
+		return LogManager.getLogger(injectionPoint.getMember().getDeclaringClass());
+	}
+
 
 	@Override
 	public Validator getValidator() {
 		return createValidator();
 	}
-	
+
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
