@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import main.repository.UserRepository;
 @Service
 @Transactional
 public class ShoppingCartSericeImpl implements ShoppingCartService {
+	
+	private static final Logger logger = LogManager.getLogger();
 
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepository;
@@ -95,15 +99,22 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	public ShoppingCart showShoppingCart(String customerNum) {
 		ShoppingCart shoppingCart = getByCustomerNum(customerNum);
 		
+		logger.info("\n" + "shoppingCart is null: " + (shoppingCart == null) + "\n");
+		
 		if (shoppingCart == null) {
-			List<ShoppingCartDetails> shoppingCartDetails = new ArrayList<>();
+			BigDecimal amount = new BigDecimal(0);
 			shoppingCart = new ShoppingCart();
-			shoppingCart.setAmount(new BigDecimal(0));
+			shoppingCart.setAmount(amount);
 			shoppingCart.setCustomer_num(customerNum);
 			shoppingCart.setDate(new Date());
+			
+			//雖然是空 list，不提供則前端在第一次呈現購物車時會報錯
+			List<ShoppingCartDetails> shoppingCartDetails = new ArrayList<>();
 			shoppingCart.setShoppingCartDetails(shoppingCartDetails);
 			saveOrUpdate(shoppingCart);
-		} else {
+		} 
+				
+		else {
 			sumAmount(customerNum);
 		}
 		return shoppingCart;
