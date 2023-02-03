@@ -1,5 +1,5 @@
 package main.controller;
-
+//TODO: remove unused methods and views
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
@@ -209,7 +209,7 @@ public class OrderDetailController {
 			//better to show a warning message
 		}
 		System.out.println("\nVerified repeatedly placing sales return\n");
-	 //上面兩個檢查，似乎可以整合成一個，去檢查該 orderDetail 的 isReturnable()就可以
+	 //TODO: 上面兩個檢查，似乎可以整合成一個，去檢查該 orderDetail 的 isReturnable()就可以
 	
 	 //change sales return status to place return request
 		System.out.println("\nStart to place return request!\n");

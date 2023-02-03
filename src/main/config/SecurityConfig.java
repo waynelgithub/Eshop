@@ -50,10 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		encodingFilter.setForceEncoding(true);
 		http.addFilterBefore(encodingFilter, CsrfFilter.class);
 		
-		//temporarily allow post requests to pass security check
+		//FIXME: temporarily allow post requests to pass security check
 		http.csrf().disable();
 		
-		//未列出的 path 是權限全開
+		//FIXME: 未列出的 path 是權限全開
 		http.authorizeRequests()
 				.antMatchers("/", "/login", "/save-product", "/product-image-upload-with-product-id")
 					.permitAll()

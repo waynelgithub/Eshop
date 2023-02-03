@@ -1,4 +1,5 @@
 package main.config;
+//TODO: clarify why keep this class or delete it
 
 import java.util.Properties;
 

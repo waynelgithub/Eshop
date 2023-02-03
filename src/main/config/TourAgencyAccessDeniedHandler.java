@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+//TODO: rename, fine-tune, or delete this class
 public class TourAgencyAccessDeniedHandler implements AccessDeniedHandler {
 
 	@Override
