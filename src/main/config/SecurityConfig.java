@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//FIXME: temporarily allow post requests to pass security check
 		http.csrf().disable();
 		
+		//FIXME: WebSecurityConfigurerAdapter 被5.7 廢除，antMatchers()被移除不能使用，須改用新版寫法
 		//FIXME: 未列出的 path 是權限全開
 		http.authorizeRequests()
 				.antMatchers("/", "/login", "/save-product", "/product-image-upload-with-product-id")
