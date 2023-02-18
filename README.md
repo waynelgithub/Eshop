@@ -1,7 +1,7 @@
 # Eshop - RWD 服飾購物網站
 ## 使用說明
-### 資料庫連線資訊可在 [database.properties](https://github.com/waynelgithub/Eshop/blob/master-github/src/main/resources/database.properties) 修改
-### 商品資料及圖檔 SQL 可在此[SQL](https://github.com/waynelgithub/Eshop/tree/master-github/WebContent/WEB-INF/resources)取得，可先在資料庫建立一批測試資料
+* 資料庫連線資訊可在 [database.properties](https://github.com/waynelgithub/Eshop/blob/master-github/src/main/resources/database.properties) 修改
+* 商品資料及圖檔 SQL 可在此[SQL](https://github.com/waynelgithub/Eshop/tree/master-github/WebContent/WEB-INF/resources)取得，可先在資料庫建立一批測試資料
 
 ## 架構
 ### 商品上下架管理
