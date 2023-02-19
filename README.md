@@ -9,6 +9,7 @@
 * OS: Linux
 * AP Server: Tomcat
 * DB: MySQL
+* Project: Maven, Eclipse based
 
 ## 功能
 ### 商品上下架管理
