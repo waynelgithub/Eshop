@@ -5,7 +5,7 @@
 
 ## 架構
 * 前端：Thymeleaf、 Jquery、 Bootstrap
-* 後端: Spring MVC、Spring Security、Spring Data、Hibernate、Log4j 2
+* 後端：Spring MVC、Spring Security、Spring Data、Hibernate、Log4j 2
 * 專案環境 : OS - Linux, AP Server - Tomcat, DB - MySQL
 
 ## 功能
