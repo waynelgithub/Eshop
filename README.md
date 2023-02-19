@@ -4,7 +4,8 @@
 * 商品資料及圖檔 SQL 可在此[SQL](https://github.com/waynelgithub/Eshop/tree/master-github/WebContent/WEB-INF/resources)取得，可先在資料庫建立一批測試資料
 
 ## 架構
-* 使用技術 : Spring MVC、Spring Security、Spring Data、Hibernate、Log4j 2、Thymeleaf
+* 前端：Thymeleaf、 Jquery、 Bootstrap
+* 後端: Spring MVC、Spring Security、Spring Data、Hibernate、Log4j 2
 * 專案環境 : OS - Linux, AP Server - Tomcat, DB - MySQL
 
 ## 功能
