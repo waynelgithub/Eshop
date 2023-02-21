@@ -1,4 +1,10 @@
 # Eshop - RWD 服飾購物網站
+## 介紹
+* 以 MVC 模式開發的 RWD 服飾類購物 Web App
+* 使用 Spring MVC + Thymeleaf 為框架
+* 使用 Spring Security, 以 RBAC model 管理會員驗證及授權，以及網站安全性
+* 使用 Hibernate 搭配 Spring Data JPA 管理資料存取
+* 使用 Bootstrap 及 Jquery 管理前端互動
 ## 使用說明
 * 資料庫連線資訊可在 [database.properties](https://github.com/waynelgithub/Eshop/blob/master-github/src/main/resources/database.properties) 修改
 * 商品資料及圖檔 SQL 可在此[SQL](https://github.com/waynelgithub/Eshop/tree/master-github/WebContent/WEB-INF/resources)取得，可先在資料庫建立一批測試資料
