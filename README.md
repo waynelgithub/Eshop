@@ -2,7 +2,7 @@
 ## 使用說明
 * 資料庫連線資訊可在 [database.properties](https://github.com/waynelgithub/Eshop/blob/master-github/src/main/resources/database.properties) 修改
 * 商品資料及圖檔 SQL 可在此[SQL](https://github.com/waynelgithub/Eshop/tree/master-github/WebContent/WEB-INF/resources)取得，可先在資料庫建立一批測試資料
-* 為簡化開發，目前專案內 CSRF token 為關閉狀態，請自行打開
+* 目前專案內 CSRF token 為關閉狀態，請自行打開
 
 ## 架構
 * 前端：Thymeleaf、 Jquery、 Bootstrap
