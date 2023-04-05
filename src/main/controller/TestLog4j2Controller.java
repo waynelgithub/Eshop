@@ -14,17 +14,21 @@ public class TestLog4j2Controller {
 
 	   @RequestMapping(path = "/testlog", method = RequestMethod.GET)
 	   public String printLog4j2(ModelMap model) {
-		   lOGGER.info("printLog4j2 started.");
+		   //lOGGER.trace("printLog4j2 started.");
+		   lOGGER.traceEntry();
 
 	      //logs debug message
 	      if( lOGGER.isDebugEnabled()){
-	    	  lOGGER.debug("Inside: printLog4j2");
+	    	  lOGGER.debug("debug example message -> Inside: printLog4j2");
 	      }
 	      //logs exception
-	      lOGGER.error("Logging a sample exception", new Exception("Testing"));
+	      lOGGER.error("err message:Logging a example exception", new Exception("example exception name"));
 
 	      model.addAttribute("message", "Hello! Log4j2 is awesome!");
-	      lOGGER.info("printLog4j2 ended.");
+	      
+	      //lOGGER.trace("printLog4j2 ended.");
+	      lOGGER.traceExit();
+	      
 	      return "test-log4j2";
 	   }
 
