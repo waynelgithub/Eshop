@@ -99,7 +99,7 @@ public class ShoppingCartSericeImpl implements ShoppingCartService {
 	public ShoppingCart showShoppingCart(String customerNum) {
 		ShoppingCart shoppingCart = getByCustomerNum(customerNum);
 		
-		logger.info("\n" + "shoppingCart is null: " + (shoppingCart == null) + "\n");
+		logger.trace("\n" + "shoppingCart is null: " + (shoppingCart == null) + "\n");
 		
 		if (shoppingCart == null) {
 			BigDecimal amount = new BigDecimal(0);

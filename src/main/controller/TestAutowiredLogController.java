@@ -16,7 +16,7 @@ public class TestAutowiredLogController {
 	@RequestMapping("/test-log-autowired")
 	public String printAutowiredLog() {
 
-		logger.info("info from an autowired logger in controller");
+		logger.trace("trace message from an autowired logger in controller");
 		return "redirect:/";
 	}
 }
